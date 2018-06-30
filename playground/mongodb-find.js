@@ -51,5 +51,5 @@ MongoClient.connect("mongodb://localhost:27017/TodoApp", (err, client) => {
      }
  });
 
-    client.close();
+ //   client.close(); <- dow't want to close connection to db once we fetch data (this is optional of course)
 });
