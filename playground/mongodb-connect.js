@@ -17,7 +17,12 @@ MongoClient.connect("mongodb://localhost:27017/TodoApp", (err, client) => {
 
 // Mongo won't craete database until we create collection and start inserting data in it
 
-  /*  db.collection('Todos').insertOne({
+// Inserting new Todo.
+// We name the collection and choose function insertOne, where we'll insert and object with it's properties.
+// Values of those properties will be stored in DB under object we created.
+// We'll also get an _id from mongo. We can also set _id on our own.
+
+    db.collection('Todos').insertOne({
         text: "Something to do",
         completed: false
     },
@@ -27,8 +32,9 @@ MongoClient.connect("mongodb://localhost:27017/TodoApp", (err, client) => {
             } 
             // If everything went well we'll print all docs we inserted 
             console.log(JSON.stringify(result.ops, undefined, 2));
-    }); 
+    });  
 
+/*
     db.collection("Users").insertOne({
         name: "Alican",
         age: "Unknown",
