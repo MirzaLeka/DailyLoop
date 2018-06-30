@@ -1,5 +1,11 @@
 // MongoDB module v3
-const MongoClient = require('mongodb').MongoClient;
+//const MongoClient = require('mongodb').MongoClient; We can shorten this with ES6 Object destructuring
+const {MongoClient, ObjectID} = require('mongodb');
+
+/* Used to console log ObjectID
+var obj = new ObjectID();
+console.log(obj);
+*/
 
 // Connecting to the DB that we are creating at the same time
 MongoClient.connect("mongodb://localhost:27017/TodoApp", (err, client) => {
@@ -21,11 +27,11 @@ MongoClient.connect("mongodb://localhost:27017/TodoApp", (err, client) => {
             } 
             // If everything went well we'll print all docs we inserted 
             console.log(JSON.stringify(result.ops, undefined, 2));
-    }); */
+    }); 
 
     db.collection("Users").insertOne({
-        name: "Mirza",
-        age: 24,
+        name: "Alican",
+        age: "Unknown",
         location: "Sarajevo"
     },
      (err, result) => {
@@ -34,7 +40,7 @@ MongoClient.connect("mongodb://localhost:27017/TodoApp", (err, client) => {
         }
         console.log(JSON.stringify(result.ops, undefined, 2));
 
-    });
+    });  */
 
     client.close();
 });
