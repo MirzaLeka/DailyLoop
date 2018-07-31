@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
+</head>
+<body>
+
+    <h2>Todos:</h2>
+
+    <div id="main"></div>
+
+</body>
+<script>
+
+$(document).ready(() => {
+
+$.ajax({
+    type: "GET",
+    url: "/todos",
+    success: function(data) {
+
+console.log(data);  
+
+var list = '';
+
+for (var i = 0; i < data.todos.length; i++) {
+list += "<li>" + data.todos[i].text + "</li>";
+}
+
+document.getElementById("main").innerHTML = list;
+
+    }
+
+});
+
+});
+
+
+</script>
+
+</html>
