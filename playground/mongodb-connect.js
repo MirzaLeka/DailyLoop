@@ -22,17 +22,42 @@ MongoClient.connect("mongodb://localhost:27017/TodoApp", (err, client) => {
 // Values of those properties will be stored in DB under object we created.
 // We'll also get an _id from mongo. We can also set _id on our own.
 
-    db.collection('Todos').insertOne({
-        text: "Something to do",
-        completed: false
-    },
-    (err, result) => {
+    // db.collection('Todos').insertOne({
+    //     text: "Something to do",
+    //     completed: false
+    // },
+    // (err, result) => {
+    //     if (err) {
+    //         return console.log(`Unable to insert todo ${result}`);
+    //         } 
+    //         // If everything went well we'll print all docs we inserted 
+    //         console.log(JSON.stringify(result.ops, undefined, 2));
+    // });  
+
+    // Insert multiple values at once
+    db.collection('users').insertMany([
+        {
+            name: "Sam Fisher",
+            born: 1957,
+            status: "alive"
+        },
+        {
+            name: "Irving Lambert",
+            born: 1961,
+            status: "deceased"
+        },
+        {
+            name: "Anna Grimsdottir",
+            born: 1974,
+            status: "alive"
+        }
+    ] , (err, result) => {
         if (err) {
-            return console.log(`Unable to insert todo ${result}`);
-            } 
-            // If everything went well we'll print all docs we inserted 
-            console.log(JSON.stringify(result.ops, undefined, 2));
-    });  
+       return console.log("Unable to insert data " + err);
+        }
+       console.log(JSON.stringify(result, undefined, 2)); 
+
+    });
 
 /*
     db.collection("Users").insertOne({
