@@ -5,16 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
 </head>
 <body>
 
-    <h2>Todos:</h2>
+    Insert Text
+    <input type="text"/>
+    <br>  <br>
+    <button class="btn btn-success" onclick="submit()">Submit Todo</button>
+    
+    <h2>Todos:</h2> 
+    <br>
 
     <div id="main"></div>
 
 </body>
+<style>
+
+body{
+    margin: 40px;
+}
+
+</style>
+
+
 <script>
 
 $(document).ready(() => {
@@ -39,6 +56,30 @@ document.getElementById("main").innerHTML = list;
 });
 
 });
+
+function submit() {
+
+    var inputValue = $("input").val();
+
+var data = {
+    "text": inputValue
+}
+
+$.ajax({
+    type: "POST",
+    url: "/todos",
+    contentType : 'application/json',
+    dataType : 'json',
+    data : JSON.stringify(data),
+    success: function(data) {
+        console.log("Pushed!");
+       location.reload(); // reloads page
+    }
+
+});
+
+
+}
 
 
 </script>
