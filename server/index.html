@@ -13,7 +13,11 @@
 <body>
 
     Insert Text
-    <input type="text"/>
+    <input type="text" id="text"/> <br>
+    Did you complete it
+    <input type="text" id="completed"/> <br>
+    When
+    <input type="number" id="completedAt"/> <br>
     <br>  <br>
     <button class="btn btn-success" onclick="submit()">Submit Todo</button>
     
@@ -21,6 +25,14 @@
     <br>
 
     <div id="main"></div>
+
+    <!-- <br>
+    <br>
+    Find Todo 
+    <input type="text" id="search" placeholder="Type id"/>
+    <button class="btn btn-primary" onclick="search()">Search</button>
+
+    <div id="todo"></div> -->
 
 </body>
 <style>
@@ -57,13 +69,32 @@ document.getElementById("main").innerHTML = list;
 
 });
 
+    var complete = false;
+
 function submit() {
 
-    var inputValue = $("input").val();
+    var text = $("#text").val();
+    var completed = $("#completed").val();
+
+console.log("Completed value is " + completed);
+
+    var completedAt = $("#completedAt").val();
+
+    if (completed == ' ') {
+        complete = true;
+    }  else {
+        complete == true;
+    }
+
+    console.log("Complete is " + complete + ", completedAt is" + completedAt);
 
 var data = {
-    "text": inputValue
+    "text": text,
+    "completed": true,
+    "completedAt" : completedAt
 }
+
+console.log("DAta is " + JSON.stringify(data));
 
 $.ajax({
     type: "POST",
@@ -72,12 +103,30 @@ $.ajax({
     dataType : 'json',
     data : JSON.stringify(data),
     success: function(data) {
-        console.log("Pushed!");
-       location.reload(); // reloads page
+    
+      location.reload(); // reloads page
     }
 
 });
 
+
+}
+
+function search() {
+
+    console.log("I'm inside");
+
+var search = $("#search").val();
+
+console.log("Value of search is " + search);
+
+$.ajax({
+    type: "GET",
+    url: "/todos/" + search,
+    sucess: function(data) {
+        console.log(data);
+    }
+});
 
 }
 
