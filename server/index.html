@@ -12,13 +12,19 @@
 </head>
 <body>
 
-    Insert Text
-    <input type="text" id="text"/> <br>
-    Did you complete it
-    <input type="text" id="completed"/> <br>
+        <!-- <form action="/todos" method="POST" class"form-group">
+          <label>Insert Todo</label><br>
+          <input type="text" placeholder="e.g. Go to bed" class="form-control"/> <br>
+          <input type="submit" class="btn btn-success" value="Submit"/> 
+        </form> -->
+
+    <!-- Did you complete it
+    <input class="form-control" type="text" id="completed"/> <br>
     When
     <input type="number" id="completedAt"/> <br>
-    <br>  <br>
+    <br>  <br> -->
+    Insert Text
+    <input class="form-control" style="width: 250px" type="text" id="text"/> <br>
     <button class="btn btn-success" onclick="submit()">Submit Todo</button>
     
     <h2>Todos:</h2> 
@@ -26,13 +32,13 @@
 
     <div id="main"></div>
 
-    <!-- <br>
+    <br>
     <br>
     Find Todo 
     <input type="text" id="search" placeholder="Type id"/>
     <button class="btn btn-primary" onclick="search()">Search</button>
 
-    <div id="todo"></div> -->
+    <div id="todo"></div>
 
 </body>
 <style>
@@ -122,9 +128,14 @@ console.log("Value of search is " + search);
 
 $.ajax({
     type: "GET",
-    url: "/todos/" + search,
+    url: "/todos/5b609055aedeae23fcfa9ddd/",
+    contentType : 'application/json',
+    dataType : 'json',
     sucess: function(data) {
-        console.log(data);
+       var myData = JSON.parse(data.responseText);
+       
+        console.log("succeeded");
+        console.log(myData);
     }
 });
 
