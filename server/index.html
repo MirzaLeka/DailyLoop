@@ -85,27 +85,29 @@ document.getElementById("main").innerHTML = list;
 function submit() {
 
     var text = $("#text").val();
-    var completed = $("#completed").val();
 
-console.log("Completed value is " + completed);
+    text =  adjustString(text);
 
-    var completedAt = $("#completedAt").val();
 
-    if (completed == ' ') {
-        complete = true;
-    }  else {
-        complete == true;
-    }
+//     var completed = $("#completed").val();
 
-    console.log("Complete is " + complete + ", completedAt is" + completedAt);
+// console.log("Completed value is " + completed);
+
+//     var completedAt = $("#completedAt").val();
+
+    // if (completed == ' ') {
+    //     complete = true;
+    // }  else {
+    //     complete == true;
+    // }
+
+ //   console.log("Complete is " + complete + ", completedAt is" + completedAt);
 
 var data = {
-    "text": text,
-    "completed": true,
-    "completedAt" : completedAt
+    "text": text
 }
 
-console.log("DAta is " + JSON.stringify(data));
+//console.log("DAta is " + JSON.stringify(data));
 
 $.ajax({
     type: "POST",
@@ -115,7 +117,7 @@ $.ajax({
     data : JSON.stringify(data),
     success: function(data) {
     
-      location.reload(); // reloads page
+    location.reload(); // reloads page
     }
 
 });
@@ -150,15 +152,31 @@ $.ajax({
 function deleteTodo() {
 
     var deleteText = $("#deleteText").val();
+ //   console.log("1: "+ deleteText);
+
+    deleteText = adjustString(deleteText);
 
     $.ajax({
     url: '/todos/' + deleteText,
     type: 'DELETE',
     success: function(result) {
-        console.log("Deleted: \n" + result);
-        location.reload();
+     console.log("Deleted: \n" + JSON.stringify(result));
+    location.reload();
     }
 });
+}
+
+
+function adjustString(str) {
+
+    str = str.trim();
+    // console.log("2: "+ str);
+    str = str.toLowerCase();
+    // console.log("3: "+ str);
+    str = str.charAt(0).toUpperCase() + str.substr(1,str.length).toLowerCase();
+    // console.log("4:" + str);
+
+    return str;
 }
 
 
