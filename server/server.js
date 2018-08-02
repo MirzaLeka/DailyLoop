@@ -75,6 +75,43 @@ Todo.findById(id).then(todo => {
 
 
 
+
+app.patch('/todos/:id', (req, res) => {
+
+  var id = req.params.id;
+  
+  // values we want to change are in array
+  var body = _.pick(req.body, ['text', 'completed']);
+  
+  if (!ObjectID.isValid(id)) {
+   return res.status(400).send('Id is not valid'); 
+  }
+  
+  // if completed is boolean and is completed then give date of completion to completeAt (remove null)
+  if (_.isBoolean(body.completed) && body.completed) {
+    body.completedAt = new Date().getTime(); //timestamp
+  } else {
+    body.completed = false;
+    body.completedAt = null;
+  }
+  
+  // set body and return new (changed) value
+  Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).then((todo) => {
+  
+  if (!todo) {
+  return res.status(404).send();
+  }
+  res.send({todo});
+  
+  }).catch((e) => {
+  res.status(400).send();
+  });
+  
+  });
+
+
+
+
 // app.delete("/todos/:id", (req, res) => {
 
 //   var id = req.params.id;
