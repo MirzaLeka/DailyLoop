@@ -32,11 +32,11 @@
 
     <div id="main"></div>
 
-    <br>
+    <!-- <br>
     <br>
     Delete Todo
     <input class="form-control" style="width: 250px" type="text" id="deleteText"/> <br>
-    <button class="btn btn-danger" onclick="deleteTodo()">DELETE</button>
+    <button class="btn btn-danger" onclick="deleteTodo()">DELETE</button> -->
 
     <br> <br>
     <!-- Find Todo 
@@ -44,6 +44,8 @@
     <button class="btn btn-primary" onclick="search()">Search</button>
 
     <div id="todo"></div> -->
+
+    <button class="btn btn-danger" onclick="deleteAllTodos()">DELETE ALL</button>
 
 </body>
 <style>
@@ -205,6 +207,20 @@ function deleteTodo() {
     location.reload();
     }
 });
+}
+
+function deleteAllTodos() {
+
+    $.ajax({
+    url: '/todos',
+    type: 'DELETE',
+    success: function() {
+        location.reload();
+    }
+
+
+});
+
 }
 
 

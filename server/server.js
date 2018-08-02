@@ -120,6 +120,15 @@ app.delete("/todos/:text", (req, res) => {
 
 
 
+app.delete("/todos", (req, res) => {
+
+  Todo.remove({}).then((result) => {});
+
+});
+
+
+
+
 app.listen(3000, () => {
   console.log('Started on port 3000');
 });
