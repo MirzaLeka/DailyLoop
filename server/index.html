@@ -23,7 +23,7 @@
     When
     <input type="number" id="completedAt"/> <br>
     <br>  <br> -->
-    Insert Text
+    Insert Todo
     <input class="form-control" style="width: 250px" type="text" id="text"/> <br>
     <button class="btn btn-success" onclick="submit()">Submit Todo</button>
     
@@ -34,11 +34,16 @@
 
     <br>
     <br>
-    Find Todo 
+    Delete Todo
+    <input class="form-control" style="width: 250px" type="text" id="deleteText"/> <br>
+    <button class="btn btn-danger" onclick="deleteTodo()">DELETE</button>
+
+    <br> <br>
+    <!-- Find Todo 
     <input type="text" id="search" placeholder="Type id"/>
     <button class="btn btn-primary" onclick="search()">Search</button>
 
-    <div id="todo"></div>
+    <div id="todo"></div> -->
 
 </body>
 <style>
@@ -139,6 +144,21 @@ $.ajax({
     }
 });
 
+}
+
+
+function deleteTodo() {
+
+    var deleteText = $("#deleteText").val();
+
+    $.ajax({
+    url: '/todos/' + deleteText,
+    type: 'DELETE',
+    success: function(result) {
+        console.log("Deleted: \n" + result);
+        location.reload();
+    }
+});
 }
 
 

@@ -74,19 +74,40 @@ Todo.findById(id).then(todo => {
 
 
 
-app.delete("/todos/:id", (req, res) => {
+// app.delete("/todos/:id", (req, res) => {
 
-  var id = req.params.id;
+//   var id = req.params.id;
 
-  if (!ObjectID.isValid(id)) {
-    return res.status(400).send("Invalid id");
-  }
+//   if (!ObjectID.isValid(id)) {
+//     return res.status(400).send("Invalid id");
+//   }
   
-  Todo.findByIdAndRemove(id).then((todo) => {
+//   Todo.findByIdAndRemove(id).then((todo) => {
+
+//     if (!todo) {
+//       return res.status(404).send("Todo not found");
+//     }
+
+//     res.send({todo});
+
+//   }).catch((e) => {
+//     res.status(400).send("Bad request");
+//   });
+
+// });
+
+
+
+app.delete("/todos/:text", (req, res) => {
+
+  var text = req.params.text;
+  
+  Todo.findOneAndRemove({text}).then((todo) => {
 
     if (!todo) {
       return res.status(404).send("Todo not found");
     }
+    
     res.send({todo});
 
   }).catch((e) => {
