@@ -27,7 +27,7 @@
     <input class="form-control" style="width: 250px" type="text" id="text"/> <br>
     <button class="btn btn-success" onclick="submit()">Submit Todo</button>
     
-    <h2>Todos:</h2> 
+    <h2 id="id">Todos:</h2> 
     <br>
 
     <div id="main"></div>
@@ -52,6 +52,10 @@ body{
     margin: 40px;
 }
 
+.todoContainer{
+    border: 1px solid #111;
+}
+
 </style>
 
 
@@ -69,7 +73,14 @@ console.log(data);
 var list = '';
 
 for (var i = 0; i < data.todos.length; i++) {
-list += "<li>" + data.todos[i].text + "</li>";
+list += `<div class="container todoContainer">
+     <div class="col-sm-9">
+    <h3 class="title">${data.todos[i].text}</h3>
+           </div>
+   <div class="col-sm-3">
+      <button class="btn btn-danger" style="border-radius: 100%" onclick="getTitle(${i})">X</button>
+            </div>
+    </div>`;
 }
 
 document.getElementById("main").innerHTML = list;
@@ -80,7 +91,17 @@ document.getElementById("main").innerHTML = list;
 
 });
 
-    var complete = false;
+
+    $("#text").keyup(function(event){
+  if(event.keyCode == 13){
+    submit();
+  }
+});
+
+
+
+
+    // var complete = false;
 
 function submit() {
 
@@ -148,6 +169,26 @@ $.ajax({
 
 }
 
+function getTitle(counter) {
+
+    console.log("Counter: " + counter)
+
+// var todoTitle =  $("h2").html();
+
+var todoTitle =  $(`.todoContainer:eq(${counter})`).find(`.title`).html();
+
+// alert(todoTitle);
+
+    $.ajax({
+    url: '/todos/' + todoTitle,
+    type: 'DELETE',
+    success: function(result) {
+    location.reload();
+    }
+});
+
+
+}
 
 function deleteTodo() {
 
