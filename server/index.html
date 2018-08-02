@@ -47,6 +47,13 @@
 
     <button class="btn btn-danger" onclick="deleteAllTodos()">DELETE ALL</button>
 
+    <br> <br>
+
+    Update
+    <input class="form-control" style="width: 250px" type="text" id="updateTodo"/> <br>
+    <input class="form-control" style="width: 250px" type="text" id="updateCompleted"/> <br>
+    <button class="btn btn-success" onclick="updateTodo()">Update Todo</button>
+    
 </body>
 <style>
 
@@ -235,6 +242,35 @@ function adjustString(str) {
 
     return str;
 }
+
+
+
+function updateTodo() {
+
+var updateTodo = $("#updateTodo").val();
+var updateCompleted = $("#updateCompleted").val();
+
+var data = {
+    text: updateTodo,
+    completed: false
+};
+
+$.ajax({
+url: "/todos/5b6373e3dad6f310dc087cf0",
+data: JSON.stringify(data),
+type: 'PATCH',
+contentType: 'application/json',
+processData: false,
+dataType: 'json',
+success: function (data) {
+console.log(data);
+}
+
+
+});
+
+}
+
 
 
 </script>
