@@ -14,38 +14,26 @@
 </head>
 <body>
 
-        <!-- <form action="/todos" method="POST" class"form-group">
-          <label>Insert Todo</label><br>
-          <input type="text" placeholder="e.g. Go to bed" class="form-control"/> <br>
-          <input type="submit" class="btn btn-success" value="Submit"/> 
-        </form> -->
+    <h1 style="width: 100%; margin: 0 auto; text-align: center;">Todo App WIP</h1>
 
-    <!-- Did you complete it
-    <input class="form-control" type="text" id="completed"/> <br>
-    When
-    <input type="number" id="completedAt"/> <br>
-    <br>  <br> -->
-    Insert Todo
-    <input class="form-control" style="width: 250px" type="text" id="text"/> <br>
-    <button class="btn btn-success" onclick="submit()">Submit Todo</button>
-    
+        <div class="container">
+                <div class="jumbotron" style="background: white">
+                  <div class="row">
+                    <div class="col-xs-12">
+
+    <div id="insertTodo" style="width: 100%">
+            Insert Todo
+            <input class="form-control" type="text" id="text"/> <br>
+            <button class="btn btn-success" style="margin: 0 auto; text-align: center;" onclick="submit()">Submit Todo</button>
+            
+    </div>
+
     <h2 id="id">Todos:</h2> 
     <br>
 
     <div id="main"></div>
 
-    <!-- <br>
-    <br>
-    Delete Todo
-    <input class="form-control" style="width: 250px" type="text" id="deleteText"/> <br>
-    <button class="btn btn-danger" onclick="deleteTodo()">DELETE</button> -->
-
     <br> <br>
-    <!-- Find Todo 
-    <input type="text" id="search" placeholder="Type id"/>
-    <button class="btn btn-primary" onclick="search()">Search</button>
-
-    <div id="todo"></div> -->
 
     <button class="btn btn-danger" onclick="deleteAllTodos()">DELETE ALL</button>
 
@@ -54,6 +42,11 @@
     Update
     <input class="form-control" style="width: 250px" type="text" id="updateTodo"/> <br>
     <button class="btn btn-success" onclick="updateTodo()">Update Todo</button>
+
+                    </div>
+                  </div>
+                </div>
+        </div>
     
 </body>
 <style>
@@ -64,6 +57,8 @@ body{
 
 .todoContainer{
     border: 1px solid #111;
+    background: #f5f5f5;
+    margin-top: 5px;
 }
 
 </style>
