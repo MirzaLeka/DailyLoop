@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
+  <!-- Font awesome -->
+  <script src="https://use.fontawesome.com/fe459689b4.js"></script>
 </head>
 <body>
 
@@ -51,7 +53,6 @@
 
     Update
     <input class="form-control" style="width: 250px" type="text" id="updateTodo"/> <br>
-    <input class="form-control" style="width: 250px" type="text" id="updateCompleted"/> <br>
     <button class="btn btn-success" onclick="updateTodo()">Update Todo</button>
     
 </body>
@@ -83,11 +84,14 @@ var list = '';
 
 for (var i = 0; i < data.todos.length; i++) {
 list += `<div class="container todoContainer">
-     <div class="col-sm-9">
+     <div class="col-sm-10">
     <h3 class="title">${data.todos[i].text}</h3>
            </div>
-   <div class="col-sm-3">
-      <button class="btn btn-danger" style="border-radius: 100%" onclick="getTitle(${i})">X</button>
+   <div class="col-sm-1">
+    <button class="btn btn-success" title="Complete" style="border-radius: 100%; margin-top: 12px;" onclick="updateTodo()"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+    </div>        
+   <div class="col-sm-1">
+      <button class="btn btn-danger" title="Remove" style="border-radius: 100%; margin-top: 12px;" onclick="getTitle(${i})">X</button>
             </div>
     </div>`;
 }
@@ -248,11 +252,11 @@ function adjustString(str) {
 function updateTodo() {
 
 var updateTodo = $("#updateTodo").val();
-var updateCompleted = $("#updateCompleted").val();
+//var updateCompleted = $("#updateCompleted").val();
 
 var data = {
     text: updateTodo,
-    completed: false
+    completed: true
 };
 
 $.ajax({
@@ -263,7 +267,7 @@ contentType: 'application/json',
 processData: false,
 dataType: 'json',
 success: function (data) {
-console.log(data);
+location.reload();
 }
 
 
