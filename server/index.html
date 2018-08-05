@@ -70,30 +70,19 @@ body{
 
 <script>
 
-    let tgBtn = false;
 
-    function toggleBtn () {
-
-   if (!tgBtn) {
-      tgBtn = true;
-   } else {
-       tgBtn = false;
-   }
-
-}
 
    $(document).ready(function() {
 
-       getTodos(tgBtn)
+       getTodos()
 
 });
 
 
   
-function getTodos(tgBtn) {
+function getTodos() {
    
- //   console.log(tgBtn);
-
+ 
 $.ajax({
     type: "GET",
     url: "/todos",
@@ -108,6 +97,12 @@ for (var i = 0; i < data.todos.length; i++) {
 
 let status = '';
 let finished = '';
+
+
+var id = data.todos[i]._id.toString();
+
+console.log(i  + " " + typeof id); // outputs String
+console.log(id);
 
 if (data.todos[i].completed) {
     status = "Completed";
@@ -125,10 +120,10 @@ list += `<div class="container todoContainer">
     <h3 class="title">${data.todos[i].text}</h3>
            </div>
    <div class="col-sm-1">
-    <button class="btn btn-primary" title="Complete" style="border-radius: 100%; margin-top: 12px;" onclick="updateTodo()"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+    <button class="btn btn-primary" title="Complete" style="border-radius: 100%; margin-top: 12px;" onclick="updateTodo(${id})"><i class="fa fa-pencil" aria-hidden="true"></i></button>
     </div>
     <div class="col-sm-1">
-            <div class="btn btn-success" style="border-radius: 100%; margin-top: 12px;" onclick="toggleBtn()"><i class="fa fa-check" aria-hidden="true"></i></div>    
+            <div class="btn btn-success" style="border-radius: 100%; margin-top: 12px;" onclick='completeTodo(${data.todos[i].completed}, ${id})'><i class="fa fa-check" aria-hidden="true"></i></div>    
      </div>        
    <div class="col-sm-1">
       <button class="btn btn-danger" title="Remove" style="border-radius: 100%; margin-top: 12px;" onclick="getTitle(${i})"><i class="fa fa-times" aria-hidden="true"></i></button>
@@ -293,29 +288,59 @@ function deleteAllTodos() {
 function adjustString(str) {
 
     str = str.trim();
-    // console.log("2: "+ str);
+
     str = str.toLowerCase();
-    // console.log("3: "+ str);
+
     str = str.charAt(0).toUpperCase() + str.substr(1,str.length).toLowerCase();
-    // console.log("4:" + str);
 
     return str;
 }
 
 
+function completeTodo(isCompleted, someId) {
 
-function updateTodo() {
+    console.log("ID: " + someId);
+
+    if (isCompleted) {
+        isCompleted = false;
+    } else {
+        isCompleted = true;
+    }
+
+var data = {
+    completed: isCompleted
+};
+
+
+$.ajax({
+url: "/todos/" + someId,
+data: JSON.stringify(data),
+type: 'PATCH',
+contentType: 'application/json',
+processData: false,
+dataType: 'json',
+success: function (data) {
+location.reload();
+}
+
+
+});
+
+}
+
+function updateTodo(id) {
 
 var updateTodo = $("#updateTodo").val();
 //var updateCompleted = $("#updateCompleted").val();
 
 var data = {
-    text: updateTodo,
-    completed: true
+    text: updateTodo
 };
 
+// 5b6373e3dad6f310dc087cf0
+
 $.ajax({
-url: "/todos/5b6373e3dad6f310dc087cf0",
+url: "/todos/" + id,
 data: JSON.stringify(data),
 type: 'PATCH',
 contentType: 'application/json',
