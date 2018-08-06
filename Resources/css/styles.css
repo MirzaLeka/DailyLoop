@@ -1,0 +1,13 @@
+body{
+    margin: 40px;
+}
+
+.todoContainer{
+    border: 1px solid #111;
+    background: #f5f5f5;
+    border-top: none;
+}
+
+.todoContainer:first-child {
+    border-top: 1px solid black;
+}

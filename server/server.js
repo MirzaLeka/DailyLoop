@@ -13,14 +13,31 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
 
+/* Home Page */
 
 app.get("/", function(req, res)
 {
-res.sendFile("index.html", {"root": __dirname}); 
-});
+res.sendFile("index.html", {"root": __dirname + "/../Web-Info"}); 
+    });
+
+app.get("/home", (req, res) => {
+res.sendFile("index.html", {"root": __dirname + '/../Web-Info'});
+    });
+
+/* Static files */
+
+app.use(express.static(__dirname + '/../Web-Info', { 
+  extensions: ['html', 'htm'] 
+  }));
+  
+/* Resources */
+
+app.use("/Resources", express.static(__dirname + '/../Resources')); 
 
 
 
+
+/* Routing */
 
 app.post('/todos', (req, res) => {
 
@@ -89,9 +106,9 @@ app.patch('/todos/:id', (req, res) => {
   
   // if completed is boolean and is completed then give date of completion to completeAt (remove null)
   if (_.isBoolean(body.completed) && body.completed) {
-    var d = new Date();
     //body.completedAt = new Date().getTime(); //timestamp
-    body.completedAt = ""  + d.getHours() +  ":" + d.getMinutes() + ":" + d.getSeconds(); 
+    var d = new Date();
+    body.completedAt = "" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(); 
 
   } else {
     body.completed = false;
