@@ -1,13 +1,45 @@
-body{
-    margin: 40px;
+.nav{
+    background: #222;
+    height: 100px;
+    width: 100%;
+}
+
+h1{
+    color: #FFF;
+    padding-top: 30px;
 }
 
 .todoContainer{
-    border: 1px solid #111;
+    border-bottom: 1px solid #CCC;
     background: #f5f5f5;
-    border-top: none;
 }
 
-.todoContainer:first-child {
-    border-top: 1px solid black;
+.todoContainer:last-child{
+    box-shadow: 0, 8px, 6px, -6px, #000;    
+    -webkit-box-shadow: 0, 8px, 6px, -6px, #000;
+}
+
+#info{
+    height: 75px;
+    background: #333;
+}
+
+.infoHeading{
+    color: #FFF;
+    padding-top: 5px;
+}
+
+.leftLi{
+    float: left;
+    padding-left: 30px;
+}
+
+.rightLi{
+    float: right;
+    padding-right: 30px;
+    cursor: pointer;
+}
+
+.rightLi:hover{
+    color: #DDD;
 }

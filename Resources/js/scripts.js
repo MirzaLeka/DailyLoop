@@ -65,9 +65,10 @@ list += `<div class="container todoContainer">
        </div>
 
  </div>`;
+ 
 }
 
-document.getElementById("main").innerHTML = list;
+$("#listOfTodos").append(list);
 
  }
 
@@ -132,7 +133,7 @@ $.ajax({
 // }
 
 
-/* DELETE TODO DRY CODE  */
+/* DELETE TODO   */
 
 function getTitle(counter) {
 
@@ -148,22 +149,22 @@ var todoTitle =  $(`.todoContainer:eq(${counter})`).find(`.title`).html();
 
 }
 
-/* DELETE TODO */
+// /* DELETE TODO old way */
 
-function deleteTodo() {
+// function deleteTodo() {
 
- var deleteText = $("#deleteText").val();
+//  var deleteText = $("#deleteText").val();
 
- deleteText = adjustString(deleteText);
+//  deleteText = adjustString(deleteText);
 
- $.ajax({
- url: '/todos/' + deleteText,
- type: 'DELETE',
- success: function(result) {
- location.reload();
-         }
-    });
-}
+//  $.ajax({
+//  url: '/todos/' + deleteText,
+//  type: 'DELETE',
+//  success: function(result) {
+//  location.reload();
+//          }
+//     });
+// }
 
 /* DELETE ALL TODOS */
 
@@ -173,11 +174,12 @@ function deleteAllTodos() {
  url: '/todos',
  type: 'DELETE',
  success: function() {
-     location.reload();
  }
 
 
 });
+
+window.location.reload();
 
 }
 
@@ -193,6 +195,7 @@ function adjustString(str) {
 
  return str;
 }
+
 
 
 /* COMPLETE TODO */
