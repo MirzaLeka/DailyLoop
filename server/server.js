@@ -89,7 +89,10 @@ app.patch('/todos/:id', (req, res) => {
   
   // if completed is boolean and is completed then give date of completion to completeAt (remove null)
   if (_.isBoolean(body.completed) && body.completed) {
-    body.completedAt = new Date().getTime(); //timestamp
+    var d = new Date();
+    //body.completedAt = new Date().getTime(); //timestamp
+    body.completedAt = ""  + d.getHours() +  ":" + d.getMinutes() + ":" + d.getSeconds(); 
+
   } else {
     body.completed = false;
     body.completedAt = null;
