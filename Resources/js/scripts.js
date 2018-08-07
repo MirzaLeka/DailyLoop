@@ -42,27 +42,45 @@ list += `<div class="container todoContainer">
      <div class="row">
 
       <div class="col-sm-9">
- <h3 class="title">${data.todos[i].text}</h3>
+
+<div class="row">
+
+<div class="col-sm-12">
+
+<h3 class="title">${data.todos[i].text}</h3>
+
+    </div>
+
+</div>
+
+ <div class="row">
+      
+ <div class="col-sm-6"><p class="status">Status: ${status}</p></div>
+ <div class="col-sm-6"><p class="finished">${finished}</p> </div>
+
+  </div>
+
         </div>
-<div class="col-sm-1">
- <button class="btn btn-primary" title="Complete" style="border-radius: 100%; margin-top: 12px;" onclick="updateTodo(\`` + id + `\`)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+
+
+    <div class="col-sm-3" style="height: 105px;"> 
+
+    <div class="col-sm-4 todoBtnCol">
+ <button class="btn todoBtn" title="Update" onclick="updateTodo(\`` + id + `\`)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
  </div>
- <div class="col-sm-1">
-         <div class="btn btn-success" style="border-radius: 100%; margin-top: 12px;" onclick='completeTodo(${data.todos[i].completed},\`` + id + `\`)'><i class="fa fa-check" aria-hidden="true"></i></div>    
+ <div class="col-sm-4 todoBtnCol">
+         <div class="btn todoBtn" title="Complete" onclick='completeTodo(${data.todos[i].completed},\`` + id + `\`)'><i class="fa fa-check" aria-hidden="true"></i></div>    
   </div>        
-<div class="col-sm-1">
-   <button class="btn btn-danger" title="Remove" style="border-radius: 100%; margin-top: 12px;" onclick="getTitle(${i})"><i class="fa fa-times" aria-hidden="true"></i></button>
+<div class="col-sm-4 todoBtnCol">
+   <button class="btn todoBtn" title="Remove" onclick="getTitle(${i})"><i class="fa fa-times" aria-hidden="true"></i></button>
          </div>
 
+
+    </div>
+
+
+         
       </div>
-
-      <div class="row">
-      
-      <div class="col-sm-4"><p class="status">Status: ${status}</p></div>
-      <div class="col-sm-4"> <p class="finished">${finished}</p> </div>
-      <div class="col-sm-4"> </div>
-
-       </div>
 
  </div>`;
  
