@@ -1,7 +1,7 @@
 /* Variables */
 /* Mixins */
 body {
-  background: #FFF; }
+  background: #323c47; }
 
 .container-fluid, .jumbotron {
   background: transparent; }
@@ -14,16 +14,26 @@ body {
   justify-content: center;
   text-align: center;
   flex-direction: column;
-  align-items: center; }
+  align-items: center;
+  position: relative; }
 
 h1 {
   color: #FFF; }
+
+#sourceCodeAnchor {
+  position: absolute;
+  right: 3%;
+  bottom: 5%;
+  color: #CCC; }
 
 /* Form */
 .insertTodoForm {
   height: 35px;
   width: 100%;
-  border-radius: 5px; }
+  border-radius: 5px;
+  background: #333;
+  color: #FFF;
+  border: 1px solid #007BFF; }
 
 .insertTodoBtn {
   width: 100%;

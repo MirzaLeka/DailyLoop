@@ -1,10 +1,11 @@
 
 /* Variables */
 
-$bodyBackground: #FFF;
+$bodyBackground: #232A32;
 $navBackground: #222;
 $infoBackground: #333;
 $btnBackground: #007BFF;
+$todoBackground: #f5f5f5;
 
 
 /* Mixins */
@@ -17,8 +18,12 @@ $btnBackground: #007BFF;
 
 
    body{
-       background: $bodyBackground;
+       background: lighten($bodyBackground, 7%);
    }
+
+//    textarea:focus, input:focus{
+//     outline: none !important;
+// }
 
    .container-fluid, .jumbotron{
        background: transparent;
@@ -33,12 +38,19 @@ $btnBackground: #007BFF;
     text-align: center;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 h1{
     color: #FFF;
 }
 
+#sourceCodeAnchor{
+    position: absolute;
+    right: 3%;
+    bottom: 5%;
+    color: #CCC;
+}
 
 
 /* Form */ 
@@ -47,6 +59,9 @@ h1{
     height: 35px;
     width: 100%;
     border-radius: 5px;
+    background: $infoBackground;
+    color: #FFF;
+    border: 1px solid $btnBackground;
 }
 
 .insertTodoBtn{
@@ -95,7 +110,7 @@ h1{
 
 .todoContainer{
     border-bottom: 1px solid #CCC;
-    background: #f5f5f5;
+    background: $todoBackground;;
 }
 
 .todoContainer:last-child{
