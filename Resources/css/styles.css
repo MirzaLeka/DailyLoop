@@ -1,45 +1,67 @@
-.nav{
-    background: #222;
-    height: 100px;
-    width: 100%;
-}
+/* Variables */
+/* Mixins */
+body {
+  background: #FFF; }
 
-h1{
-    color: #FFF;
-    padding-top: 30px;
-}
+.container-fluid, .jumbotron {
+  background: transparent; }
 
-.todoContainer{
-    border-bottom: 1px solid #CCC;
-    background: #f5f5f5;
-}
+.nav {
+  background: #222;
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  align-items: center; }
 
-.todoContainer:last-child{
-    box-shadow: 0, 8px, 6px, -6px, #000;    
-    -webkit-box-shadow: 0, 8px, 6px, -6px, #000;
-}
+h1 {
+  color: #FFF; }
 
-#info{
-    height: 75px;
-    background: #333;
-}
+/* Form */
+.insertTodoForm {
+  height: 35px;
+  width: 100%;
+  border-radius: 5px; }
 
-.infoHeading{
-    color: #FFF;
-    padding-top: 5px;
-}
+.insertTodoBtn {
+  width: 100%;
+  height: 35px;
+  background: #007BFF;
+  color: #FFF; }
+  .insertTodoBtn:hover {
+    background: #006fe6;
+    color: #FFF; }
 
-.leftLi{
-    float: left;
-    padding-left: 30px;
-}
+/* Info header */
+#info {
+  height: 75px;
+  background: #333; }
 
-.rightLi{
-    float: right;
-    padding-right: 30px;
-    cursor: pointer;
-}
+.infoHeading {
+  color: #FFF;
+  padding-top: 5px; }
 
-.rightLi:hover{
-    color: #DDD;
-}
+.leftLi {
+  float: left;
+  padding-left: 30px; }
+
+.rightLi {
+  float: right;
+  padding-right: 30px;
+  cursor: pointer; }
+  .rightLi:hover {
+    color: #DDD; }
+
+/* Todos */
+.todoContainer {
+  border-bottom: 1px solid #CCC;
+  background: #f5f5f5; }
+
+.todoContainer:last-child {
+  -webkit-box-shadow: 0 8px 6px -6px #000;
+  -moz-box-shadow: 0 8px 6px -6px #000;
+  box-shadow: 0 8px 6px -6px #000; }
+
+/*# sourceMappingURL=styles.css.map */
