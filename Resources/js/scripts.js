@@ -19,6 +19,13 @@ $.ajax({
 
 console.log(data);  
 
+/* Hide info header if array is empty */
+if (data.todos.length > 0) {
+    $("#info").css({display: "block"});
+} else {
+    $("#info").css({display: "none"});    
+}
+
 var list = '';
 var id = '';
 

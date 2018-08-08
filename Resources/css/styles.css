@@ -69,7 +69,8 @@ h1 {
 /* Info header */
 #info {
   height: 75px;
-  background: #222; }
+  background: #222;
+  display: none; }
 
 .infoHeading {
   color: #FFF;
