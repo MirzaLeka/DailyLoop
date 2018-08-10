@@ -163,3 +163,53 @@ h1{
         color: #FFF;
     }
 }
+
+
+
+/* Modal */
+
+.modal {
+    display: none; 
+    width: 100%; 
+    height: 100%;
+    // overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(51, 51, 51, 0.9); /* Fallback color */
+    overflow: hidden;
+    width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    width: 50%;
+    height: 65%;
+    padding: none;
+    margin: none;
+    background: #FFF;
+    border: transparent;
+  }
+  
+  .closeModal{
+    color: #333;
+    position: absolute;
+    top: 4%;
+    right: 4%;
+    font-size: 32px;
+    cursor: pointer;
+    padding: none;
+  
+    &:hover{
+      color: lighten(#333, 30%);
+    }
+  }
+
+  .modalTItle{
+      text-align: center;
+      display: block;
+      margin: 0 auto;
+      padding-bottom: 20px;
+  }
+  
