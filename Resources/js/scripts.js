@@ -35,8 +35,6 @@ for (var i = 0; i < data.todos.length; i++) {
 id = data.todos[i]._id.toString();
 text = data.todos[i].text.toString();
 
-console.log("T " + text);
-
 let status = '';
 let finished = '';
 
@@ -260,9 +258,14 @@ location.reload();
 
 /* UPDATE ONE TODO */
 
-function updateTodo(data, id, refresh) {
+function updateTodo(text, completed, id, refresh) {
 
-    data.text = $("textarea").val();
+    text = $("textarea").val();
+
+var data = {
+    text,
+    completed
+};
 
 $.ajax({
 url: "/todos/" + id,
@@ -284,26 +287,23 @@ location.reload();
 
 }
 
-function combineValues(text, isCompleted, id, refresh) {
+var data = {};
 
-    var data = {};
+function combineValues(text, isCompleted, id, refresh) { 
 
     if (typeof(text) === 'string') {
         data.text = text;
         refresh = true;
     }
 
-    if (typeof(isCompleted) === "boolean") {
+   else if (typeof(isCompleted) === "boolean") {
         data.completed = isCompleted;
+        console.log("sad kada sam kliknuo postalo je " + data.completed);
         refresh = false;
     }
 
-//alert("REFRESH: " + refresh);
+    updateTodo(data.text, data.completed, id, refresh);
 
-   updateTodo(data, id, refresh);
-
-    
-// update (data obj, id)
 }
 
 
@@ -339,14 +339,14 @@ function openModal(text, isCompleted, id) {
 var mb = ` 
 <textarea rows=5 style="width: 100%"></textarea>
 <br>
-<button class="btn todoBtn" title="Complete Todo" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh')"> <i class="fa fa-check" aria-hidden="true"></i></button>`;
+<button class="btn" title="Complete Todo" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh')">Complete</button>`;
 
 
 
 $(".modal-body").html(mb);
 
 var mfBtns = `<button class="btn btn-danger" onclick="closeModal()">Cancel</button>
-<button class="btn btn-success" onclick="combineValues(\`` + text + `\`,'todoapp',\`` + id + `\`, true)">Update</button>`;
+<button class="btn btn-success" onclick="combineValues(\`` + text + `\`,${isCompleted},\`` + id + `\`, true)">Update</button>`;
 
     $(".modal-footer").html(mfBtns);
 
