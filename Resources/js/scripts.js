@@ -277,6 +277,7 @@ dataType: 'json',
 success: function (data) {
 
 if (refresh) {
+$("#myModal").fadeOut();
 location.reload();
 }
 
@@ -296,9 +297,8 @@ function combineValues(text, isCompleted, id, refresh) {
         refresh = true;
     }
 
-   else if (typeof(isCompleted) === "boolean") {
+   else if (typeof(text) === "number") {
         data.completed = isCompleted;
-        console.log("sad kada sam kliknuo postalo je " + data.completed);
         refresh = false;
     }
 
@@ -316,12 +316,7 @@ function completeInModal(text, isCompleted, id, refresh) {
         isCompleted = true;
     }
 
- console.log("new value of completed is " + isCompleted);
-
      combineValues(text, isCompleted, id, refresh);
-
-
-
 
 }
 
@@ -337,7 +332,7 @@ function openModal(text, isCompleted, id) {
     
 
 var mb = ` 
-<textarea rows=5 style="width: 100%"></textarea>
+<textarea id="textarea" rows=5 style="width: 100%; background: #232A32; border: 3px solid #007BFF; color: #FFF"></textarea>
 <br>
 <button class="btn" title="Complete Todo" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh')">Complete</button>`;
 
@@ -345,8 +340,8 @@ var mb = `
 
 $(".modal-body").html(mb);
 
-var mfBtns = `<button class="btn btn-danger" onclick="closeModal()">Cancel</button>
-<button class="btn btn-success" onclick="combineValues(\`` + text + `\`,${isCompleted},\`` + id + `\`, true)">Update</button>`;
+var mfBtns = `<button id="cancelBtn" class="modalBtns" onclick="closeModal()">Cancel</button>
+<button id="updateBtn" class="modalBtns" onclick="combineValues(\`` + text + `\`,${isCompleted},\`` + id + `\`, true)">Update</button>`;
 
     $(".modal-footer").html(mfBtns);
 

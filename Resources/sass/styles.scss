@@ -190,11 +190,11 @@ h1{
   
   /* Modal Content */
   .modal-content {
-    width: 50%;
+    width: 45%;
    // height: 65%;
     padding: none;
     margin: none;
-    background: #FFF;
+    background: $todoBackground;
     border: transparent;
   }
   
@@ -212,11 +212,62 @@ h1{
     }
   }
 
-  .modalTItle{
-      text-align: center;
-      display: block;
-      margin: 0 auto;
-      width: 100%;
-      background: pink;
+//   .modalTItle{
+//       text-align: center;
+//       display: block;
+//       margin: 0 auto;
+//       width: 100%;
+//       background: pink;
+//   }
+
+  .modal-header, .modal-footer{
+      border: none;
+  }
+
+  .modalBtns{
+    border-radius: none;
+    height: 30px;
+    border: 1px solid $btnBackground;
+  }
+
+  #updateBtn{
+    background: $btnBackground;
+    color: #FFF;
+    widows: 75px;
+    &:hover{
+        background: darken($btnBackground, 5%);
+        color: #FFF;
+    }
+  }
+
+  #cancelBtn{
+    margin-right: 15px;
+    background: transparent;
+    color: $navBackground;
+    &:hover{
+        color: darken($navBackground, 15%);
+    }
+  }
+
+//   #textarea{
+//     background: lighten($bodyBackground, 8%);
+//     color: #FFF;  
+//   }
+  
+/* Modal Animation */
+.modal-content, .modalCaption {    
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
   }
   
+  @-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+  }
+  
+  @keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+  }

@@ -137,10 +137,10 @@ h1 {
 
 /* Modal Content */
 .modal-content {
-  width: 50%;
+  width: 45%;
   padding: none;
   margin: none;
-  background: #FFF;
+  background: #f5f5f5;
   border: transparent; }
 
 .closeModal {
@@ -154,11 +154,45 @@ h1 {
   .closeModal:hover {
     color: gray; }
 
-.modalTItle {
-  text-align: center;
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  background: pink; }
+.modal-header, .modal-footer {
+  border: none; }
+
+.modalBtns {
+  border-radius: none;
+  height: 30px;
+  border: 1px solid #007BFF; }
+
+#updateBtn {
+  background: #007BFF;
+  color: #FFF;
+  widows: 75px; }
+  #updateBtn:hover {
+    background: #006fe6;
+    color: #FFF; }
+
+#cancelBtn {
+  margin-right: 15px;
+  background: transparent;
+  color: #222; }
+  #cancelBtn:hover {
+    color: black; }
+
+/* Modal Animation */
+.modal-content, .modalCaption {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s; }
+
+@-webkit-keyframes zoom {
+  from {
+    -webkit-transform: scale(0); }
+  to {
+    -webkit-transform: scale(1); } }
+@keyframes zoom {
+  from {
+    transform: scale(0); }
+  to {
+    transform: scale(1); } }
 
 /*# sourceMappingURL=styles.css.map */
