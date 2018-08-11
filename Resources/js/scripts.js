@@ -38,6 +38,12 @@ text = data.todos[i].text.toString();
 let status = '';
 let finished = '';
 
+var shortenTitle = data.todos[i].text;
+
+if (data.todos[i].text.length > 50) {
+    shortenTitle = data.todos[i].text.substr(0,50) + "...";
+}
+
 if (data.todos[i].completed) {
  status = "Completed";
  finished = "Completed At: " + data.todos[i].completedAt;
@@ -56,7 +62,7 @@ list += `<div class="container todoContainer">
 
 <div class="col-sm-12">
 
-<h3 class="title">${data.todos[i].text}</h3>
+<h3 class="title">${shortenTitle}</h3>
 
     </div>
 
@@ -75,7 +81,7 @@ list += `<div class="container todoContainer">
     <div class="col-sm-3" style="height: 105px;"> 
 
     <div class="col-sm-4 todoBtnCol">
- <button class="btn todoBtn" title="Update Todo" onclick="openModal(\`` + text + `\`, ${data.todos[i].completed},\`` + id + `\`)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+ <button class="btn todoBtn" title="Update Todo" onclick="openModal(\`` + text + `\`, ${data.todos[i].completed},\`` + id + `\`,\`` + data.todos[i].completedAt + `\`)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
  </div>
  <div class="col-sm-4 todoBtnCol">
          <div class="btn todoBtn" title="Complete Todo" onclick='completeTodo(${data.todos[i].completed},\`` + id + `\`)'><i class="fa fa-check" aria-hidden="true"></i></div>    
@@ -307,14 +313,28 @@ function combineValues(text, isCompleted, id, refresh) {
 }
 
 
+  
+var modalStatus = "";
+var modalFinished = '';
 
-function completeInModal(text, isCompleted, id, refresh) {
+function completeInModal(text, isCompleted, id, refresh, completedAt) {
+
+    console.log("Inside completeInModal: " + completedAt)
 
     if (isCompleted) {
         isCompleted = false;
-    } else {
+        modalStatus = "Not Completed";
+        modalFinished = '';
+    } 
+    
+    else {
         isCompleted = true;
+        modalStatus = "Completed";
+        modalFinished = completedAt;
     }
+
+    $("#modalStatus").text("Status: " + modalStatus);
+    modalFinished = "Completed At: " + completedAt;
 
      combineValues(text, isCompleted, id, refresh);
 
@@ -327,14 +347,41 @@ function completeInModal(text, isCompleted, id, refresh) {
 
 // Open Modal
 
-function openModal(text, isCompleted, id) {
+function openModal(text, isCompleted, id, completedAt) {
     modal.style.display = "flex";
-    
+  
+    console.log(completedAt);
+
+    if (isCompleted) {
+        modalStatus = "Completed";
+        modalFinished = "Completed At: " + completedAt;
+    }
+    else {
+        modalStatus = "Not Completed"; 
+        modalFinished = '';
+    }
 
 var mb = ` 
-<textarea id="textarea" rows=5 style="width: 100%; background: #232A32; border: 3px solid #007BFF; color: #FFF"></textarea>
+<textarea id="textarea" rows=7 style="width: 100%; background: #232A32; border: 3px solid #007BFF; color: #FFF"></textarea>
 <br>
-<button class="btn" title="Complete Todo" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh')">Complete</button>`;
+<button class="btn" title="Complete Todo" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`)">Complete</button>
+
+
+<div>
+<p id="modalStatus" style="float: left; padding-left: 20%";>Status: ${modalStatus}</p>
+<p id="modalFinished" style="float: right; padding-right: 20%;">${modalFinished}</p>
+</div>
+
+ </div>
+
+</div>
+
+`;
+
+/*
+
+status: ....                "completed btn"
+completion at: ... ... .. .. ... ... ... */
 
 
 
