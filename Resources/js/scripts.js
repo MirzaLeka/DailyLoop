@@ -73,13 +73,13 @@ list += `<div class="container todoContainer">
     <div class="col-sm-3" style="height: 105px;"> 
 
     <div class="col-sm-4 todoBtnCol">
- <button class="btn todoBtn" title="Update" onclick="openModal(${i})"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+ <button class="btn todoBtn" title="Update Todo" onclick="openModal(${i}, ${data.todos[i].completed},\`` + id + `\`)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
  </div>
  <div class="col-sm-4 todoBtnCol">
          <div class="btn todoBtn" title="Complete Todo" onclick='completeTodo(${data.todos[i].completed},\`` + id + `\`)'><i class="fa fa-check" aria-hidden="true"></i></div>    
   </div>        
 <div class="col-sm-4 todoBtnCol">
-   <button class="btn todoBtn" title="Remove" onclick="getTitle(${i})"><i class="fa fa-times" aria-hidden="true"></i></button>
+   <button class="btn todoBtn" title="Remove Todo" onclick="getTitle(${i})"><i class="fa fa-times" aria-hidden="true"></i></button>
          </div>
 
 
@@ -256,12 +256,13 @@ location.reload();
 
 /* UPDATE ONE TODO */
 
-function updateTodo(id) {
+function updateTodo(isCompleted, id) {
 
-var updateTodo = $("#updateTodo").val();
+var updateText = $("textarea").val();
 
 var data = {
- text: updateTodo
+ text: updateText,
+ completed: isCompleted
 };
 
 $.ajax({
@@ -280,13 +281,40 @@ location.reload();
 
 }
 
+function completeThisTodo(isCompleted){
+
+    console.log("..." + isCompleted);
+
+    if (isCompleted) {
+        isCompleted = false;
+    } else {
+        isCompleted = true;
+    }
+console.log(":::" + isCompleted);
+
+}
+
 
 /* Modal */
 
-function openModal(todo) {
+// Open Modal
+
+function openModal(todo, isCompleted, id) {
     modal.style.display = "flex";
 
-    
+var mb = ` <textarea rows=5 style="width: 100%"></textarea>
+<br>
+<button class="btn todoBtn" title="Complete Todo" onclick='completeThisTodo(${isCompleted})'> <i class="fa fa-check" aria-hidden="true"></i></button>`;
+
+// var toComplete = completeThisTodo(isCompleted);
+// console.log(";" + toComplete);
+
+$(".modal-body").html(mb);
+
+var mfBtns = `<button class="btn btn-danger" onclick="closeModal()">Cancel</button>
+<button class="btn btn-success" onclick="updateTodo(${isCompleted},\`` + id + `\`)">Update</button>`;
+
+    $(".modal-footer").html(mfBtns);
 
     var textValue =  $(`.todoContainer:eq(${todo})`).find(`.title`).html();
 
@@ -294,14 +322,16 @@ function openModal(todo) {
 
    }
 
+
+   // Close Modal
+
    var modal = document.getElementById('myModal');
   
-   // Close modal when you press X
-   $(".closeModal").click(function() {
-     $("#myModal").fadeOut();
-     //modal.style.display = "none";
-   });
- 
+   function closeModal() {
+    $("#myModal").fadeOut();
+   }
+   
+
    // Close modal when you click anywhere on window
    window.onclick = function(event) {
        if (event.target == modal) {

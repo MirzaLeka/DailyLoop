@@ -134,7 +134,6 @@ h1 {
 /* Modal Content */
 .modal-content {
   width: 50%;
-  height: 65%;
   padding: none;
   margin: none;
   background: #FFF;
@@ -155,6 +154,7 @@ h1 {
   text-align: center;
   display: block;
   margin: 0 auto;
-  padding-bottom: 20px; }
+  width: 100%;
+  background: pink; }
 
 /*# sourceMappingURL=styles.css.map */
