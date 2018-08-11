@@ -116,6 +116,10 @@ h1 {
   .todoBtn:hover {
     background: #006fe6;
     color: #FFF; }
+  .todoBtn:active {
+    color: #FFF; }
+  .todoBtn:focus {
+    color: #FFF; }
 
 /* Modal */
 .modal {

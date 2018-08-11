@@ -28,10 +28,14 @@ if (data.todos.length > 0) {
 
 var list = '';
 var id = '';
+var text = '';
 
 for (var i = 0; i < data.todos.length; i++) {
 
 id = data.todos[i]._id.toString();
+text = data.todos[i].text.toString();
+
+console.log("T " + text);
 
 let status = '';
 let finished = '';
@@ -73,7 +77,7 @@ list += `<div class="container todoContainer">
     <div class="col-sm-3" style="height: 105px;"> 
 
     <div class="col-sm-4 todoBtnCol">
- <button class="btn todoBtn" title="Update Todo" onclick="openModal(${i}, ${data.todos[i].completed},\`` + id + `\`)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+ <button class="btn todoBtn" title="Update Todo" onclick="openModal(\`` + text + `\`, ${data.todos[i].completed},\`` + id + `\`)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
  </div>
  <div class="col-sm-4 todoBtnCol">
          <div class="btn todoBtn" title="Complete Todo" onclick='completeTodo(${data.todos[i].completed},\`` + id + `\`)'><i class="fa fa-check" aria-hidden="true"></i></div>    
@@ -256,14 +260,9 @@ location.reload();
 
 /* UPDATE ONE TODO */
 
-function updateTodo(isCompleted, id) {
+function updateTodo(data, id, refresh) {
 
-var updateText = $("textarea").val();
-
-var data = {
- text: updateText,
- completed: isCompleted
-};
+    data.text = $("textarea").val();
 
 $.ajax({
 url: "/todos/" + id,
@@ -273,7 +272,11 @@ contentType: 'application/json',
 processData: false,
 dataType: 'json',
 success: function (data) {
+
+if (refresh) {
 location.reload();
+}
+
 }
 
 
@@ -281,42 +284,73 @@ location.reload();
 
 }
 
-function completeThisTodo(isCompleted){
+function combineValues(text, isCompleted, id, refresh) {
 
-    console.log("..." + isCompleted);
+    var data = {};
+
+    if (typeof(text) === 'string') {
+        data.text = text;
+        refresh = true;
+    }
+
+    if (typeof(isCompleted) === "boolean") {
+        data.completed = isCompleted;
+        refresh = false;
+    }
+
+//alert("REFRESH: " + refresh);
+
+   updateTodo(data, id, refresh);
+
+    
+// update (data obj, id)
+}
+
+
+
+function completeInModal(text, isCompleted, id, refresh) {
 
     if (isCompleted) {
         isCompleted = false;
     } else {
         isCompleted = true;
     }
-console.log(":::" + isCompleted);
+
+ console.log("new value of completed is " + isCompleted);
+
+     combineValues(text, isCompleted, id, refresh);
+
+
+
 
 }
+
+
 
 
 /* Modal */
 
 // Open Modal
 
-function openModal(todo, isCompleted, id) {
+function openModal(text, isCompleted, id) {
     modal.style.display = "flex";
+    
 
-var mb = ` <textarea rows=5 style="width: 100%"></textarea>
+var mb = ` 
+<textarea rows=5 style="width: 100%"></textarea>
 <br>
-<button class="btn todoBtn" title="Complete Todo" onclick='completeThisTodo(${isCompleted})'> <i class="fa fa-check" aria-hidden="true"></i></button>`;
+<button class="btn todoBtn" title="Complete Todo" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh')"> <i class="fa fa-check" aria-hidden="true"></i></button>`;
 
-// var toComplete = completeThisTodo(isCompleted);
-// console.log(";" + toComplete);
+
 
 $(".modal-body").html(mb);
 
 var mfBtns = `<button class="btn btn-danger" onclick="closeModal()">Cancel</button>
-<button class="btn btn-success" onclick="updateTodo(${isCompleted},\`` + id + `\`)">Update</button>`;
+<button class="btn btn-success" onclick="combineValues(\`` + text + `\`,'todoapp',\`` + id + `\`, true)">Update</button>`;
 
     $(".modal-footer").html(mfBtns);
 
-    var textValue =  $(`.todoContainer:eq(${todo})`).find(`.title`).html();
+    var textValue = text; // $(`.todoContainer:eq(${todo})`).find(`.title`).html();
 
     $("textarea").text(textValue);
 

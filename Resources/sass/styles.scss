@@ -162,6 +162,12 @@ h1{
         background: darken($btnBackground, 5%);
         color: #FFF;
     }
+    &:active{
+        color: #FFF;
+    }
+    &:focus{
+        color: #FFF;
+    }
 }
 
 
