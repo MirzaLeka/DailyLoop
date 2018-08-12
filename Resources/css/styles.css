@@ -91,7 +91,7 @@ h1 {
 .todoContainer {
   height: 105px;
   border-bottom: 1px solid #CCC;
-  background: #f5f5f5; }
+  background: #F6F7F9; }
 
 .todoContainer:last-child {
   -webkit-box-shadow: 0 8px 6px -6px #000;
@@ -140,7 +140,7 @@ h1 {
   width: 45%;
   padding: none;
   margin: none;
-  background: #f5f5f5;
+  background: #F6F7F9;
   border: transparent; }
 
 .closeModal {
@@ -179,20 +179,20 @@ h1 {
 
 /* Modal Animation */
 .modal-content, .modalCaption {
-  -webkit-animation-name: zoom;
+  -webkit-animation-name: fadeIn;
   -webkit-animation-duration: 0.6s;
-  animation-name: zoom;
+  animation-name: fadeIn;
   animation-duration: 0.6s; }
 
-@-webkit-keyframes zoom {
-  from {
-    -webkit-transform: scale(0); }
-  to {
-    -webkit-transform: scale(1); } }
-@keyframes zoom {
-  from {
-    transform: scale(0); }
-  to {
-    transform: scale(1); } }
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@keyframes fadeIn {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
 
 /*# sourceMappingURL=styles.css.map */

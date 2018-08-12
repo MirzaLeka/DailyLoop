@@ -5,7 +5,7 @@ $bodyBackground: #232A32;
 $navBackground: #222;
 $infoBackground: #333;
 $btnBackground: #007BFF;
-$todoBackground: #f5f5f5;
+$todoBackground: #F6F7F9;
 
 
 /* Mixins */
@@ -256,18 +256,18 @@ h1{
   
 /* Modal Animation */
 .modal-content, .modalCaption {    
-    -webkit-animation-name: zoom;
+    -webkit-animation-name: fadeIn;
     -webkit-animation-duration: 0.6s;
-    animation-name: zoom;
+    animation-name: fadeIn;
     animation-duration: 0.6s;
   }
   
-  @-webkit-keyframes zoom {
-    from {-webkit-transform:scale(0)} 
-    to {-webkit-transform:scale(1)}
+  @-webkit-keyframes fadeIn {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
   }
   
-  @keyframes zoom {
-    from {transform:scale(0)} 
-    to {transform:scale(1)}
+  @keyframes fadeIn {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
   }
