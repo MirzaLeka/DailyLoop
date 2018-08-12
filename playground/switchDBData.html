@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
+</head>
+<body>
+    <div id="main"></div>
+<br>
+<div id="details"></div>
+<br>
+<div id="date"></div>
+
+    <script>
+    $(document).ready(function() {
+  
+  toDom();
+  
+});
+
+  var d = new Date();
+
+
+function toDom(value) {
+  
+  value = false;
+  
+  var btn = '<button onclick="toggle(' + value + ')">' + value + '</button>'
+  $("#main").html(btn);
+
+  $("#details").text("it's " + value);  
+
+  
+  if (value) {
+    $("#date").text(d.getFullYear());
+  }
+  else {
+    $("#date").text('');
+  }
+  
+  // also display it's true/false & 2018 to dOM
+  
+}
+
+var counter = 0;
+var toggleValue;
+
+function toggle (value) {
+
+  
+  if (counter == 0) {
+    toggleValue = !value;
+    console.log(toggleValue + ":");
+  }
+  else {
+    toggleValue = !toggleValue;
+
+  }
+  
+    $("button").text(toggleValue);
+  
+  if (toggleValue){
+    $("#details").text("it's " + toggleValue);
+$("#date").text(d.getFullYear());
+
+  } else {
+    $("#details").text("it's " + toggleValue);
+    $("#date").text("");
+  }
+  
+  console.log(counter + " : " + toggleValue);
+   counter++;
+  
+  
+}
+    </script>
+</body>
+</html>

@@ -320,6 +320,7 @@ var modalFinished = '';
 function completeInModal(text, isCompleted, id, refresh, completedAt) {
 
     console.log("Inside completeInModal: " + completedAt)
+    console.log("Inside: isComplete: " + isCompleted);
 
     if (isCompleted) {
         isCompleted = false;
@@ -377,6 +378,23 @@ var mb = `
 </div>
 
 `;
+
+/* ADD TO (regarding todo.js) SERVER.JS 
+
+<script>
+function myFunction() {
+
+var d = new Date();
+
+    var str = d.toString();
+    
+    var res = str.substr(4,20);
+ 
+    document.getElementById("demo").innerHTML = res;
+}
+</script>
+
+*/
 
 /*
 
