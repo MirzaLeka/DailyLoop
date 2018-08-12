@@ -273,6 +273,8 @@ var data = {
     completed
 };
 
+if (refresh) {
+
 $.ajax({
 url: "/todos/" + id,
 data: JSON.stringify(data),
@@ -282,15 +284,13 @@ processData: false,
 dataType: 'json',
 success: function (data) {
 
-if (refresh) {
 $("#myModal").fadeOut();
 location.reload();
-}
 
-}
+            }
+        });
 
-
-});
+    }
 
 }
 
@@ -316,32 +316,57 @@ function combineValues(text, isCompleted, id, refresh) {
   
 var modalStatus = "";
 var modalFinished = '';
+var toggleCounter = 0;
+var toggleValue;
 
 function completeInModal(text, isCompleted, id, refresh, completedAt) {
 
-    console.log("Inside completeInModal: " + completedAt)
-    console.log("Inside: isComplete: " + isCompleted);
+    // console.log("Inside completeInModal: " + completedAt)
+    // console.log("Inside: isComplete: " + isCompleted);
 
-    if (isCompleted) {
-        isCompleted = false;
+    if (toggleCounter == 0) {
+        toggleValue = !isCompleted;
+        console.log(toggleValue + ":");
+      }
+      else {
+        toggleValue = !toggleValue;
+    
+      }
+
+      var d = new Date();
+
+      $("#toggleBtn").text(toggleValue);
+
+      if (toggleValue) {
+        modalStatus = "Completed";
+        modalFinished = d.getFullYear();
+      }
+      else {
         modalStatus = "Not Completed";
         modalFinished = '';
-    } 
+      }
+
+
+    // if (isCompleted) {
+    //     isCompleted = false;
+    //     modalStatus = "Not Completed";
+    //     modalFinished = '';
+    // } 
     
-    else {
-        isCompleted = true;
-        modalStatus = "Completed";
-        modalFinished = completedAt;
-    }
+    // else {
+    //     isCompleted = true;
+    //     modalStatus = "Completed";
+    //     modalFinished = completedAt;
+    // }
 
-    $("#modalStatus").text("Status: " + modalStatus);
-    modalFinished = "Completed At: " + completedAt;
+     $("#modalStatus").text("Status: " + modalStatus);
+     $("#modalFinished").text(modalFinished);
+      
+    toggleCounter++;
 
-     combineValues(text, isCompleted, id, refresh);
+     combineValues(text, toggleValue, id, refresh);
 
 }
-
-
 
 
 /* Modal */
@@ -362,10 +387,26 @@ function openModal(text, isCompleted, id, completedAt) {
         modalFinished = '';
     }
 
+
+// Modal header
+
+var mh = `
+<p class="closeModal" onclick="closeModal(47, ${isCompleted},\`` + id + `\`, false)">&times</p>
+          
+<h3 class="modalTitle" style="text-align: center;
+display: block;
+margin: 0 auto;
+width: 100%; margin-top: 30px;">Update Todo</h3>
+`;
+
+$(".modal-header").html(mh);
+
+// Modal Body
+
 var mb = ` 
 <textarea id="textarea" rows=7 style="width: 100%; background: #232A32; border: 3px solid #007BFF; color: #FFF"></textarea>
 <br>
-<button class="btn" title="Complete Todo" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`)">Complete</button>
+<button class="btn" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`)">Complete</button>
 
 
 <div>
@@ -378,6 +419,8 @@ var mb = `
 </div>
 
 `;
+
+$(".modal-body").html(mb);
 
 /* ADD TO (regarding todo.js) SERVER.JS 
 
@@ -396,19 +439,13 @@ var d = new Date();
 
 */
 
-/*
 
-status: ....                "completed btn"
-completion at: ... ... .. .. ... ... ... */
+// modal footer
 
-
-
-$(".modal-body").html(mb);
-
-var mfBtns = `<button id="cancelBtn" class="modalBtns" onclick="closeModal()">Cancel</button>
+var mf = `<button id="cancelBtn" class="modalBtns" onclick="closeModal(47, ${isCompleted},\`` + id + `\`, false)">Cancel</button>
 <button id="updateBtn" class="modalBtns" onclick="combineValues(\`` + text + `\`,${isCompleted},\`` + id + `\`, true)">Update</button>`;
 
-    $(".modal-footer").html(mfBtns);
+    $(".modal-footer").html(mf);
 
     var textValue = text; // $(`.todoContainer:eq(${todo})`).find(`.title`).html();
 
@@ -421,16 +458,18 @@ var mfBtns = `<button id="cancelBtn" class="modalBtns" onclick="closeModal()">Ca
 
    var modal = document.getElementById('myModal');
   
-   function closeModal() {
+   function closeModal(text, isCompleted, id, refresh) {
     $("#myModal").fadeOut();
+    // when you click cancel return to initial isComploted value (from DB), but don't refresh
+    combineValues(text, isCompleted, id, refresh);
    }
    
 
    // Close modal when you click anywhere on window
-   window.onclick = function(event) {
-       if (event.target == modal) {
-         $("#myModal").fadeOut();       
-       }
-   }
+//    window.onclick = sameer(event) {
+//        if (event.target == modal) {
+//          $("#myModal").fadeOut();       
+//        }
+//    }
    
 
