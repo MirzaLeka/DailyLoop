@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
+</head>
+<body>
+
+<h3>By: Ryan Web Tech</h3>
+
+        <div class="outer">
+                <div class="switch"></div>
+            </div>
+    
+</body>
+
+<style>
+
+    h3{
+        color: #222;
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+    }
+
+    *{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: #151515;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.outer{
+    height: 35px;
+    width: 80px;
+    border-radius: 40px;
+    border: 2px solid #21ff33;
+    position: relative;
+    cursor: pointer;
+}
+
+
+.switch{
+    height: 35px;
+    width: 35px;
+    background: #21ff33;
+    border-radius: 50%;
+    position: absolute;
+    left: -2px;
+    transition: transform .2s linear;
+}
+
+.move{
+    transform: translateX(47px);
+    background: #007BFF;
+}
+
+
+</style>
+
+<script>
+
+    $(".outer").click(function() {
+
+$(".switch").toggleClass("move");
+
+    });
+
+
+</script>
+
+
+</html>
