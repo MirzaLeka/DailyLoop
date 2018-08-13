@@ -2,7 +2,7 @@
 
 ![bandicam 2018-08-13 16-26-51-463](https://user-images.githubusercontent.com/23176181/44038235-a3c2f8d8-9f16-11e8-8dd8-3e7843e6b9d9.jpg)
 
-Goal of this project for me is getting fimilar working with mongo databases, preforming CRUD operations and building
+Goal of this project for me is getting familiar working with mongo databases, preforming CRUD operations and building
 effective Todo application.
 
 *Current functionalities*:
