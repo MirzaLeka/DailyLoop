@@ -42,18 +42,19 @@ body{
 
 .outer{
     height: 35px;
-    width: 80px;
+    width: 75px;
     border-radius: 40px;
-    border: 2px solid #21ff33;
+    border: 2px solid #111;
     position: relative;
     cursor: pointer;
+    background: #232A32;
 }
 
 
 .switch{
     height: 35px;
     width: 35px;
-    background: #21ff33;
+    background: #DDD;
     border-radius: 50%;
     position: absolute;
     left: -2px;
@@ -61,7 +62,7 @@ body{
 }
 
 .move{
-    transform: translateX(47px);
+    transform: translateX(42px);
     background: #007BFF;
 }
 
@@ -73,6 +74,13 @@ body{
     $(".outer").click(function() {
 
 $(".switch").toggleClass("move");
+
+        if ($( ".switch" ).hasClass( "move" )) {
+            console.log(true);
+        }
+        else {
+            console.log(false);
+        }
 
     });
 
