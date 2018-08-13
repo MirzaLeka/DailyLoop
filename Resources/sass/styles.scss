@@ -6,6 +6,7 @@ $navBackground: #222;
 $infoBackground: #333;
 $btnBackground: #007BFF;
 $todoBackground: #F6F7F9;
+$btnText: #6b6e73;
 
 
 /* Mixins */
@@ -190,7 +191,7 @@ h1{
   
   /* Modal Content */
   .modal-content {
-    width: 45%;
+  //  width: 45%;
    // height: 65%;
     padding: none;
     margin: none;
@@ -225,28 +226,28 @@ h1{
   }
 
   .modalBtns{
+    background: #e3e7ea;
     border-radius: none;
     height: 30px;
-    border: 1px solid $btnBackground;
-  }
-
-  #updateBtn{
-    background: $btnBackground;
-    color: #FFF;
-    widows: 75px;
+    width: 75px;
+    color: $btnText;
+    border: none;
     &:hover{
-        background: darken($btnBackground, 5%);
-        color: #FFF;
+        background: darken(#e3e7ea, 10%);
+        color: $btnText;
     }
   }
+
+//   #updateBtn{
+
+//   }
 
   #cancelBtn{
-    margin-right: 15px;
-    background: transparent;
-    color: $navBackground;
-    &:hover{
-        color: darken($navBackground, 15%);
-    }
+    margin-right: 10px;
+  }
+
+  .modalDetails{
+      text-align: center;
   }
 
 //   #textarea{
@@ -270,4 +271,10 @@ h1{
   @keyframes fadeIn {
     0%   { opacity: 0; }
     100% { opacity: 1; }
+  }
+
+  .pause{
+      height: 2px;
+      width: 100%;
+      background: #310594;
   }

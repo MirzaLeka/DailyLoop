@@ -70,7 +70,7 @@ list += `<div class="container todoContainer">
 
  <div class="row">
       
- <div class="col-sm-6"><p class="status">Status: ${status}</p></div>
+ <div class="col-sm-6"><p class="status">${status}</p></div>
  <div class="col-sm-6"><p class="finished">${finished}</p> </div>
 
   </div>
@@ -339,27 +339,16 @@ function completeInModal(text, isCompleted, id, refresh, completedAt) {
 
       if (toggleValue) {
         modalStatus = "Completed";
-        modalFinished = d.getFullYear();
+        $("#completedAtRow").show();
       }
       else {
         modalStatus = "Not Completed";
-        modalFinished = '';
+        $("#completedAtRow").hide();
       }
 
+      modalFinished = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
 
-    // if (isCompleted) {
-    //     isCompleted = false;
-    //     modalStatus = "Not Completed";
-    //     modalFinished = '';
-    // } 
-    
-    // else {
-    //     isCompleted = true;
-    //     modalStatus = "Completed";
-    //     modalFinished = completedAt;
-    // }
-
-     $("#modalStatus").text("Status: " + modalStatus);
+     $("#modalStatus").text(modalStatus);
      $("#modalFinished").text(modalFinished);
       
     toggleCounter++;
@@ -376,15 +365,15 @@ function completeInModal(text, isCompleted, id, refresh, completedAt) {
 function openModal(text, isCompleted, id, completedAt) {
     modal.style.display = "flex";
   
-    console.log(completedAt);
+    modalFinished = completedAt;
 
     if (isCompleted) {
         modalStatus = "Completed";
-        modalFinished = "Completed At: " + completedAt;
+        $("#completedAtRow").show();
     }
     else {
         modalStatus = "Not Completed"; 
-        modalFinished = '';
+        $("#completedAtRow").hide();
     }
 
 
@@ -404,17 +393,50 @@ $(".modal-header").html(mh);
 // Modal Body
 
 var mb = ` 
+
+<div class="container bg-3 text-center">
+<div class="row">
+<div class="col-sm-12">
+
 <textarea id="textarea" rows=7 style="width: 100%; background: #232A32; border: 3px solid #007BFF; color: #FFF"></textarea>
-<br>
-<button class="btn" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`)">Complete</button>
+<br> <br>
 
-
-<div>
-<p id="modalStatus" style="float: left; padding-left: 20%";>Status: ${modalStatus}</p>
-<p id="modalFinished" style="float: right; padding-right: 20%;">${modalFinished}</p>
+    </div>
 </div>
 
- </div>
+<div class="row">
+
+<div class="col-sm-4">
+<p>Status:</p>
+</div>
+
+<div class="col-sm-4">
+<p id="modalStatus">${modalStatus}</p>
+</div>
+
+<div class="col-sm-4">
+<button class="btn" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`)">Complete</button>
+</div>
+
+</div>
+
+<div class="row" id="completedAtRow">
+
+<div class="col-sm-4">
+<p id="completeAtPar">Completed At:</p>
+</div>
+
+
+<div class="col-sm-4">
+<p class="modalDetails" id="modalFinished">${modalFinished}</p>
+</div>
+
+
+<div class="col-sm-4">
+</div>
+
+
+</div>
 
 </div>
 

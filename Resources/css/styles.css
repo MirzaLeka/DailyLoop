@@ -137,7 +137,6 @@ h1 {
 
 /* Modal Content */
 .modal-content {
-  width: 45%;
   padding: none;
   margin: none;
   background: #F6F7F9;
@@ -158,24 +157,21 @@ h1 {
   border: none; }
 
 .modalBtns {
+  background: #e3e7ea;
   border-radius: none;
   height: 30px;
-  border: 1px solid #007BFF; }
-
-#updateBtn {
-  background: #007BFF;
-  color: #FFF;
-  widows: 75px; }
-  #updateBtn:hover {
-    background: #006fe6;
-    color: #FFF; }
+  width: 75px;
+  color: #6b6e73;
+  border: none; }
+  .modalBtns:hover {
+    background: #c6ced4;
+    color: #6b6e73; }
 
 #cancelBtn {
-  margin-right: 15px;
-  background: transparent;
-  color: #222; }
-  #cancelBtn:hover {
-    color: black; }
+  margin-right: 10px; }
+
+.modalDetails {
+  text-align: center; }
 
 /* Modal Animation */
 .modal-content, .modalCaption {
@@ -194,5 +190,9 @@ h1 {
     opacity: 0; }
   100% {
     opacity: 1; } }
+.pause {
+  height: 2px;
+  width: 100%;
+  background: #310594; }
 
 /*# sourceMappingURL=styles.css.map */
