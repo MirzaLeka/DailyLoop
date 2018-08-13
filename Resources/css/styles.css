@@ -154,7 +154,10 @@ h1 {
     color: gray; }
 
 .modal-header, .modal-footer {
-  border: none; }
+  border-bottom: 2px solid #CCC; }
+
+.modal-footer {
+  border-top: 2px solid #CCC; }
 
 .modalBtns {
   background: #e3e7ea;
