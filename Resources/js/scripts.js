@@ -120,7 +120,6 @@ for (var i = 0; i <  data.todos.length; i++) {
          $(`.switch:eq(${i})`).removeClass("move");
      }
      
-
 }
 
  }
@@ -430,26 +429,52 @@ $(".modal-header").html(mh);
 
 var mb;
 
-mb = ` 
-<br> 
+mb = `<div class="modalPause">  
+
+<h5 class="pauseDesc">NAME</h5>
+
 <div class="container bg-3 text-center">
 <div class="row">
 
-<div class="col-sm-2"> </div>
+<div class="col-sm-3"> </div>
 
-<div class="col-sm-8">
+<div class="col-sm-6">
 
-<textarea id="textarea" rows=7 style="width: 100%; background: #232A32; border: 3px solid #007BFF; color: #FFF"></textarea>
+<textarea id="textarea" rows=5 style="width: 100%; background: #FFF; border: 2px solid #CCC; color: #000; margin-top: 20px;"></textarea>
 
     </div>
 
-    <br> <br>
+   
 
-<div class="col-sm-2"> </div>
+<div class="col-sm-3"> </div>
 
-</div>
+        </div>
 
-<div class="row" style="height: 70px; padding-top: 15px;">
+</div>  
+ </div>  `;
+
+ if (isCompleted) {
+    modalFinished = completedAt;
+    modalStatus = "Completed";
+
+   $(".switch").addClass("move");
+//        $("#completedAtRow").show();
+}
+else {
+    modalFinished = '∅';
+    modalStatus = "Not Completed"; 
+    $(".switch").removeClass("move");
+//      $("#completedAtRow").hide();
+}
+
+ mb+= ` 
+ <div class="modalPause">  
+
+<h5 class="pauseDesc" style="padding-left: 10px">DETAILS</h5>
+
+<div class="container bg-3 text-center">
+
+<div class="row" style="height: 70px; padding-top: 45px;">
 
 <div class="col-sm-4">
 <p>Status:</p>
@@ -460,7 +485,7 @@ mb = `
 </div>
 
 <div class="col-sm-4">
-    <div class="outer" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`)">
+    <div class="outer" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`)" style="margin: 0 auto; text-align: center">
         <div class="switch"></div>
     </div>
 
@@ -468,7 +493,7 @@ mb = `
 
 </div>
 
-<div class="row" id="completedAtRow" style="height: 70px; padding-top: 15px;">
+<div class="row" id="completedAtRow" style="padding-top: 15px;">
 
 <div class="col-sm-4">
 <p id="completeAtPar">Completed At:</p>
@@ -488,7 +513,12 @@ mb = `
 
 </div>
 
+
+</div>
+
 `;
+
+//mb+=`<div style="height: 2px; width: 100%; background: blue"> </div>`
 
 
 

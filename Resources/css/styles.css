@@ -184,8 +184,28 @@ h1 {
   .closeModal:hover {
     color: gray; }
 
-.modal-header, .modal-footer {
+.modal-header {
   border-bottom: 2px solid #CCC; }
+
+.modal-body {
+  padding: 0; }
+
+.modalPause {
+  border-bottom: 2px solid #CCC;
+  position: relative;
+  height: 150px; }
+
+.pauseDesc {
+  padding-left: 20px;
+  margin: 0;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  background: #CCC;
+  width: 80px; }
+
+.modalPause:last-child {
+  border-bottom: none; }
 
 .modal-footer {
   border-top: 2px solid #CCC; }
