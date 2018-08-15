@@ -198,4 +198,27 @@ h1 {
   width: 100%;
   background: #310594; }
 
+/* Toggle button */
+.outer {
+  height: 35px;
+  width: 75px;
+  border-radius: 40px;
+  border: 2px solid #111;
+  position: relative;
+  cursor: pointer;
+  background: #232A32; }
+
+.switch {
+  height: 35px;
+  width: 35px;
+  background: #DDD;
+  border-radius: 50%;
+  position: absolute;
+  left: -2px;
+  transition: transform .2s linear; }
+
+.move {
+  transform: translateX(42px);
+  background: #007BFF; }
+
 /*# sourceMappingURL=styles.css.map */
