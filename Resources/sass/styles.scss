@@ -265,6 +265,10 @@ h1{
       border-bottom: 2px solid #CCC;
   }
 
+  .modal-header, .modal-footer{
+      height: 60px;
+  }
+
   .modal-body{
     padding: 0;
 }
@@ -272,7 +276,7 @@ h1{
 .modalPause{
   border-bottom: 2px solid #CCC;
   position: relative;
-  height: 150px;
+  padding: 20px 0;
 }
 
 .pauseDesc{

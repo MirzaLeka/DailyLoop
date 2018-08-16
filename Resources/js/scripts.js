@@ -438,7 +438,7 @@ var mh = `
 <h3 class="modalTitle" style="text-align: center;
 display: block;
 margin: 0 auto;
-width: 100%; margin-top: 30px;">Update Todo</h3>
+width: 100%; margin-top: 10px;">Update Todo</h3>
 `;
 
 $(".modal-header").html(mh);
@@ -451,14 +451,14 @@ mb = `<div class="modalPause">
 
 <h5 class="pauseDesc">NAME</h5>
 
-<div class="container bg-3 text-center">
+<div class="container bg-3 text-center" style="width: 768px;">
 <div class="row">
 
 <div class="col-sm-3"> </div>
 
 <div class="col-sm-6">
 
-<textarea id="textarea" rows=5 style="width: 100%; background: #FFF; border: 2px solid #CCC; color: #000; margin-top: 20px;"></textarea>
+<textarea id="textarea" rows=5 style="width: 100%; background: #FFF; border: 2px solid #CCC; color: #000; margin-top: 4px;"></textarea>
 
     </div>
 
@@ -489,41 +489,46 @@ mb = `<div class="modalPause">
 
 <h5 class="pauseDesc" style="padding-left: 10px">DETAILS</h5>
 
-<div class="container bg-3 text-center">
+<div class="container bg-3 text-center" style="width: 768px; height: 85px; padding-bottom: 0px; margin-top: 10px;">
 
-<div class="row" style="height: 70px; padding-top: 45px;">
+<div class="row">
 
-<div class="col-sm-4">
+<div class="col-sm-3"></div>
+
+<div class="col-sm-2">
 <p>Status:</p>
 </div>
 
-<div class="col-sm-4">
+<div class="col-sm-2">
 <p id="modalStatus">${modalStatus}</p>
 </div>
 
-<div class="col-sm-4">
-    <div class="outer" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`, ${num})" style="margin: 0 auto; text-align: center">
+<div class="col-sm-2">
+    <div class="outer" style="margin-top: -7px" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`, ${num})" style="margin: 0 auto; text-align: center">
         <div class="switch" id="switchId${num}"></div>
     </div>
 
-</div>
+    
+<div class="col-sm-3"></div>
+
+    </div>
 
 </div>
 
 <div class="row" id="completedAtRow" style="padding-top: 15px;">
 
-<div class="col-sm-4">
+<div class="col-sm-3"></div>
+
+<div class="col-sm-2">
 <p id="completeAtPar">Completed At:</p>
 </div>
 
 
-<div class="col-sm-4">
+<div class="col-sm-2">
 <p class="modalDetails" id="modalFinished">${modalFinished}</p>
 </div>
 
-
-<div class="col-sm-4">
-</div>
+<div class="col-sm-5"></div>
 
 
 </div>
