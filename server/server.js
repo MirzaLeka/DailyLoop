@@ -57,9 +57,9 @@ app.post('/todos', (req, res) => {
 
 
 app.get('/todos', (req, res) => {
-  Todo.find().then((todos) => {
-    res.send({todos}); // we get what ever is inside the request /todos (all todos) and we save it inside var todos (it can have any name ofc)
-  }, (e) => { // and once we pull off GET request on frontend, our data will be stored in variable todos, just like we named it
+  Todo.find({}).sort({completedAtTimestamp: 1}).then((todos) => {
+    res.send({todos}); 
+  }, (e) => { 
     res.status(400).send(e);
   });
 });
