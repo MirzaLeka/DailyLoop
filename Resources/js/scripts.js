@@ -15,6 +15,16 @@ var toggleValue;
 function getTodos() {
 
 
+    /*  prvo udozgo
+    IF DATA.TODOS[I].COMPLETED ides dole, a = cod
+    ELSE b = drugi kod
+    nad dnu completed.append(a), not.append(b); 
+    NARAVNO b je ispred A u ovoom slucaju
+    */
+
+    /* svaki todo ce imati svoj timestamp i onda ispod sort by timestamp */
+
+
 $.ajax({
  type: "GET",
  url: "/todos",

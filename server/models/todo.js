@@ -18,6 +18,10 @@ var Todo = mongoose.model('Todo', {
     completedAt: {
         type: String, 
         default: null  
+    },
+    completedAtTimestamp: {
+        type: Number,
+        default: null
     }
 }); 
 
