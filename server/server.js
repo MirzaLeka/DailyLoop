@@ -57,7 +57,7 @@ app.post('/todos', (req, res) => {
 
 
 app.get('/todos', (req, res) => {
-  Todo.find({}).sort({completedAtTimestamp: 1}).then((todos) => {
+  Todo.find().sort({completedAtTimestamp: 1}).then((todos) => {
     res.send({todos}); 
   }, (e) => { 
     res.status(400).send(e);
@@ -67,24 +67,34 @@ app.get('/todos', (req, res) => {
 
 
 
-app.get("/todos/:id", (req, res) => {
-var id = req.params.id;
+app.get("/todos/:text", (req, res) => {
+var text = req.params.text;
 
-if (!ObjectID.isValid(id)) {
- return res.status(400).send('Id is not valid'); 
-}
+//res.send(getText);
 
-Todo.findById(id).then(todo => {
-  if (!todo) {
-     return res.status(404).send("Id not found");
-   }
-  res.send({todo}); // if all went well we're getting desired todo
+Todo.find({text}).then((todos) => {
+  res.send({todos}); 
+}, (e) => { 
+  res.status(400).send(e);
+});
 
-  }).catch(e => {
-  if (e) {
-    return res.status(400).send("Something went wrong");
-    }
- });
+
+
+// if (!ObjectID.isValid(id)) {
+//  return res.status(400).send('Id is not valid'); 
+// }
+
+// Todo.findById(id).then(todo => {
+//   if (!todo) {
+//      return res.status(404).send("Id not found");
+//    }
+//   res.send({todo}); // if all went well we're getting desired todo
+
+//   }).catch(e => {
+//   if (e) {
+//     return res.status(400).send("Something went wrong");
+//     }
+//  });
 
 });
 
@@ -98,7 +108,7 @@ app.patch('/todos/:id', (req, res) => {
   var id = req.params.id;
   
   // values we want to change are in array
-  var body = _.pick(req.body, ['text', 'completed']);
+  var body = _.pick(req.body, ['text', 'completed']); //what user can edit. Make a Patch with text/compled/completedAt and write it in here. maybe the same for timestamp?
   
   if (!ObjectID.isValid(id)) {
    return res.status(400).send('Id is not valid'); 

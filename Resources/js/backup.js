@@ -1,3 +1,7 @@
+var modalStatus = "";
+var modalFinished = '';
+var toggleCounter = 0;
+var toggleValue;
 
    $(document).ready(function() {
 
@@ -9,7 +13,6 @@
 /* GET TODOS */
 
 function getTodos() {
-
 
 $.ajax({
  type: "GET",
@@ -39,51 +42,94 @@ let finished = '';
 
 var shortenTitle = data.todos[i].text;
 
-if (data.todos[i].text.length > 50) {
-    shortenTitle = data.todos[i].text.substr(0,50) + "...";
+var shortenValue = 60;
+
+if (data.todos[i].text.length > shortenValue) {
+    shortenTitle = data.todos[i].text.substr(0,shortenValue) + "...";
 }
+
+/* Todos list */
 
 if (data.todos[i].completed) {
  status = "Completed";
  finished = "Completed At: " + data.todos[i].completedAt;
+ //modalFinished = data.todos[i].completedAt;
+ modalStatus = "Completed";
+ //$("#modalFinished").text(modalFinished);
+ $(`.switch:eq(${i})`).addClass("move");
 }
 else {
  status = "Not completed";
+ //$("#modalFinished").html('<i class="fa fa-question-circle" style="font-size:24px"></i>');
+ modalStatus = "Not Completed"; 
+ $(`.switch:eq(${i})`).removeClass("move");
 }
+
 
 list += `<div class="container todoContainer">
     
      <div class="row">
+
       <div class="col-sm-9">
+
 <div class="row">
+
 <div class="col-sm-12">
+
 <h3 class="title">${shortenTitle}</h3>
+
     </div>
+
 </div>
+
  <div class="row">
       
  <div class="col-sm-6"><p class="status">${status}</p></div>
  <div class="col-sm-6"><p class="finished">${finished}</p> </div>
+
   </div>
+
         </div>
+
+
     <div class="col-sm-3" style="height: 105px;"> 
+
     <div class="col-sm-4 todoBtnCol">
  <button class="btn todoBtn" title="Update Todo" onclick="openModal(\`` + text + `\`, ${data.todos[i].completed},\`` + id + `\`,\`` + data.todos[i].completedAt + `\`, ${i})"><i class="fa fa-pencil" aria-hidden="true"></i></button>
  </div>
  <div class="col-sm-4 todoBtnCol">
-         <div class="btn todoBtn" title="Complete Todo" onclick='completeTodo(${data.todos[i].completed},\`` + id + `\`)'><i class="fa fa-check" aria-hidden="true"></i></div>    
+ <div class="outer" title="Complete Todo" onclick='completeTodo(${data.todos[i].completed},\`` + id + `\`, ${i})'>
+ <div class="switch"></div>
+    </div>   
   </div>        
 <div class="col-sm-4 todoBtnCol">
-   <button class="btn todoBtn" title="Remove Todo" onclick="getTitle(${i})"><i class="fa fa-times" aria-hidden="true"></i></button>
+   <button class="btn todoBtn" id="removeTodoBtn" title="Remove Todo" onclick="getTitle(${i})"><i class="fa fa-times" aria-hidden="true"></i></button>
          </div>
+
+
     </div>
+
+
          
       </div>
+
  </div>`;
- 
+
+
 }
 
 $("#listOfTodos").append(list);
+
+for (var i = 0; i <  data.todos.length; i++) {
+
+    if (data.todos[i].completed) {
+        $(`.switch:eq(${i})`).addClass("move");
+     }
+     else {
+         $(`.switch:eq(${i})`).removeClass("move");
+     }
+     
+}
 
  }
 
@@ -122,7 +168,7 @@ $.ajax({
  data : JSON.stringify(data),
  success: function(data) {
  
-  location.reload(); 
+ location.reload(); 
  }
 
 });
@@ -215,12 +261,14 @@ function adjustString(str) {
 
 /* COMPLETE TODO */
 
-function completeTodo(isCompleted, someId) {
+function completeTodo(isCompleted, someId, num) {
 
  if (isCompleted) {
      isCompleted = false;
+     $(`.switch:eq(${num})`).removeClass("move");
  } else {
      isCompleted = true;
+     $(`.switch:eq(${num})`).addClass("move");
  }
 
 var data = {
@@ -243,23 +291,6 @@ location.reload();
 });
 
 }
-
-// ///////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* UPDATE ONE TODO */
 
@@ -312,99 +343,67 @@ function combineValues(text, isCompleted, id, refresh) {
 }
 
 
-// ///////////////////////////////////////////////////////////////////////
+function completeInModal(text, isCompleted, id, refresh, completedAt, num) {
 
-
-
-
-
-
-/* dodati klasu kao string u bazu, proslijediti je kao paramear u openModal() i u modalu napisati toggleClass prosljedjenje klase */
-
-
-
-
-// if (toggleCounter == 0) {
-//     isCompleted = !isCompleted;;
-// } else {
-//     isCompleted = !isCompleted;
-// }
-
-
-
-    // if (isCompleted) {
-    //     toggleValue = false;
-    // } else {
-    //     toggleValue = true;
-    // }
-
-
-
-
-
-
-  
-var modalStatus = "";
-var modalFinished = '';
-var toggleCounter = 0;
-var toggleValue = [];
-
-function completeInModal(text, isCompleted, id, refresh, completedAt, i) {
 
     // console.log("Inside completeInModal: " + completedAt)
     // console.log("Inside: isComplete: " + isCompleted);
 
-    console.log("\n");
-    console.log("\n");
+ //    $(".switch").removeClass("move"); 
 
-    console.log("Value of i is: " + i);
-
-console.log("isCompleted value was: " + isCompleted);
-console.log("Toggle value of " + i + " was: " + toggleValue[i]);
-console.log("Counter value was: " +toggleCounter);
+//  if ($( ".switch" ).hasClass( "move" )) {
+// console.log("IT HAD CLASS");
+//     $(".switch").removeClass("move"); 
+// }
 
 
     if (toggleCounter == 0) {
-        toggleValue[i] = !isCompleted;
-        console.log("====================");
-        console.log("IF value of toggleValue of " + i + " is: " + toggleValue[i])
-        console.log("====================");
-
+        toggleValue = !isCompleted;
       }
       else {
-        toggleValue[i] = !toggleValue[i];
-        console.log("====================");
-        console.log("ELSE value of toggleValue of " + i + " is: " + toggleValue[i])    
-        console.log("====================");
-      }
-
-      console.log("isCompleted value is: " + isCompleted);
-      console.log("Toggle value of " + i + " is: " + toggleValue[i]);
+        toggleValue = !toggleValue;
     
+      }
 
       var d = new Date();
 
-      $("#toggleBtn").text(toggleValue[i]);
+    //  $("#toggleBtn").text(toggleValue);
 
-      if (toggleValue[i]) {
+    // BECAUSE IT'S ONLY ONE IN MODAL, PER MODAL, THAT GETS CREATED ONCE YOU EXECUTE HTML() amd they all have the same id
+
+      if (toggleValue) {
+        // if ($( ".switch" ).hasClass( "move" )) {
+        //     console.log("hasclass true");
+        //  $(".switch").removeClass("move"); 
+        //     } 
+        //$(this).find(`.switch`).addClass("move");  
+         //$(`.switch:eq(${num})`).addClass("move");  
+         $(`#switchId${num}`).addClass("move");
         modalStatus = "Completed";
-     //    $("#completedAtRow").show();
+        modalFinished = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+        $("#modalFinished").html(modalFinished);
+  //      $("#completedAtRow").show();
       }
       else {
+        // if ($( ".switch" ).hasClass( "move" )) {
+        //     console.log("hasclass false");
+        // $(".switch").removeClass("move"); 
+        // }
+        //$(`.switch:eq(${num})`).removeClass("move"); 
+        //$(this).find(`.switch`).removeClass("move");  
+        $(`#switchId${num}`).removeClass("move");
         modalStatus = "Not Completed";
-        //$("#completedAtRow").hide();
+      //  modalFinished = '∅';
+   //     $("#completedAtRow").hide();
+   $("#modalFinished").html('<i class="fa fa-question-circle" style="font-size:24px"></i>');
+
       }
 
-      $("#completedAtRow").show();
-      modalFinished = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-
      $("#modalStatus").text(modalStatus);
-     $("#modalFinished").text(modalFinished);
       
-     toggleCounter++;
-     console.log("Counter value is: " + toggleCounter);
+    toggleCounter++;
 
-     combineValues(text, toggleValue[i], id, refresh);
+     combineValues(text, toggleValue, id, refresh);
 
 }
 
@@ -413,19 +412,21 @@ console.log("Counter value was: " +toggleCounter);
 
 // Open Modal
 
-function openModal(text, isCompleted, id, completedAt, i) {
+function openModal(text, isCompleted, id, completedAt, num) {
     modal.style.display = "flex";
-  
+
+ //   $(".switch").removeClass("move"); 
+
+    // if (completedAt == null) {
+    //     modalFinished = '/';
+    // } else {
+    //     modalFinished = completedAt;    
+    // }
+
     modalFinished = completedAt;
 
-    if (isCompleted) {
-        modalStatus = "Completed";
-        $("#completedAtRow").show();
-    }
-    else {
-        modalStatus = "Not Completed"; 
-        $("#completedAtRow").hide();
-    }
+ //   $(".switch").addClass("move");
+
 
 
 // Modal header
@@ -436,75 +437,148 @@ var mh = `
 <h3 class="modalTitle" style="text-align: center;
 display: block;
 margin: 0 auto;
-width: 100%; margin-top: 30px;">Update Todo</h3>
+width: 100%; margin-top: 10px;">Update Todo</h3>
 `;
 
 $(".modal-header").html(mh);
 
 // Modal Body
 
-var mb = ` 
-<br> 
-<div class="container bg-3 text-center">
+var mb;
+
+mb = `<div class="modalPause">  
+
+<h5 class="pauseDesc">NAME</h5>
+
+<div class="container bg-3 text-center" style="width: 768px;">
 <div class="row">
-<div class="col-sm-2"> </div>
-<div class="col-sm-8">
-<textarea id="textarea" rows=7 style="width: 100%; background: #232A32; border: 3px solid #007BFF; color: #FFF"></textarea>
+
+<div class="col-sm-3"> </div>
+
+<div class="col-sm-6">
+
+<textarea id="textarea" rows=5 style="width: 100%; background: #FFF; border: 2px solid #CCC; color: #000; margin-top: 4px;"></textarea>
+
     </div>
-    <br> <br>
-<div class="col-sm-2"> </div>
-</div>
-<div class="row" style="height: 70px; padding-top: 15px;">
-<div class="col-sm-4">
+
+   
+
+<div class="col-sm-3"> </div>
+
+        </div>
+
+</div>  
+ </div>  `;
+
+//  if (isCompleted) {
+//     modalFinished = completedAt;
+//     modalStatus = "Completed";
+//  //  $(".switch").addClass("move");
+// //        $("#completedAtRow").show();
+// }
+// else {
+//     modalFinished = '∅';
+//     modalStatus = "Not Completed"; 
+// //    $(".switch").removeClass("move");
+// //      $("#completedAtRow").hide();
+// }
+
+ mb+= ` 
+ <div class="modalPause">  
+
+<h5 class="pauseDesc" style="padding-left: 10px">DETAILS</h5>
+
+<div class="container bg-3 text-center" style="width: 768px; height: 85px; padding-bottom: 0px; margin-top: 10px;">
+
+<div class="row">
+
+<div class="col-sm-3"></div>
+
+<div class="col-sm-2">
 <p>Status:</p>
 </div>
-<div class="col-sm-4">
+
+<div class="col-sm-2">
 <p id="modalStatus">${modalStatus}</p>
 </div>
-<div class="col-sm-4">
-<button class="btn" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`, ${i})"></button>
+
+<div class="col-sm-2">
+    <div class="outer" style="margin-top: -7px" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`, ${num})" style="margin: 0 auto; text-align: center">
+        <div class="switch" id="switchId${num}"></div>
+    </div>
+
+    
+<div class="col-sm-3"></div>
+
+    </div>
+
 </div>
-</div>
-<div class="row" id="completedAtRow" style="height: 70px; padding-top: 15px;">
-<div class="col-sm-4">
+
+<div class="row" id="completedAtRow" style="padding-top: 15px;">
+
+<div class="col-sm-3"></div>
+
+<div class="col-sm-2">
 <p id="completeAtPar">Completed At:</p>
 </div>
-<div class="col-sm-4">
+
+
+<div class="col-sm-2">
 <p class="modalDetails" id="modalFinished">${modalFinished}</p>
 </div>
-<div class="col-sm-4">
+
+<div class="col-sm-5"></div>
+
+
 </div>
+
 </div>
+
+
 </div>
+
 `;
+
+//mb+=`<div style="height: 2px; width: 100%; background: blue"> </div>`
+
+
+
 
 $(".modal-body").html(mb);
 
-$("#toggleBtn").text(isCompleted);
+// if ($( ".switch" ).hasClass( "move" )) {
+//     console.log("hasclass true");
+//  $(".switch").removeClass("move"); 
+//     }
 
+if (isCompleted) {
+    modalFinished = completedAt;
+    modalStatus = "Completed";
+    $("#modalFinished").text(modalFinished)
+   $(".switch").addClass("move");
+//        $("#completedAtRow").show();
+}
+else {
+    modalFinished = '∅';
+    modalStatus = "Not Completed"; 
+    $(".switch").removeClass("move");
+    $("#modalFinished").html('<i class="fa fa-question-circle" style="font-size:24px"></i>');
+//      $("#completedAtRow").hide();
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// if (isCompleted) {
+//     $(".switch").addClass("move");
+// } else {
+//     $(".switch").removeClass("move");
+// }
 
 /* ADD TO (regarding todo.js) SERVER.JS 
+
 <script>
 function myFunction() {
+
 var d = new Date();
+
     var str = d.toString();
     
     var res = str.substr(4,20);
@@ -512,6 +586,7 @@ var d = new Date();
     document.getElementById("demo").innerHTML = res;
 }
 </script>
+
 */
 
 
@@ -534,8 +609,13 @@ var mf = `<button id="cancelBtn" class="modalBtns" onclick="closeModal(47, ${isC
    var modal = document.getElementById('myModal');
   
    function closeModal(text, isCompleted, id, refresh) {
-       toggleCounter = 0;
     $("#myModal").fadeOut();
+    if (!isCompleted) {
+       $(".switch").removeClass("move"); 
+    }
+    else {
+        $(".switch").addClass("move"); 
+    }
     // when you click cancel return to initial isComploted value (from DB), but don't refresh
     combineValues(text, isCompleted, id, refresh);
    }
@@ -547,4 +627,19 @@ var mf = `<button id="cancelBtn" class="modalBtns" onclick="closeModal(47, ${isC
 //          $("#myModal").fadeOut();       
 //        }
 //    }
+
+
+// $(".outer").click(function() {
+
+  
+
+  //  $(".switch").toggleClass("move");
    
+
+// });
+
+// function toggleBtnColor() {
+
+//     $(".switch").toggleClass("move");
+
+// }
