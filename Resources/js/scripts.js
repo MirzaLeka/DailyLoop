@@ -244,22 +244,6 @@ location.reload();
 
 }
 
-// ///////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* UPDATE ONE TODO */
 
@@ -311,38 +295,6 @@ function combineValues(text, isCompleted, id, refresh) {
 
 }
 
-
-// ///////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-/* dodati klasu kao string u bazu, proslijediti je kao paramear u openModal() i u modalu napisati toggleClass prosljedjenje klase */
-
-
-
-
-// if (toggleCounter == 0) {
-//     isCompleted = !isCompleted;;
-// } else {
-//     isCompleted = !isCompleted;
-// }
-
-
-
-    // if (isCompleted) {
-    //     toggleValue = false;
-    // } else {
-    //     toggleValue = true;
-    // }
-
-
-
-
-
-
   
 var modalStatus = "";
 var modalFinished = '';
@@ -351,60 +303,33 @@ var toggleValue = [];
 
 function completeInModal(text, isCompleted, id, refresh, completedAt, i) {
 
-    // console.log("Inside completeInModal: " + completedAt)
-    // console.log("Inside: isComplete: " + isCompleted);
-
-    console.log("\n");
-    console.log("\n");
-
-    console.log("Value of i is: " + i);
-
-console.log("isCompleted value was: " + isCompleted);
-console.log("Toggle value of " + i + " was: " + toggleValue[i]);
-console.log("Counter value was: " +toggleCounter);
-
-
     if (toggleCounter == 0) {
         toggleValue[i] = !isCompleted;
-        console.log("====================");
-        console.log("IF value of toggleValue of " + i + " is: " + toggleValue[i])
-        console.log("====================");
-
       }
       else {
         toggleValue[i] = !toggleValue[i];
-        console.log("====================");
-        console.log("ELSE value of toggleValue of " + i + " is: " + toggleValue[i])    
-        console.log("====================");
       }
-
-      console.log("isCompleted value is: " + isCompleted);
-      console.log("Toggle value of " + i + " is: " + toggleValue[i]);
     
-
       var d = new Date();
-
-    //  $("#toggleBtn").text(toggleValue[i]);
+      modalFinished = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
 
       if (toggleValue[i]) {
-        modalStatus = "Completed";
         $(".switchModal").addClass("moveModal");
-     //    $("#completedAtRow").show();
+        modalStatus = "Completed";
+        $("#modalFinished").text(modalFinished);
+  
       }
       else {
         modalStatus = "Not Completed";
         $(".switchModal").removeClass("moveModal");
-        //$("#completedAtRow").hide();
+        $("#modalFinished").html('<i class="fa fa-question-circle" style="font-size:24px"></i>');
+       
       }
 
-      $("#completedAtRow").show();
-      modalFinished = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-
      $("#modalStatus").text(modalStatus);
-     $("#modalFinished").text(modalFinished);
+
       
      toggleCounter++;
-     console.log("Counter value is: " + toggleCounter);
 
      combineValues(text, toggleValue[i], id, refresh);
 
@@ -422,11 +347,9 @@ function openModal(text, isCompleted, id, completedAt, i) {
 
     if (isCompleted) {
         modalStatus = "Completed";
-     //   $("#completedAtRow").show();
     }
     else {
         modalStatus = "Not Completed"; 
-      //  $("#completedAtRow").hide();
     }
 
 
@@ -438,80 +361,109 @@ var mh = `
 <h3 class="modalTitle" style="text-align: center;
 display: block;
 margin: 0 auto;
-width: 100%; margin-top: 30px;">Update Todo</h3>
+width: 100%; margin-top: 10px;">Update Todo</h3>
 `;
 
 $(".modal-header").html(mh);
 
 // Modal Body
 
-var mb = ` 
-<br> 
-<div class="container bg-3 text-center">
+mb = `<div class="modalPause">  
+
+<h5 class="pauseDesc">NAME</h5>
+
+<div class="container bg-3 text-center" style="width: 768px;">
 <div class="row">
-<div class="col-sm-2"> </div>
-<div class="col-sm-8">
-<textarea id="textarea" rows=7 style="width: 100%; background: #232A32; border: 3px solid #007BFF; color: #FFF"></textarea>
+
+<div class="col-sm-3"> </div>
+
+<div class="col-sm-6">
+
+<textarea id="textarea" rows=5 style="width: 100%; background: #FFF; border: 2px solid #CCC; color: #000; margin-top: 4px; resize: none;"></textarea>
+
     </div>
-    <br> <br>
-<div class="col-sm-2"> </div>
-</div>
-<div class="row" style="height: 70px; padding-top: 15px;">
-<div class="col-sm-4">
+
+   
+<div class="col-sm-3"> </div>
+
+        </div>
+
+</div>  
+ </div>  `;
+
+ /////////////////////////////////////
+
+ mb+= ` 
+ <div class="modalPause">  
+
+<h5 class="pauseDesc" style="padding-left: 10px">DETAILS</h5>
+
+<div class="container bg-3 text-center" style="width: 768px; height: 85px; padding-bottom: 0px; margin-top: 10px;">
+
+<div class="row">
+
+<div class="col-sm-3"></div>
+
+<div class="col-sm-2">
 <p>Status:</p>
 </div>
-<div class="col-sm-4">
+
+<div class="col-sm-2">
 <p id="modalStatus">${modalStatus}</p>
 </div>
-<div class="col-sm-4">
 
-<div class="outerModal" style="margin-top: -7px" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`, ${i})" style="margin: 0 auto; text-align: center">
+<div class="col-sm-2">
+
+<div class="outerModal" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`, ${i})" style="margin: 0 auto; text-align: center">
 <div class="switchModal"></div>
 
+</div>
+
+    
+<div class="col-sm-3"></div>
+
+    </div>
 
 </div>
-</div>
-<div class="row" id="completedAtRow" style="height: 70px; padding-top: 15px;">
-<div class="col-sm-4">
+
+<div class="row" style="padding-top: 15px;">
+
+<div class="col-sm-3"></div>
+
+<div class="col-sm-2">
 <p id="completeAtPar">Completed At:</p>
 </div>
-<div class="col-sm-4">
+
+
+<div class="col-sm-2">
 <p class="modalDetails" id="modalFinished">${modalFinished}</p>
 </div>
-<div class="col-sm-4">
+
+<div class="col-sm-5"></div>
+
+
 </div>
+
 </div>
+
+
 </div>
+
 `;
+
+
 
 $(".modal-body").html(mb);
 
-//$("#toggleBtn").text(isCompleted);
-
 if (isCompleted) {
-    $(".switchModal").addClass("moveModal");
     modalStatus = "Completed";
+    $(".switchModal").addClass("moveModal");
+    $("#modalFinished").text(modalFinished)
 } else {
     modalStatus = "Not Completed";
     $(".switchModal").removeClass("moveModal");
+    $("#modalFinished").html('<i class="fa fa-question-circle" style="font-size:24px"></i>');
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* ADD TO (regarding todo.js) SERVER.JS 
@@ -541,7 +493,6 @@ var mf = `<button id="cancelBtn" class="modalBtns" onclick="closeModal(47, ${isC
 
    }
 
-
    // Close Modal
 
    var modal = document.getElementById('myModal');
@@ -552,12 +503,4 @@ var mf = `<button id="cancelBtn" class="modalBtns" onclick="closeModal(47, ${isC
     // when you click cancel return to initial isComploted value (from DB), but don't refresh
     combineValues(text, isCompleted, id, refresh);
    }
-   
-
-   // Close modal when you click anywhere on window
-//    window.onclick = sameer(event) {
-//        if (event.target == modal) {
-//          $("#myModal").fadeOut();       
-//        }
-//    }
    
