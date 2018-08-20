@@ -1,5 +1,4 @@
-
-   $(document).ready(function() {
+$(document).ready(function() {
 
     getTodos()
 
@@ -71,10 +70,14 @@ list += `<div class="container todoContainer">
  <button class="btn todoBtn" title="Update Todo" onclick="openModal(\`` + text + `\`, ${data.todos[i].completed},\`` + id + `\`,\`` + data.todos[i].completedAt + `\`, ${i})"><i class="fa fa-pencil" aria-hidden="true"></i></button>
  </div>
  <div class="col-sm-4 todoBtnCol">
-         <div class="btn todoBtn" title="Complete Todo" onclick='completeTodo(${data.todos[i].completed},\`` + id + `\`)'><i class="fa fa-check" aria-hidden="true"></i></div>    
+ 
+ <div class="outer" title="Complete Todo" onclick='completeTodo(${data.todos[i].completed},\`` + id + `\`, ${i})'>
+ <div class="switch"></div>
+ </div>
+
   </div>        
 <div class="col-sm-4 todoBtnCol">
-   <button class="btn todoBtn" title="Remove Todo" onclick="getTitle(${i})"><i class="fa fa-times" aria-hidden="true"></i></button>
+   <button class="btn todoBtn" title="Remove Todo" id="removeTodoBtn" onclick="getTitle(${i})"><i class="fa fa-times" aria-hidden="true"></i></button>
          </div>
     </div>
          
@@ -84,6 +87,19 @@ list += `<div class="container todoContainer">
 }
 
 $("#listOfTodos").append(list);
+
+/* once text is added we can toggle the class with counter from another for loop */
+for (var i = 0; i <  data.todos.length; i++) {
+
+    if (data.todos[i].completed) {
+        $(`.switch:eq(${i})`).addClass("move");
+     }
+     else {
+         $(`.switch:eq(${i})`).removeClass("move");
+     }
+     
+}
+
 
  }
 
@@ -215,12 +231,14 @@ function adjustString(str) {
 
 /* COMPLETE TODO */
 
-function completeTodo(isCompleted, someId) {
+function completeTodo(isCompleted, someId, i) {
 
  if (isCompleted) {
      isCompleted = false;
+     $(`.switch:eq(${i})`).removeClass("move");
  } else {
      isCompleted = true;
+     $(`.switch:eq(${i})`).addClass("move");
  }
 
 var data = {
@@ -369,25 +387,16 @@ $(".modal-header").html(mh);
 // Modal Body
 
 mb = `<div class="modalPause">  
-
 <h5 class="pauseDesc">NAME</h5>
-
 <div class="container bg-3 text-center" style="width: 768px;">
 <div class="row">
-
 <div class="col-sm-3"> </div>
-
 <div class="col-sm-6">
-
 <textarea id="textarea" rows=5 style="width: 100%; background: #FFF; border: 2px solid #CCC; color: #000; margin-top: 4px; resize: none;"></textarea>
-
     </div>
-
    
 <div class="col-sm-3"> </div>
-
         </div>
-
 </div>  
  </div>  `;
 
@@ -395,60 +404,36 @@ mb = `<div class="modalPause">
 
  mb+= ` 
  <div class="modalPause">  
-
 <h5 class="pauseDesc" style="padding-left: 10px">DETAILS</h5>
-
 <div class="container bg-3 text-center" style="width: 768px; height: 85px; padding-bottom: 0px; margin-top: 10px;">
-
 <div class="row">
-
 <div class="col-sm-3"></div>
-
 <div class="col-sm-2">
 <p>Status:</p>
 </div>
-
 <div class="col-sm-2">
 <p id="modalStatus">${modalStatus}</p>
 </div>
-
 <div class="col-sm-2">
-
 <div class="outerModal" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`, ${i})" style="margin: 0 auto; text-align: center">
 <div class="switchModal"></div>
-
 </div>
-
     
 <div class="col-sm-3"></div>
-
     </div>
-
 </div>
-
 <div class="row" style="padding-top: 15px;">
-
 <div class="col-sm-3"></div>
-
 <div class="col-sm-2">
 <p id="completeAtPar">Completed At:</p>
 </div>
-
-
 <div class="col-sm-2">
 <p class="modalDetails" id="modalFinished">${modalFinished}</p>
 </div>
-
 <div class="col-sm-5"></div>
-
-
 </div>
-
 </div>
-
-
 </div>
-
 `;
 
 
