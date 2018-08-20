@@ -152,6 +152,28 @@ h1 {
   transform: translateX(40px);
   background: #007BFF; }
 
+.outerModal {
+  height: 35px;
+  width: 75px;
+  border-radius: 40px;
+  border: 2px solid #111;
+  position: relative;
+  cursor: pointer;
+  background: #232A32; }
+
+.switchModal {
+  height: 31px;
+  width: 31px;
+  background: #DDD;
+  border-radius: 50%;
+  position: absolute;
+  left: 0%;
+  transition: transform .2s linear; }
+
+.moveModal {
+  transform: translateX(40px);
+  background: #007BFF; }
+
 /* Modal */
 .modal {
   display: none;

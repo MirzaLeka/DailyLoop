@@ -384,14 +384,16 @@ console.log("Counter value was: " +toggleCounter);
 
       var d = new Date();
 
-      $("#toggleBtn").text(toggleValue[i]);
+    //  $("#toggleBtn").text(toggleValue[i]);
 
       if (toggleValue[i]) {
         modalStatus = "Completed";
+        $(".switchModal").addClass("moveModal");
      //    $("#completedAtRow").show();
       }
       else {
         modalStatus = "Not Completed";
+        $(".switchModal").removeClass("moveModal");
         //$("#completedAtRow").hide();
       }
 
@@ -420,11 +422,11 @@ function openModal(text, isCompleted, id, completedAt, i) {
 
     if (isCompleted) {
         modalStatus = "Completed";
-        $("#completedAtRow").show();
+     //   $("#completedAtRow").show();
     }
     else {
         modalStatus = "Not Completed"; 
-        $("#completedAtRow").hide();
+      //  $("#completedAtRow").hide();
     }
 
 
@@ -462,7 +464,11 @@ var mb = `
 <p id="modalStatus">${modalStatus}</p>
 </div>
 <div class="col-sm-4">
-<button class="btn" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`, ${i})"></button>
+
+<div class="outerModal" style="margin-top: -7px" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`, ${i})" style="margin: 0 auto; text-align: center">
+<div class="switchModal"></div>
+
+
 </div>
 </div>
 <div class="row" id="completedAtRow" style="height: 70px; padding-top: 15px;">
@@ -480,8 +486,15 @@ var mb = `
 
 $(".modal-body").html(mb);
 
-$("#toggleBtn").text(isCompleted);
+//$("#toggleBtn").text(isCompleted);
 
+if (isCompleted) {
+    $(".switchModal").addClass("moveModal");
+    modalStatus = "Completed";
+} else {
+    modalStatus = "Not Completed";
+    $(".switchModal").removeClass("moveModal");
+}
 
 
 
