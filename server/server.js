@@ -39,16 +39,32 @@ app.use("/Resources", express.static(__dirname + '/../Resources'));
 
 /* Routing */
 
+var d = new Date();
+var str = d.toString();
+str = str.substr(4,20);
+
+
 app.post('/todos', (req, res) => {
 
+
+//   var todo = new Todo({
+//     text: req.body.text
+//   });
+
+// res.send({
+//   type: "POST",
+//   text: req.body.text,
+//   createdAt: d
+// });
+
   var todo = new Todo({
-    text: req.body.text
+    text: req.body.text,
+    createdAt: str
   });
 
   todo.save().then((doc) => {
     res.send(doc);
   }, (e) => {
-    // res.send(e);
     res.status(400).send(e);
   });
 });
@@ -117,8 +133,7 @@ app.patch('/todos/:id', (req, res) => {
   // if completed is boolean and is completed then give date of completion to completeAt (remove null)
   if (_.isBoolean(body.completed) && body.completed) {
     
-    var d = new Date();
-    body.completedAt = "" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(); 
+    body.completedAt = str; 
     body.completedAtTimestamp = d.getTime();
 
   } else {

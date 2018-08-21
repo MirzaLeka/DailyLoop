@@ -19,6 +19,9 @@ var Todo = mongoose.model('Todo', {
         type: String, 
         default: null  
     },
+    createdAt: {
+        type: String
+    },
     completedAtTimestamp: {
         type: Number,
         default: null

@@ -44,7 +44,7 @@ if (data.todos[i].text.length > 50) {
 
 if (data.todos[i].completed) {
  status = "Completed";
- finished = "Completed At: " + data.todos[i].completedAt;
+ finished = "Completed At: " + data.todos[i].completedAt.substr(12,8);
 }
 else {
  status = "Not completed";
@@ -67,7 +67,7 @@ list += `<div class="container todoContainer">
         </div>
     <div class="col-sm-3" style="height: 105px;"> 
     <div class="col-sm-4 todoBtnCol">
- <button class="btn todoBtn" title="Update Todo" onclick="openModal(\`` + text + `\`, ${data.todos[i].completed},\`` + id + `\`,\`` + data.todos[i].completedAt + `\`, ${i})"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+ <button class="btn todoBtn" title="Update Todo" onclick="openModal(\`` + text + `\`, ${data.todos[i].completed},\`` + id + `\`,\`` + data.todos[i].completedAt + `\`, ${i}, \`` + data.todos[i].createdAt + `\`)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
  </div>
  <div class="col-sm-4 todoBtnCol">
  
@@ -327,9 +327,14 @@ function completeInModal(text, isCompleted, id, refresh, completedAt, i) {
       else {
         toggleValue[i] = !toggleValue[i];
       }
-    
+
+      // if it's not completed (and clicked on update) it will not show time from completedAt var (because it's not complete)
+      // so i'm using modalFinished var to create new Date & time
+
       var d = new Date();
-      modalFinished = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+      var str = d.toString();
+      str = str.substr(4,20);
+      modalFinished = str;
 
       if (toggleValue[i]) {
         $(".switchModal").addClass("moveModal");
@@ -358,7 +363,7 @@ function completeInModal(text, isCompleted, id, refresh, completedAt, i) {
 
 // Open Modal
 
-function openModal(text, isCompleted, id, completedAt, i) {
+function openModal(text, isCompleted, id, completedAt, i, createdAt) {
     modal.style.display = "flex";
   
     modalFinished = completedAt;
@@ -422,17 +427,27 @@ mb = `<div class="modalPause">
 <div class="col-sm-3"></div>
     </div>
 </div>
+
 <div class="row" style="padding-top: 15px;">
+
 <div class="col-sm-3"></div>
+
 <div class="col-sm-2">
-<p id="completeAtPar">Completed At:</p>
+<p id="completeAtPar">Created   Completed:</p>
 </div>
+
+<div class="col-sm-2">
+<p class="modalDetails">${createdAt}</p>
+</div>
+
 <div class="col-sm-2">
 <p class="modalDetails" id="modalFinished">${modalFinished}</p>
 </div>
-<div class="col-sm-5"></div>
-</div>
-</div>
+
+<div class="col-sm-3"></div>
+
+        </div>
+    </div>
 </div>
 `;
 
