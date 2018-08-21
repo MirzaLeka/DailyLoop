@@ -269,6 +269,10 @@ function updateTodo(text, completed, id, refresh) {
 
     text = $("textarea").val();
 
+    // var d = new Date();
+    // var completedAt = d.toString();
+    // completedAt = completedAt.substr(4,20);
+
 var data = {
     text,
     completed

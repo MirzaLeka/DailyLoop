@@ -39,11 +39,6 @@ app.use("/Resources", express.static(__dirname + '/../Resources'));
 
 /* Routing */
 
-var d = new Date();
-var str = d.toString();
-str = str.substr(4,20);
-
-
 app.post('/todos', (req, res) => {
 
 
@@ -56,6 +51,10 @@ app.post('/todos', (req, res) => {
 //   text: req.body.text,
 //   createdAt: d
 // });
+
+  var d = new Date();
+  var str = d.toString();
+  str = str.substr(4,20);
 
   var todo = new Todo({
     text: req.body.text,
@@ -132,6 +131,10 @@ app.patch('/todos/:id', (req, res) => {
   
   // if completed is boolean and is completed then give date of completion to completeAt (remove null)
   if (_.isBoolean(body.completed) && body.completed) {
+
+    var d = new Date();
+    var str = d.toString();
+    str = str.substr(4,20);
     
     body.completedAt = str; 
     body.completedAtTimestamp = d.getTime();
