@@ -39,6 +39,10 @@ app.use("/Resources", express.static(__dirname + '/../Resources'));
 
 /* Routing */
 
+
+
+/* Post todo */
+
 app.post('/todos', (req, res) => {
 
 
@@ -69,7 +73,7 @@ app.post('/todos', (req, res) => {
 });
 
 
-
+/* Get all todos */
 
 app.get('/todos', (req, res) => {
   Todo.find().sort({completedAtTimestamp: 1}).then((todos) => {
@@ -80,7 +84,7 @@ app.get('/todos', (req, res) => {
 });
 
 
-
+/* Get todos by text */
 
 app.get("/todos/:text", (req, res) => {
 var text = req.params.text;
@@ -116,7 +120,7 @@ Todo.find({text}).then((todos) => {
 
 
 
-
+/* Šatch todo by id */
 
 app.patch('/todos/:id', (req, res) => {
 
@@ -160,42 +164,22 @@ app.patch('/todos/:id', (req, res) => {
   });
 
 
+/* Delete one todo by id */
 
+app.delete("/todos/:id", (req, res) => {
 
-// app.delete("/todos/:id", (req, res) => {
+  var id = req.params.id;
 
-//   var id = req.params.id;
-
-//   if (!ObjectID.isValid(id)) {
-//     return res.status(400).send("Invalid id");
-//   }
+  if (!ObjectID.isValid(id)) {
+    return res.status(400).send("Invalid id");
+  }
   
-//   Todo.findByIdAndRemove(id).then((todo) => {
-
-//     if (!todo) {
-//       return res.status(404).send("Todo not found");
-//     }
-
-//     res.send({todo});
-
-//   }).catch((e) => {
-//     res.status(400).send("Bad request");
-//   });
-
-// });
-
-
-
-app.delete("/todos/:text", (req, res) => {
-
-  var text = req.params.text;
-  
-  Todo.findOneAndRemove({text}).then((todo) => {
+  Todo.findByIdAndRemove(id).then((todo) => {
 
     if (!todo) {
       return res.status(404).send("Todo not found");
     }
-    
+
     res.send({todo});
 
   }).catch((e) => {
@@ -205,7 +189,7 @@ app.delete("/todos/:text", (req, res) => {
 });
 
 
-
+/* Delete all todos */
 
 app.delete("/todos", (req, res) => {
 
@@ -214,7 +198,7 @@ app.delete("/todos", (req, res) => {
 });
 
 
-
+/* Port */
 
 app.listen(3000, () => {
   console.log('Started on port 3000');

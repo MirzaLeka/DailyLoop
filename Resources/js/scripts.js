@@ -77,7 +77,7 @@ list += `<div class="container todoContainer">
 
   </div>        
 <div class="col-sm-4 todoBtnCol">
-   <button class="btn todoBtn" title="Remove Todo" id="removeTodoBtn" onclick="getTitle(${i})"><i class="fa fa-times" aria-hidden="true"></i></button>
+   <button class="btn todoBtn" title="Remove Todo" id="removeTodoBtn" onclick="deleteTodo(\`` + id + `\`)"><i class="fa fa-times" aria-hidden="true"></i></button>
          </div>
     </div>
          
@@ -166,36 +166,19 @@ $.ajax({
 
 /* DELETE TODO   */
 
-function getTitle(counter) {
-
-var todoTitle =  $(`.todoContainer:eq(${counter})`).find(`.title`).html();
+function deleteTodo(id) {
 
  $.ajax({
- url: '/todos/' + todoTitle,
+ url: '/todos/' + id,
  type: 'DELETE',
- success: function(result) {
+ success: function() {
  location.reload();
         }
     });
 
 }
 
-// /* DELETE TODO old way */
 
-// function deleteTodo() {
-
-//  var deleteText = $("#deleteText").val();
-
-//  deleteText = adjustString(deleteText);
-
-//  $.ajax({
-//  url: '/todos/' + deleteText,
-//  type: 'DELETE',
-//  success: function(result) {
-//  location.reload();
-//          }
-//     });
-// }
 
 /* DELETE ALL TODOS */
 
@@ -393,6 +376,7 @@ width: 100%; margin-top: 10px;">Update Todo</h3>
 
 $(".modal-header").html(mh);
 
+
 // Modal Body
 
 mb = `<div class="modalPause">  
@@ -409,7 +393,7 @@ mb = `<div class="modalPause">
 </div>  
  </div>  `;
 
- /////////////////////////////////////
+ // Body part 2
 
  mb+= ` 
  <div class="modalPause">  
@@ -468,20 +452,6 @@ if (isCompleted) {
     $(".switchModal").removeClass("moveModal");
     $("#modalFinished").html('<i class="fa fa-question-circle" style="font-size:24px"></i>');
 }
-
-
-/* ADD TO (regarding todo.js) SERVER.JS 
-<script>
-function myFunction() {
-var d = new Date();
-    var str = d.toString();
-    
-    var res = str.substr(4,20);
- 
-    document.getElementById("demo").innerHTML = res;
-}
-</script>
-*/
 
 
 // modal footer
