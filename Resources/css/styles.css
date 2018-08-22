@@ -246,6 +246,9 @@ h1 {
     background: #c6ced4;
     color: #6b6e73; }
 
+#textareaError {
+  color: red; }
+
 #cancelBtn {
   margin-right: 10px; }
 

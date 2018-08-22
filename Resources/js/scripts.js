@@ -250,7 +250,25 @@ location.reload();
 
 function updateTodo(text, completed, id, refresh) {
 
+    var errorCounter = 0;
+
     text = $("textarea").val();
+
+    if (text == '') {
+        $("#textareaError").show();
+        $("#textareaError").text("Todo must have at least one character");
+        errorCounter++;
+    }
+
+    // trim
+    // oninput pingpong?
+    // counnt spaces - pingpong?
+
+    else if (text.length > 1000) {
+        $("#textareaError").show();
+        $("#textareaError").text("Exceeded maximum number of characters (1000)");
+        errorCounter++;
+    }
 
     // var d = new Date();
     // var completedAt = d.toString();
@@ -261,7 +279,7 @@ var data = {
     completed
 };
 
-if (refresh) {
+if (refresh && errorCounter == 0) {
 
 $.ajax({
 url: "/todos/" + id,
@@ -288,6 +306,10 @@ function combineValues(text, isCompleted, id, refresh) {
 
     if (typeof(text) === 'string') {
         data.text = text;
+
+        // if (isCompleted != null) {
+        // data.completed = isCompleted;
+        // }
         refresh = true;
     }
 
@@ -385,7 +407,8 @@ mb = `<div class="modalPause">
 <div class="row">
 <div class="col-sm-3"> </div>
 <div class="col-sm-6">
-<textarea id="textarea" rows=5 style="width: 100%; background: #FFF; border: 2px solid #CCC; color: #000; margin-top: 4px; resize: none;"></textarea>
+<textarea id="textarea" oninput="oninputTextarea()" rows=5 style="width: 100%; background: #FFF; border: 2px solid #CCC; color: #000; margin-top: 4px; resize: none;"></textarea>
+<p id="textareaError"></p>
     </div>
    
 <div class="col-sm-3"> </div>
@@ -476,5 +499,14 @@ var mf = `<button id="cancelBtn" class="modalBtns" onclick="closeModal(47, ${isC
     $("#myModal").fadeOut();
     // when you click cancel return to initial isComploted value (from DB), but don't refresh
     combineValues(text, isCompleted, id, refresh);
+   }
+
+   
+   // oninput textarea
+
+   function oninputTextarea() {
+
+    $("#textareaError").hide();
+
    }
    
