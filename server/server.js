@@ -76,11 +76,28 @@ app.post('/todos', (req, res) => {
 /* Get all todos */
 
 app.get('/todos', (req, res) => {
-  Todo.find().sort({completedAtTimestamp: 1}).then((todos) => {
-    res.send({todos}); 
-  }, (e) => { 
-    res.status(400).send(e);
-  });
+
+  // var newText = 'Mirza';
+
+  // if (newText == null) {
+
+  //   Todo.find({text: /Mirza/}).sort({completedAtTimestamp: 1}).then((todos) => {
+  //     res.send({todos}); 
+  //   }, (e) => { 
+  //     res.status(400).send(e);
+  //   });
+
+  // } else {
+
+    Todo.find().sort({completedAtTimestamp: 1}).then((todos) => {
+      res.send({todos}); 
+    }, (e) => { 
+      res.status(400).send(e);
+    });
+
+  // }
+
+
 });
 
 

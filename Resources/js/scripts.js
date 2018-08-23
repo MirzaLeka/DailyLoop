@@ -254,6 +254,8 @@ function updateTodo(text, completed, id, refresh) {
 
     text = $("textarea").val();
 
+    text = text.trim();
+
     if (text == '') {
         $("#textareaError").show();
         $("#textareaError").text("Todo must have at least one character");
