@@ -74,7 +74,6 @@ list += `<div class="container todoContainer">
  <div class="outer" title="Complete Todo" onclick='completeTodo(${data.todos[i].completed},\`` + id + `\`, ${i})'>
  <div class="switch"></div>
  </div>
-
   </div>        
 <div class="col-sm-4 todoBtnCol">
    <button class="btn todoBtn" title="Remove Todo" id="removeTodoBtn" onclick="deleteTodo(\`` + id + `\`)"><i class="fa fa-times" aria-hidden="true"></i></button>
@@ -262,10 +261,6 @@ function updateTodo(text, completed, id, refresh) {
         errorCounter++;
     }
 
-    // trim
-    // oninput pingpong?
-    // counnt spaces - pingpong?
-
     else if (text.length > 1000) {
         $("#textareaError").show();
         $("#textareaError").text("Exceeded maximum number of characters (1000)");
@@ -309,9 +304,12 @@ function combineValues(text, isCompleted, id, refresh) {
     if (typeof(text) === 'string') {
         data.text = text;
 
-        // if (isCompleted != null) {
-        // data.completed = isCompleted;
-        // }
+        if (  $(".switchModal").hasClass("moveModal") ) {
+            data.completed = true;
+        } else {
+            data.completed = false;
+        }
+     
         refresh = true;
     }
 
@@ -440,25 +438,18 @@ mb = `<div class="modalPause">
 <div class="col-sm-3"></div>
     </div>
 </div>
-
 <div class="row" style="padding-top: 15px;">
-
 <div class="col-sm-3"></div>
-
 <div class="col-sm-2">
 <p id="completeAtPar">Created   Completed:</p>
 </div>
-
 <div class="col-sm-2">
 <p class="modalDetails">${createdAt}</p>
 </div>
-
 <div class="col-sm-2">
 <p class="modalDetails" id="modalFinished">${modalFinished}</p>
 </div>
-
 <div class="col-sm-3"></div>
-
         </div>
     </div>
 </div>
@@ -511,4 +502,3 @@ var mf = `<button id="cancelBtn" class="modalBtns" onclick="closeModal(47, ${isC
     $("#textareaError").hide();
 
    }
-   
