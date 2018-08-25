@@ -63,6 +63,7 @@ app.post('/todos', (req, res) => {
   var todo = new Todo({
     text: req.body.text,
     createdAt: str
+
   });
 
   todo.save().then((doc) => {
@@ -89,6 +90,8 @@ app.get('/todos', (req, res) => {
 
   // } else {
 
+  //  Todo.createIndex( { subject: "text" } )
+
     Todo.find().sort({completedAtTimestamp: 1}).then((todos) => {
       res.send({todos}); 
     }, (e) => { 
@@ -103,34 +106,58 @@ app.get('/todos', (req, res) => {
 
 /* Get todos by text */
 
-app.get("/todos/:text", (req, res) => {
-var text = req.params.text;
+app.get("/todos/:text/:completed/:limit", (req, res) => {
+var text1 = req.params.text;
+var getCompleted = req.params.completed;
+var limit = req.params.limit;
+
+console.log(limit);
+
+var isCompleted;
+
+if (getCompleted == "Completed") {
+  isCompleted = true;
+}
+else if (getCompleted == "Not completed") {
+  isCompleted = false;
+}
+else {
+  isCompleted = '';
+}
+
+// ? optional char if no one enters text and clicks SEARCH
+// by default search for first item in array
+// if todos array is empty alert user that there is nothing in db  -- or if there is no such item
+// maybe just print paragraph instead of alert
+
+
+if ( typeof(isCompleted) === 'boolean' ) {
+
+  Todo.find( { text: text1, completed: isCompleted } ).limit(Number(limit)).then((todos) => {
+    res.send({todos}); 
+  }, (e) => { 
+    res.status(400).send(e);
+  });
+  
+
+} else {
+
+  Todo.find( { text: text1 } ).limit(Number(limit)).then((todos) => {
+    res.send({todos}); 
+  }, (e) => { 
+    res.status(400).send(e);
+  });
+  
+
+}
+
+//TodoApp.todos.createIndex( { name: "text" } );
+
+// { $text: { $search: text1 } }
 
 //res.send(getText);
 
-Todo.find({text}).then((todos) => {
-  res.send({todos}); 
-}, (e) => { 
-  res.status(400).send(e);
-});
 
-
-
-// if (!ObjectID.isValid(id)) {
-//  return res.status(400).send('Id is not valid'); 
-// }
-
-// Todo.findById(id).then(todo => {
-//   if (!todo) {
-//      return res.status(404).send("Id not found");
-//    }
-//   res.send({todo}); // if all went well we're getting desired todo
-
-//   }).catch(e => {
-//   if (e) {
-//     return res.status(400).send("Something went wrong");
-//     }
-//  });
 
 });
 
@@ -144,7 +171,7 @@ app.patch('/todos/:id', (req, res) => {
   var id = req.params.id;
   
   // values we want to change are in array
-  var body = _.pick(req.body, ['text', 'completed']); //what user can edit. Make a Patch with text/compled/completedAt and write it in here. maybe the same for timestamp?
+  var body = _.pick(req.body, ['text', 'completed', 'someNew']); //what user can edit. Make a Patch with text/compled/completedAt and write it in here. maybe the same for timestamp?
   
   if (!ObjectID.isValid(id)) {
    return res.status(400).send('Id is not valid'); 

@@ -10,7 +10,9 @@ var Todo = mongoose.model('Todo', {
         required: true,
         minlength: 1,
         maxlength: 1000,
-        trim: true 
+        trim: true,
+        index: true
+        // tags: { type: [String], index: true }
     },
     completed: {
         type: Boolean, 
@@ -26,9 +28,20 @@ var Todo = mongoose.model('Todo', {
     completedAtTimestamp: {
         type: Number,
         default: null
+    },
+    someNew: {
+        type: String,
+        default: null
     }
 }); 
 
+//Todo.index({text: "text"});
+
+//  Todo.createIndexes({ text: "text" });
+
+// Todo.ensureIndexes(function (err) {
+//     if (err) return handleError(err);
+//   });
 
 module.exports = {Todo}; // We'll export our Todo to a file w need it in
 

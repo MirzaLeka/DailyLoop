@@ -27,19 +27,58 @@
         <input class="insertTodoForm" autofocus placeholder="Search Todos" type="text" id="text"/> 
         <button class="insertTodoBtn" onclick="search()">Search</button>
     </div>
+
+    <select id="filterCompleted">
+        <option value="both" selected>Both</option>
+        <option value="completed">Completed</option>
+        <option value="not completed">Not completed</option>
+      </select>
+
+      <br>
+
+      <select id="limitResults">
+        <option value="5" selected>5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+      </select>
+
+      <br> <br>
+
+    <h5 style="color: white;">
+
+
+    </h5>
     
 
     <script>
     
+// ADD ADJUST STRING!!!
+
     function search() {
 
       var text = $("input").val();
 
+     // console.log($("select option:selected"));
+
+    //  console.log(   $('select').find(":selected").text()  );
+
+    var selected =  $('#filterCompleted').find(":selected").text();
+
+    var limit = $('#limitResults').find(":selected").text();
+
       $.ajax({
         type: "GET",
-        url: "/todos/" + text,
+        url: "/todos/" + text + "/" + selected + "/" + limit,
         success: function (data) {
           console.log(data);
+          var li = '';
+
+          for (var i = 0; i < data.todos.length; i++) {
+            li+= `<li>Text: ${data.todos[i].text}, Completed: ${data.todos[i].completed}</li>`;
+          }
+
+          $("h5").html(li);
+
         }
       })
 

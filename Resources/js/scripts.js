@@ -125,9 +125,8 @@ function submit() {
 
 var data = {
  "text": text
+// "someNew": 141
 }
-
-
 
 $.ajax({
  type: "POST",
@@ -223,8 +222,13 @@ function completeTodo(isCompleted, someId, i) {
      $(`.switch:eq(${i})`).addClass("move");
  }
 
+//  var d = new Date();
+//  var str = d.toString();
+//  str = str.substr(4,20);
+
 var data = {
  completed: isCompleted
+//  someNew: str
 };
 
 
@@ -271,9 +275,16 @@ function updateTodo(text, completed, id, refresh) {
     // var completedAt = d.toString();
     // completedAt = completedAt.substr(4,20);
 
+//////////////
+
+    // var d = new Date();
+    // var str = d.toString();
+    // str = str.substr(4,20);
+
 var data = {
     text,
     completed
+    // someNew: str
 };
 
 if (refresh && errorCounter == 0) {
