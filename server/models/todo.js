@@ -1,18 +1,13 @@
 var mongoose = require('mongoose'); // we are not importing mongose jjs fie. we are just requiring regular mongoose library.
+// var Schema = mongoose.Schema;
 
-/* Connection to DB  ==> This is in mongoose.js file now */
-// mongoose.Promise = global.Promise; 
-// mongoose.connect('mongodb://localhost:27017/TodoApp'); 
-
-var Todo = mongoose.model('Todo', {
+var Todo = new mongoose.Schema({
     text: {
         type: String,
         required: true,
         minlength: 1,
         maxlength: 1000,
-        trim: true,
-        index: true
-        // tags: { type: [String], index: true }
+        trim: true
     },
     completed: {
         type: Boolean, 
@@ -39,24 +34,9 @@ var Todo = mongoose.model('Todo', {
     }
 }); 
 
-//Todo.index({text: "text"});
 
-//  Todo.createIndexes({ text: "text" });
+  Todo.index({'text.type': 'text'});
 
-// Todo.ensureIndexes(function (err) {
-//     if (err) return handleError(err);
-//   });
-
-module.exports = {Todo}; // We'll export our Todo to a file w need it in
-
-/* Saving todos with Mongoose => This is in a different file now */
-
-// var newTodo = new Todo({
-//     text: "Charge phone"
-// });
-
-// newTodo.save().then((doc) => {
-//     console.log("Saved todo", doc);
-// }, (e) => {
-//     console.log("Unable to save todo");
-// });
+  mongoose.model('Todo', Todo);
+  
+  module.exports = mongoose.model('Todo');

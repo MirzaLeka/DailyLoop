@@ -3,7 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var {mongoose} = require('./db/mongoose');
-var {Todo} = require('./models/todo');
+var Todo = require('./models/todo');
 var {User} = require('./models/user');
 const {ObjectID} = require('mongodb');
 
@@ -45,17 +45,6 @@ app.use("/Resources", express.static(__dirname + '/../Resources'));
 
 app.post('/todos', (req, res) => {
 
-
-//   var todo = new Todo({
-//     text: req.body.text
-//   });
-
-// res.send({
-//   type: "POST",
-//   text: req.body.text,
-//   createdAt: d
-// });
-
   var d = new Date();
   var str = d.toString();
   str = str.substr(4,20);
@@ -75,23 +64,10 @@ app.post('/todos', (req, res) => {
 });
 
 
+
 /* Get all todos */
 
 app.get('/todos', (req, res) => {
-
-  // var newText = 'Mirza';
-
-  // if (newText == null) {
-
-  //   Todo.find({text: /Mirza/}).sort({completedAtTimestamp: 1}).then((todos) => {
-  //     res.send({todos}); 
-  //   }, (e) => { 
-  //     res.status(400).send(e);
-  //   });
-
-  // } else {
-
-  //  Todo.createIndex( { subject: "text" } )
 
     Todo.find().sort({completedAtTimestamp: 1}).then((todos) => {
       res.send({todos}); 
@@ -99,10 +75,9 @@ app.get('/todos', (req, res) => {
       res.status(400).send(e);
     });
 
-  // }
-
 
 });
+
 
 
 /* Get todos by text */
@@ -159,9 +134,11 @@ if (sort == "Date created") {
 
 } else {
 
+  // {$text: {$search: searchString}}
+
   if (sort == "Date created") {
 
-    Todo.find({ text: text1 }).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
+    Todo.find( {$text: {$search: text1}} ).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
       res.send({todos}); 
     }, (e) => { 
       res.status(400).send(e);
@@ -169,7 +146,7 @@ if (sort == "Date created") {
   
   } else {
   
-    Todo.find({ text: text1 }).sort({completedAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
+    Todo.find( {$text: {$search: text1}} ).sort({completedAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
       res.send({todos}); 
     }, (e) => { 
       res.status(400).send(e);
