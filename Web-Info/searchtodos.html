@@ -28,6 +28,13 @@
         <button class="insertTodoBtn" onclick="search()">Search</button>
     </div>
 
+    <br>
+
+
+    <p style="color: white">Status</p>
+
+    <br>
+
     <select id="filterCompleted">
         <option value="both" selected>Both</option>
         <option value="completed">Completed</option>
@@ -36,11 +43,28 @@
 
       <br>
 
+      <p style="color: white">Limit</p>
+
+      <br>
+
       <select id="limitResults">
-        <option value="5" selected>5</option>
+        <option value="0" selected>No limit</option>
+        <option value="1">1</option>
+        <option value="5">5</option>
         <option value="10">10</option>
         <option value="15">15</option>
+        <option value="15">20</option>
       </select>
+
+      <br>
+
+      <p style="color: white">Sort</p>
+
+      <select id="sortByDate">
+          <option value="created" selected>Date created</option>
+          <option value="completed">Date completed</option>
+        </select>
+  
 
       <br> <br>
 
@@ -56,19 +80,17 @@
 
     function search() {
 
-      var text = $("input").val();
+    let text = $("input").val();
 
-     // console.log($("select option:selected"));
+    let completed =  $('#filterCompleted').find(":selected").text();
 
-    //  console.log(   $('select').find(":selected").text()  );
+    let limit = $('#limitResults').find(":selected").text();
 
-    var selected =  $('#filterCompleted').find(":selected").text();
-
-    var limit = $('#limitResults').find(":selected").text();
+    let sort = $("#sortByDate").find(":selected").text();
 
       $.ajax({
         type: "GET",
-        url: "/todos/" + text + "/" + selected + "/" + limit,
+        url: `/todos/${text}/${completed}/${limit}/${sort}`,
         success: function (data) {
           console.log(data);
           var li = '';

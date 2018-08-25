@@ -62,7 +62,8 @@ app.post('/todos', (req, res) => {
 
   var todo = new Todo({
     text: req.body.text,
-    createdAt: str
+    createdAt: str,
+    createdAtTimestamp: d.getTime()
 
   });
 
@@ -106,12 +107,11 @@ app.get('/todos', (req, res) => {
 
 /* Get todos by text */
 
-app.get("/todos/:text/:completed/:limit", (req, res) => {
+app.get("/todos/:text/:completed/:limit/:sort", (req, res) => {
 var text1 = req.params.text;
 var getCompleted = req.params.completed;
 var limit = req.params.limit;
-
-console.log(limit);
+var sortValue = req.params.sort;
 
 var isCompleted;
 
@@ -130,10 +130,23 @@ else {
 // if todos array is empty alert user that there is nothing in db  -- or if there is no such item
 // maybe just print paragraph instead of alert
 
+if (limit == "No limit") {
+  limit = 0;
+}
+
+var sort;
+
+if (sortValue == "Date created") {
+sort = -1;
+
+} else {
+ sort = 1; 
+
+}
 
 if ( typeof(isCompleted) === 'boolean' ) {
 
-  Todo.find( { text: text1, completed: isCompleted } ).limit(Number(limit)).then((todos) => {
+  Todo.find( { text: text1, completed: isCompleted } ).sort({completedAtTimestamp: -1}).limit(Number(limit)).then((todos) => {
     res.send({todos}); 
   }, (e) => { 
     res.status(400).send(e);
@@ -142,7 +155,7 @@ if ( typeof(isCompleted) === 'boolean' ) {
 
 } else {
 
-  Todo.find( { text: text1 } ).limit(Number(limit)).then((todos) => {
+  Todo.find( { text: text1 } ).sort({completedAtTimestamp: -1}).limit(Number(limit)).then((todos) => {
     res.send({todos}); 
   }, (e) => { 
     res.status(400).send(e);
