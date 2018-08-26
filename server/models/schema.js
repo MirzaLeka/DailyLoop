@@ -1,14 +1,37 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+ 
+const { ObjectId } = mongoose.Schema.Types;
+ 
+const productSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    minlength: 3,
+    trim: true,
+  },
+  description: {
+    type: String,
+    trim: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
+});
 
-var schema = new Schema({
-    name: String,
-    email: String,
-    profile: {
-      something: String,
-      somethingElse: String
-    }
-  });
-  schema.index({name: 'text', 'profile.something': 'text'});
+productSchema.index({
+  name: 'text',
+  description: 'text',
+}, {
+  weights: {
+    name: 5,
+    description: 1,
+  },
+});
 
-  console.log("Hello world");
+console.log("Hello bbb!");
+
+const Product = mongoose.model('Product', productSchema);
+ 
+module.exports = Product;

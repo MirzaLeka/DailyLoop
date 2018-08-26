@@ -34,8 +34,10 @@ var Todo = new mongoose.Schema({
     }
 }); 
 
+Todo.index({    text: 'text'  });
 
-  Todo.index({'text.type': 'text'});
+
+// Todo.index({'text.type': 'text'});
 
   mongoose.model('Todo', Todo);
   

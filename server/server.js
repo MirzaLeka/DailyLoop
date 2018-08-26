@@ -110,11 +110,37 @@ if (limit == "No limit") {
 }
 
 
+
+// { $text: { $search: text1 } }
+
+//res.send(getText);
+
+// Todo.ensureIndexes(function (err) {
+//   if (err) return handleError(err);
+// });
+
+
+// Todo.find( { text : req.params.text  } ).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
+//   res.send({todos}); 
+// }, (e) => { 
+//   res.status(400).send(e);
+// });
+
+
+// var test = "^" + req.params.text + "$";
+
+
+var test =  req.params.text + "{1,}"
+
+var rec = new RegExp(test, "i");
+
+
+
 if ( typeof(isCompleted) === 'boolean' ) {
 
 if (sort == "Date created") {
 
-  Todo.find( { text: text1, completed: isCompleted } ).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
+  Todo.find( { text: rec, completed: isCompleted } ).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
     res.send({todos}); 
   }, (e) => { 
     res.status(400).send(e);
@@ -122,7 +148,7 @@ if (sort == "Date created") {
 
 } else {
 
-  Todo.find( { text: text1, completed: isCompleted } ).sort({completedAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
+  Todo.find( { text: rec, completed: isCompleted } ).sort({completedAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
     res.send({todos}); 
   }, (e) => { 
     res.status(400).send(e);
@@ -136,9 +162,13 @@ if (sort == "Date created") {
 
   // {$text: {$search: searchString}}
 
-  if (sort == "Date created") {
 
-    Todo.find( {$text: {$search: text1}} ).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
+  if (sort == "Date created") {
+  
+
+// console.log(test);
+
+  Todo.find( { text: rec } ).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
       res.send({todos}); 
     }, (e) => { 
       res.status(400).send(e);
@@ -146,7 +176,7 @@ if (sort == "Date created") {
   
   } else {
   
-    Todo.find( {$text: {$search: text1}} ).sort({completedAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
+    Todo.find( { text: rec }  ).sort({completedAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
       res.send({todos}); 
     }, (e) => { 
       res.status(400).send(e);
@@ -157,6 +187,8 @@ if (sort == "Date created") {
   
 
 }
+
+
 
 //TodoApp.todos.createIndex( { name: "text" } );
 
