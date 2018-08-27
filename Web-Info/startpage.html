@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My Todo App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- Bootstrap CSS script -->
+  <link rel="stylesheet" href="../Resources/scripts/bootstrap.css">
+  <!-- jQuery script -->
+  <script src="../Resources/scripts/jquery.js"></script>
+  <!-- Bootstrap JS script -->
+  <script src="../Resources/scripts/bootstrap.js"></script>
+  <!-- Font Awesome script -->
+  <script src="../Resources/scripts/fontawesome.js"></script>
+    
+</head>
+<body>
+
+    <div id="mainDiv">
+
+        <h1></h1>
+        <h3>Hello, User</h3>
+
+
+    </div>
+    
+<div style="height: 800px"></div>
+
+
+<style>
+
+    #mainDiv{        
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    background: url("../Resources/img/beachananas.jpeg") no-repeat center center;
+    width: 100%;
+    background-attachment: fixed;
+    overflow: hidden;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    }
+
+    h1, h3{
+        color: #FFF;
+    }
+
+</style>
+<script>
+
+$(document).ready(() => {
+
+startTime();
+
+});
+
+function startTime() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    
+    $("h1").html(h + ":" + m + ":" + s);
+
+    var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+    if (i < 10) {i = "0" + i}; 
+    return i;
+}
+
+</script>
+
+</body>
+</html>

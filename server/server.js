@@ -203,7 +203,7 @@ if (sort == "Date created") {
 
 
 
-/* Šatch todo by id */
+/* Patch todo by id */
 
 app.patch('/todos/:id', (req, res) => {
 
