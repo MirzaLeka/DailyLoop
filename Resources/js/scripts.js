@@ -92,6 +92,8 @@ for (var i = 0; i <  data.todos.length; i++) {
 
     if (data.todos[i].completed) {
         $(`.switch:eq(${i})`).addClass("move");
+        $(`.title:eq(${i})`).css({ "text-decoration": "line-through" });
+
      }
      else {
          $(`.switch:eq(${i})`).removeClass("move");

@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'); // we are not importing mongose jjs fie. we are just requiring regular mongoose library.
-// var Schema = mongoose.Schema;
+
 
 var Todo = new mongoose.Schema({
     text: {
@@ -34,10 +34,6 @@ var Todo = new mongoose.Schema({
     }
 }); 
 
-Todo.index({    text: 'text'  });
-
-
-// Todo.index({'text.type': 'text'});
 
   mongoose.model('Todo', Todo);
   

@@ -83,7 +83,7 @@ app.get('/todos', (req, res) => {
 /* Get todos by text */
 
 app.get("/todos/:text/:completed/:limit/:sort", (req, res) => {
-var text1 = req.params.text;
+
 var getCompleted = req.params.completed;
 var limit = req.params.limit;
 var sort = req.params.sort;
@@ -108,26 +108,6 @@ else {
 if (limit == "No limit") {
   limit = 0;
 }
-
-
-
-// { $text: { $search: text1 } }
-
-//res.send(getText);
-
-// Todo.ensureIndexes(function (err) {
-//   if (err) return handleError(err);
-// });
-
-
-// Todo.find( { text : req.params.text  } ).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
-//   res.send({todos}); 
-// }, (e) => { 
-//   res.status(400).send(e);
-// });
-
-
-// var test = "^" + req.params.text + "$";
 
 
 var test =  req.params.text + "{1,}"
@@ -182,19 +162,11 @@ if (sort == "Date created") {
       res.status(400).send(e);
     });
   
+     }
+  
+  
+
   }
-  
-  
-
-}
-
-
-
-//TodoApp.todos.createIndex( { name: "text" } );
-
-// { $text: { $search: text1 } }
-
-//res.send(getText);
 
 
 
