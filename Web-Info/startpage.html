@@ -19,8 +19,8 @@
 
     <div id="mainDiv">
 
-        <h1></h1>
-        <h3>Hello, User</h3>
+        <h1 id="clockTitle"></h1>
+        <h3 id="helloTitle">Hello  User</h3>
 
 
     </div>
@@ -30,24 +30,28 @@
 
 <style>
 
+
     #mainDiv{        
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     height: 100vh;
-    background: url("../Resources/img/beachananas.jpeg") no-repeat center center;
     width: 100%;
-    background-attachment: fixed;
-    overflow: hidden;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     }
 
-    h1, h3{
-        color: #FFF;
+    #clockTitle, #helloTitle{
+    -webkit-text-fill-color: white;
+   -webkit-text-stroke-width: 0.5px;
+   -webkit-text-stroke-color: black;
+    }
+
+    #clockTitle{
+        font-size: 60px;
+    }
+
+    #helloTitle {
+        font-size: 32px;
     }
 
 </style>
@@ -56,6 +60,7 @@
 $(document).ready(() => {
 
 startTime();
+changeBackgroundImg();
 
 });
 
@@ -67,13 +72,65 @@ function startTime() {
     m = checkTime(m);
     s = checkTime(s);
     
-    $("h1").html(h + ":" + m + ":" + s);
+    $("#clockTitle").html(h + ":" + m + ":" + s);
 
     var t = setTimeout(startTime, 500);
 }
 function checkTime(i) {
     if (i < 10) {i = "0" + i}; 
     return i;
+}
+
+
+let arrayOfBackgrounds = [
+    "../Resources/img/beachananas.jpeg",
+    "../Resources/img/beachshells.jpg",
+    "../Resources/img/bike.jpeg",
+    "../Resources/img/bottle.jpeg",
+    "../Resources/img/clouds.jpeg",
+    
+    "../Resources/img/docks.jpeg",
+    "../Resources/img/ferrari.jpeg",
+    "../Resources/img/forestroad.jpg",
+    "../Resources/img/glasses.jpeg",
+    "../Resources/img/guitar.jpg",
+    
+    "../Resources/img/headphones.jpeg",
+    "../Resources/img/jetengine.jpg",
+    "../Resources/img/kitten.jpeg",
+    "../Resources/img/raspberries.jpeg",
+    "../Resources/img/road.jpeg",
+    
+    "../Resources/img/rope.jpeg",
+    "../Resources/img/sandals.jpeg",
+    "../Resources/img/searocks.jpeg",
+    "../Resources/img/seastar.jpeg",
+    "../Resources/img/snow.jpeg",
+    
+    "../Resources/img/thunder.jpeg",
+    "../Resources/img/underwater.jpeg",
+    "../Resources/img/watch.jpeg",
+    "../Resources/img/wing.jpeg",
+    "../Resources/img/wolves.jpeg"
+];
+
+
+function changeBackgroundImg() {
+
+    var randImg = arrayOfBackgrounds[Math.floor(Math.random() * arrayOfBackgrounds.length)];
+
+    $("#mainDiv").css({
+        "background": `url('${randImg}')`,
+        "background-attachment": "fixed",
+        "overflow": "hidden",
+        "background-position": "center",
+        "background-repeat": "no-repeat",
+        "background-size": "cover",
+        "-webkit-background-size": "cover",
+        "-moz-background-size": "cover",
+        "-o-background-size": "cover"
+    });
+
 }
 
 </script>
