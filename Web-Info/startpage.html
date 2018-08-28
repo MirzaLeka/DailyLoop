@@ -22,6 +22,7 @@
         <h1 id="clockTitle"></h1>
         <h3 id="helloTitle">Hello  User</h3>
 
+        <input id="inputTitle" type="text" placeholder="What's today's plan?" autofocus/> <!-- will call submit() from scripts.js when you hit enter -->
 
     </div>
     
@@ -47,11 +48,33 @@
     }
 
     #clockTitle{
-        font-size: 60px;
+        font-size: 80px;
     }
 
     #helloTitle {
-        font-size: 32px;
+        font-size: 40px;
+    }
+
+    #inputTitle{
+        margin-top: 5%;
+        text-align: center;
+        background: transparent;
+        width: 25%;
+        color: #FFF;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        border-bottom: 2px solid #FFF;
+        height: 30px;
+        font-size: 25px;
+    }
+
+    #inputTitle::placeholder{
+        font-size: 25px;
+        color: #FFF;
+     /* -webkit-text-fill-color: white;
+   -webkit-text-stroke-width: 0.5px;
+   -webkit-text-stroke-color: black; */
     }
 
 </style>
@@ -71,6 +94,10 @@ function startTime() {
     var s = today.getSeconds();
     m = checkTime(m);
     s = checkTime(s);
+
+    if (h < 10) {
+        h = "0" + h;
+    }
     
     $("#clockTitle").html(h + ":" + m + ":" + s);
 
@@ -128,7 +155,8 @@ function changeBackgroundImg() {
         "background-size": "cover",
         "-webkit-background-size": "cover",
         "-moz-background-size": "cover",
-        "-o-background-size": "cover"
+        "-o-background-size": "cover",
+        "opacity": 0.9
     });
 
 }
