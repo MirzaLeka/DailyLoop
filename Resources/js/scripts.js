@@ -1,5 +1,14 @@
 $(document).ready(function() {
 
+     if (localStorage.getItem("scroll") != null) {
+        $(window).scrollTop(localStorage.getItem("scroll"));
+    }
+
+    $(window).on("scroll", function() {
+        localStorage.setItem("scroll", $(window).scrollTop());
+    });
+
+
     getTodos()
 
 });

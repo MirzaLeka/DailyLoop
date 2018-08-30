@@ -20,7 +20,7 @@
     <div id="mainDiv">
 
         <h1 id="clockTitle"></h1>
-        <h3 id="helloTitle">Hello  User</h3>
+        <h3 id="helloTitle">Hello &nbsp;Spy4er</h3>
 
        <div id="inputTItleContainer">
         <h4 id="questionsTitle"></h4>
@@ -33,6 +33,10 @@
     </div>
     
 <div style="height: 800px"></div>
+
+<div style="height: 800px; background: blue;"></div>
+
+<div style="height: 800px; background: red;"></div>
 
 
 <style>
@@ -68,6 +72,10 @@
         margin-top: 6%;
         width: 100%;
     }
+
+    #questionsTitle{
+        margin-bottom: 1.5%;
+    }
  
     #inputTitle{
         text-align: center;
@@ -80,7 +88,6 @@
         border-bottom: 2px solid #FFF;
         height: 30px;
         font-size: 25px;
-        margin-top: 1.5%;
     }
 
     #questionsTitle, #quoteTitle{
@@ -103,6 +110,16 @@
 <script>
 
 $(document).ready(() => {
+
+ if (localStorage.getItem("scroll") != null) {
+        $(window).scrollTop(localStorage.getItem("scroll"));
+    }
+
+    $(window).on("scroll", function() {
+        localStorage.setItem("scroll", $(window).scrollTop());
+    });
+
+
 
 startTime();
 changeBackgroundImg();
@@ -186,6 +203,10 @@ const arrayOfBackgrounds = [
 
 /*
 
+NEXT UPDATE: 
+- VALIDATIONS
+- ADD TODO NAME AND DESCRIPTION IN MODAL
+
 REPLACE ALL DOUBLE QUOTES IN TODO FOR MONGODB
 
 newTemp = mystring.replace(/"/g, "'");
@@ -193,6 +214,8 @@ or
 
 newTemp = mystring.replace(/"/g, '\'');
 
+
+AFTER THAT: DROPDOWN DESIGN
 */
 
 function changeBackgroundImg() {
