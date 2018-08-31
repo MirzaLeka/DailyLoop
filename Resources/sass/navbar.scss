@@ -1,6 +1,9 @@
+@import "styles.scss";
+
+
 .nav{
+    height: 100px;
     background: #222;
-    height: 7vh;
     position: sticky;
     position: -webkit-sticky;
     top: 0;
@@ -8,11 +11,12 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    padding: 20px 0 0 0;
 }
 
 .navbarUl{
     width: 50%;
+    position: absolute;
+    bottom: 1%;
 }
 
 .nav .navbarUl {
@@ -31,7 +35,7 @@
     color: white;
     cursor: pointer;
     position: relative;
-    padding: 0px 0 10px 0;
+    // padding: 0px 0 10px 0;
 
     &:hover{
         color: #DDD;
@@ -40,37 +44,16 @@
 
 .innerUl{
     display: none;
-    border: 1px solid black;
+    border: 1px solid #111;
     position: absolute;
     background: #222;
     margin: 0;
     padding: 0;  
     width: 120px; 
-    left: -16%;
-}
-
-.innerLi{
-    padding-top: 5px;
-    cursor: pointer;
-    float: none;
-    margin: 0;
-    display: block;  
-    border-bottom: 1px solid #333;
-    color: #FFF;
+    left: -10%;
     text-align: center;
-    height: 30px;
-
-    &:hover{
-        background: #444;
-    }
-
+    @include shadowBottom(0, 8px, 4px, -4px, #000);
 }
-
-.innerLi:last-child{
-    border-bottom: none;
-}
-
-
 
 
 /* Filter Search */ 
@@ -98,7 +81,7 @@
   
   #sortUl{
     display: none;
-    width: 100%;
+    width: 140px;
     height: 55px;
     padding: 0;
   }
@@ -116,11 +99,11 @@
   #limitUl{
     display: none;
     padding: 0;
+    width: 90px;
   }
   
   
   #limitLi{
-    margin-bottom: 20px;
     cursor: pointer;
     &:hover #limitUl{
       display: block;
@@ -185,5 +168,3 @@
       }
     }
   }
-  
-  
