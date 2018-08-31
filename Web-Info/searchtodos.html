@@ -29,38 +29,48 @@
         <button class="insertTodoBtn" onclick="search()">Search</button>
     </div>
 
-    <br>
 
-
-    <!-- <p style="color: white">Status</p>
-
-    <br> -->
-
-    <!-- <select id="filterCompleted">
-        <option value="both" selected>Both</option>
-        <option value="completed">Completed</option>
-        <option value="not completed">Not completed</option>
-      </select>
-
-      <br> -->
-
-      <p style="color: white">Limit</p>
-
-      <br>
-
-      <select id="limitResults">
-        <option value="0" selected>No limit</option>
-        <option value="1">1</option>
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="15">20</option>
-      </select>
-
-      <br>
+      <br>       <br>       <br>
 
   
 <ul style="background: white">
+
+
+  <!-- Limit results -->
+
+  <li id="limitLi">Limit &#9660
+      <ul id="limitUl">
+        <label class="radio">
+        <input class="limitRadio"  name="limit" type="radio" checked>
+        <span>No limit</span>
+      </label>
+      <label class="radio">
+        <input class="limitRadio" name="limit" type="radio">
+        <span>1</span>
+      </label>
+      <label class="radio">
+        <input class="limitRadio" name="limit" type="radio">
+        <span>5</span>
+      </label>
+      <label class="radio">
+        <input class="limitRadio" name="limit" type="radio">
+        <span>10</span>
+      </label>
+      <label class="radio">
+        <input class="limitRadio" name="limit" type="radio">
+        <span>15</span>
+        </label>
+        <label class="radio">
+         <input class="limitRadio" name="limit" type="radio">
+          <span>20</span>
+        </label>    
+    
+      </ul>
+    
+    </li>
+    
+
+  <!-- Display documents -->
 
 <li id="displayLi">Display &#9660
   <ul id="displayUl">
@@ -81,6 +91,9 @@
 
 </li>
 
+
+  <!-- Sort documents -->
+
 <li id="sortLi" style="padding: 20px;">Sort &#9660
 <ul id="sortUl">
     <label class="radio">
@@ -96,7 +109,6 @@
 
 </li>
 
-<li></li>
 
 </ul>
 
@@ -133,6 +145,15 @@
 
         /* Limit search */
 
+        let limit = "No limit";
+
+        $(".limitRadio").click(function() {
+
+        limit = $(this).parent(".radio").text();
+        limit = limit.trim();  
+      });
+
+
 
 
     function search() {
@@ -145,7 +166,7 @@
 
     // let completed =  $('#filterCompleted').find(":selected").text();
 
-    let limit = $('#limitResults').find(":selected").text();
+ //   let limit = $('#limitResults').find(":selected").text();
 
 
       $.ajax({

@@ -100,10 +100,6 @@ else {
   isCompleted = '';
 }
 
-// ? optional char if no one enters text and clicks SEARCH
-// by default search for first item in array
-// if todos array is empty alert user that there is nothing in db  -- or if there is no such item
-// maybe just print paragraph instead of alert
 
 if (limit == "No limit") {
   limit = 0;

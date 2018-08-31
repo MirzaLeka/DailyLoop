@@ -1,4 +1,4 @@
-/* Display design */
+/* Display results */
 #displayUl {
   display: none;
   width: 200px;
@@ -10,7 +10,7 @@
   #displayLi:hover #displayUl {
     display: block; }
 
-/* Sort design */
+/* Sort results */
 #sortUl {
   display: none;
   width: 150px;
@@ -22,7 +22,19 @@
   #sortLi:hover #sortUl {
     display: block; }
 
-/* Limit design */
+/* Limit results */
+#limitUl {
+  display: none;
+  width: 100px;
+  height: 120px;
+  padding: 0; }
+
+#limitLi {
+  margin-bottom: 20px;
+  cursor: pointer; }
+  #limitLi:hover #limitUl {
+    display: block; }
+
 /* Radio Button Design */
 .radio {
   display: block;
