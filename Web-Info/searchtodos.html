@@ -18,6 +18,7 @@
 
   <!-- Styles-->
   <link rel="stylesheet" type="text/css" href="../Resources/css/styles.css"/>
+  <link rel="stylesheet" type="text/css" href="../Resources/css/sortlist.css"/>
   
 </head>
 <body>
@@ -64,7 +65,34 @@
           <option value="created" selected>Date created</option>
           <option value="completed">Date completed</option>
         </select>
+
+        
+        <br>
+
   
+<ul style="background: white">
+
+<li>Status</li>
+
+<li id="hepek" style="padding: 20px;">Sort &#9660
+<ul style="width: 200px; height: 100px; margin: 0;" class="sortingUl">
+    <label class="radio">
+    <input name="radio" type="radio" checked>
+    <span>Date created</span>
+  </label>
+  <label class="radio">
+    <input name="radio" type="radio">
+    <span>Date completed</span>
+  </label>
+    
+  </ul>
+
+</li>
+
+<li></li>
+
+</ul>
+
 
       <br> <br>
 
@@ -72,15 +100,88 @@
 
 
     </h5>
+
+
+
+    <style>
+
+      .radio{
+        background: red;
+        padding: 0;
+        margin: 0;
+        border-bottom: 1px solid #111;
+      }
+
+      .sortingUl{
+        display: none;
+        border: 2px solid #111;
+      }
+
+      #hepek{
+        cursor: pointer;
+      }
     
+    #hepek:hover .sortingUl{
+      display: block;
+    }
+    
+    </style>
+
 
     <script>
+
+      let radio = 'Date created';
+
+// 
+
+
+      $("input[type='radio']").click(function() {
+  
+   //     if($("input[type='radio']").is(':checked')) { alert("it's checked"); }
+
+   console.log("Radio before: " + radio);
+
+  radio = $(this).parent(".radio").text();
+  radio = radio.trim();
+
+  console.log("Radio after: " + radio);
     
-// ADD ADJUST STRING!!!
+  });
+    
+// ADD ADJUST STRING!!
 
     function search() {
 
     let text = $("input").val();
+
+    if (text == '') {
+      return console.log("Enter text to complete the search");
+    }
+
+
+
+      console.log(radio);
+
+        //  if($("input[type='radio']").is(':checked')) {
+
+      //    var baby =  $("input[type='radio']").attr("checked", "checked");
+
+         //   var radio = $("input[checked]").parent(".radio").text();
+            
+        //    console.log(baby);
+            // }
+
+        //    if($("input[type='radio']").is(':checked')) { alert("it's checked"); }
+
+//var radio = $("input[type='radio']").is(':checked');
+
+// console.log(radio); // returns true
+
+// .parent(".radio").text();
+
+
+
+
 
     let completed =  $('#filterCompleted').find(":selected").text();
 
@@ -90,7 +191,7 @@
 
       $.ajax({
         type: "GET",
-        url: `/todos/${text}/${completed}/${limit}/${sort}`,
+        url: `/todos/${text}/${completed}/${limit}/${radio}`,
         success: function (data) {
           console.log(data);
           var li = '';
