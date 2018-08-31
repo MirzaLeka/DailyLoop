@@ -1,23 +1,44 @@
-label{
-  display: block; /* add this */
-  padding: 0;
-  border-bottom: 1px solid #111 !important;
-}
 
-.sortingUl{
+/* Display design */
+
+#displayUl{
   display: none;
+  width: 200px;
+  height: 90px;
+  padding: 0;
 }
 
-#hepek{
+
+#displayLi{
   cursor: pointer;
+  &:hover #displayUl{
+    display: block;
+  }
 }
 
-#hepek:hover .sortingUl{
-display: block;
+/* Sort design */
+
+#sortUl{
+  display: none;
+  width: 150px;
+  height: 90px;
+  padding: 0;
 }
 
 
-//////////////////
+#sortLi{
+  cursor: pointer;
+  &:hover #sortUl{
+    display: block;
+  }
+}
+
+/* Limit design */
+
+
+
+
+/* Radio Button Design */
 
 .radio{
   display: block;
@@ -29,6 +50,10 @@ display: block;
   padding-top: 5px;
   margin: 0;
 
+  &:hover{
+    background: lighten(#007BFF, 15%);
+    transition: all 1s;
+  }
 
   input{
     display: none;
@@ -71,17 +96,3 @@ display: block;
   }
 }
 
-label:hover{
-  background: lighten(#007BFF, 15%);
-  transition: all 1s;
-}
-
-
-
-.sortingUl{
-  background: #FFF;
-  margin: 20px auto;
- width: 110px;
-  height: 90px;
-  padding: 0;
-}

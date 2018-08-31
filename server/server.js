@@ -90,10 +90,10 @@ var sort = req.params.sort;
 
 var isCompleted;
 
-if (getCompleted == "Completed") {
+if (getCompleted == "Display completed") {
   isCompleted = true;
 }
-else if (getCompleted == "Not completed") {
+else if (getCompleted == "Display not completed") {
   isCompleted = false;
 }
 else {

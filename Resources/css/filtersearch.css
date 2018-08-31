@@ -1,18 +1,29 @@
-label {
-  display: block;
-  /* add this */
-  padding: 0;
-  border-bottom: 1px solid #111 !important; }
+/* Display design */
+#displayUl {
+  display: none;
+  width: 200px;
+  height: 90px;
+  padding: 0; }
 
-.sortingUl {
-  display: none; }
-
-#hepek {
+#displayLi {
   cursor: pointer; }
+  #displayLi:hover #displayUl {
+    display: block; }
 
-#hepek:hover .sortingUl {
-  display: block; }
+/* Sort design */
+#sortUl {
+  display: none;
+  width: 150px;
+  height: 90px;
+  padding: 0; }
 
+#sortLi {
+  cursor: pointer; }
+  #sortLi:hover #sortUl {
+    display: block; }
+
+/* Limit design */
+/* Radio Button Design */
 .radio {
   display: block;
   cursor: pointer;
@@ -21,6 +32,9 @@ label {
   text-align: left;
   padding-top: 5px;
   margin: 0; }
+  .radio:hover {
+    background: #4da3ff;
+    transition: all 1s; }
   .radio input {
     display: none; }
     .radio input + span {
@@ -56,15 +70,4 @@ label {
       opacity: 1;
       transform: scale(1, 1); }
 
-label:hover {
-  background: #4da3ff;
-  transition: all 1s; }
-
-.sortingUl {
-  background: #FFF;
-  margin: 20px auto;
-  width: 110px;
-  height: 90px;
-  padding: 0; }
-
-/*# sourceMappingURL=sortlist.css.map */
+/*# sourceMappingURL=filtersearch.css.map */

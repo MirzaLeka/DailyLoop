@@ -18,7 +18,7 @@
 
   <!-- Styles-->
   <link rel="stylesheet" type="text/css" href="../Resources/css/styles.css"/>
-  <link rel="stylesheet" type="text/css" href="../Resources/css/sortlist.css"/>
+  <link rel="stylesheet" type="text/css" href="../Resources/css/filtersearch.css"/>
   
 </head>
 <body>
@@ -32,17 +32,17 @@
     <br>
 
 
-    <p style="color: white">Status</p>
+    <!-- <p style="color: white">Status</p>
 
-    <br>
+    <br> -->
 
-    <select id="filterCompleted">
+    <!-- <select id="filterCompleted">
         <option value="both" selected>Both</option>
         <option value="completed">Completed</option>
         <option value="not completed">Not completed</option>
       </select>
 
-      <br>
+      <br> -->
 
       <p style="color: white">Limit</p>
 
@@ -62,16 +62,33 @@
   
 <ul style="background: white">
 
-<li>Status</li>
-
-<li id="hepek" style="padding: 20px;">Sort &#9660
-<ul style="width: 200px; height: 100px; margin: 0;" class="sortingUl">
+<li id="displayLi">Display &#9660
+  <ul id="displayUl">
     <label class="radio">
-    <input name="radio" type="radio" checked>
+    <input class="displayRadio"  name="display" type="radio" checked>
+    <span>Display all</span>
+  </label>
+  <label class="radio">
+    <input class="displayRadio" name="display" type="radio">
+    <span>Display completed</span>
+  </label>
+  <label class="radio">
+    <input class="displayRadio" name="display" type="radio">
+    <span>Display not completed</span>
+  </label>
+
+  </ul>
+
+</li>
+
+<li id="sortLi" style="padding: 20px;">Sort &#9660
+<ul id="sortUl">
+    <label class="radio">
+    <input class="sortRadio" name="sort" type="radio" checked>
     <span>Date created</span>
   </label>
   <label class="radio">
-    <input name="radio" type="radio">
+    <input class="sortRadio" name="sort" type="radio">
     <span>Date completed</span>
   </label>
     
@@ -94,24 +111,29 @@
 
     <script>
 
-      /* Change status */
+      /* Display documents */
+
+      let display = "Display all";
+
+      $(".displayRadio").click(function() {
+
+      display = $(this).parent(".radio").text();
+      display = display.trim();  
+  });
 
       /* Sort documents */
 
       let sort = 'Date created';
 
-      $("input[type='radio']").click(function() {
+      $(".sortRadio").click(function() {
 
       sort = $(this).parent(".radio").text();
-      sort = sort.trim();
-
-      /* Limit search */
-
-
-    
+      sort = sort.trim();  
   });
-    
-// ADD ADJUST STRING!!
+
+        /* Limit search */
+
+
 
     function search() {
 
@@ -121,14 +143,14 @@
       return console.log("Enter text to complete the search");
     }
 
-    let completed =  $('#filterCompleted').find(":selected").text();
+    // let completed =  $('#filterCompleted').find(":selected").text();
 
     let limit = $('#limitResults').find(":selected").text();
 
 
       $.ajax({
         type: "GET",
-        url: `/todos/${text}/${completed}/${limit}/${sort}`,
+        url: `/todos/${text}/${display}/${limit}/${sort}`,
         success: function (data) {
 
           if (data.todos.length == 0) {
