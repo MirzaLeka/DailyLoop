@@ -18,7 +18,7 @@
 
   <!-- Styles-->
   <link rel="stylesheet" type="text/css" href="../Resources/css/styles.css"/>
-  <link rel="stylesheet" type="text/css" href="../Resources/css/filtersearch.css"/>
+  <link rel="stylesheet" type="text/css" href="../Resources/css/navbar.css"/>
   
 </head>
 <body>
@@ -32,14 +32,54 @@
 
       <br>       <br>       <br>
 
+        <!-- Navbar-->
+
+  <div class="nav">
+      <ul class="navbarUl">
+
+          <!-- Display documents -->
+        
+          <li class="navbarLi" id="displayLi"><i class="fa fa-adjust" aria-hidden="true"></i> Display &#9660
+            <ul class="innerUl" id="displayUl">
+              <label class="radio">
+              <input class="displayRadio"  name="display" type="radio" checked>
+              <span>Display all</span>
+            </label>
+            <label class="radio">
+              <input class="displayRadio" name="display" type="radio">
+              <span>Display completed</span>
+            </label>
+            <label class="radio">
+              <input class="displayRadio" name="display" type="radio">
+              <span>Display not completed</span>
+            </label>
+          
+            </ul>
+          
+          </li>
+
+            <!-- Sort documents -->
+
+<li class="navbarLi" id="sortLi"><i class="fa fa-sort" aria-hidden="true"></i> Sort &#9660
+  <ul class="innerUl" id="sortUl">
+      <label class="radio">
+      <input class="sortRadio" name="sort" type="radio" checked>
+      <span>Date created</span>
+    </label>
+    <label class="radio">
+      <input class="sortRadio" name="sort" type="radio">
+      <span>Date completed</span>
+    </label>
+      
+    </ul>
   
-<ul style="background: white">
+  </li>
 
 
-  <!-- Limit results -->
+    <!-- Limit results -->
 
-  <li id="limitLi"><i class="fa fa-lock" aria-hidden="true"></i> Limit &#9660
-      <ul id="limitUl">
+    <li class="navbarLi" id="limitLi"><i class="fa fa-lock" aria-hidden="true"></i> Limit &#9660
+      <ul class="innerUl" id="limitUl">
         <label class="radio">
         <input class="limitRadio"  name="limit" type="radio" checked>
         <span>No limit</span>
@@ -68,52 +108,16 @@
       </ul>
     
     </li>
-    
-
-  <!-- Display documents -->
-
-<li id="displayLi"><i class="fa fa-adjust" aria-hidden="true"></i> Display &#9660
-  <ul id="displayUl">
-    <label class="radio">
-    <input class="displayRadio"  name="display" type="radio" checked>
-    <span>Display all</span>
-  </label>
-  <label class="radio">
-    <input class="displayRadio" name="display" type="radio">
-    <span>Display completed</span>
-  </label>
-  <label class="radio">
-    <input class="displayRadio" name="display" type="radio">
-    <span>Display not completed</span>
-  </label>
-
-  </ul>
-
-</li>
 
 
-  <!-- Sort documents -->
+      </ul>
+  </div>
+  
+  <!-- / Navbar-->
 
-<li id="sortLi"><i class="fa fa-sort" aria-hidden="true"></i> Sort &#9660
-<ul id="sortUl">
-    <label class="radio">
-    <input class="sortRadio" name="sort" type="radio" checked>
-    <span>Date created</span>
-  </label>
-  <label class="radio">
-    <input class="sortRadio" name="sort" type="radio">
-    <span>Date completed</span>
-  </label>
-    
-  </ul>
+      <br>       <br>       <br>
 
-</li>
-
-
-</ul>
-
-
-      <br> <br>
+  
 
     <h5 style="color: white;">
 
