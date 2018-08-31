@@ -1,13 +1,35 @@
+label{
+  display: block; /* add this */
+  padding: 0;
+  border-bottom: 1px solid #111 !important;
+}
 
+.sortingUl{
+  display: none;
+}
+
+#hepek{
+  cursor: pointer;
+}
+
+#hepek:hover .sortingUl{
+display: block;
+}
+
+
+//////////////////
 
 .radio{
   display: block;
   cursor: pointer; 
-  user-select:none;
+  user-select: none;
+  height: 30px;
   text-align: left;
-  &+.radio{
-    margin-top: 7px;
-  }
+  // padding: 0;
+  padding-top: 5px;
+  margin: 0;
+
+
   input{
     display: none;
     &+span{
@@ -49,7 +71,7 @@
   }
 }
 
-.radio:hover{
+label:hover{
   background: lighten(#007BFF, 15%);
   transition: all 1s;
 }

@@ -59,16 +59,6 @@
 
       <br>
 
-      <p style="color: white">Sort</p>
-
-      <select id="sortByDate">
-          <option value="created" selected>Date created</option>
-          <option value="completed">Date completed</option>
-        </select>
-
-        
-        <br>
-
   
 <ul style="background: white">
 
@@ -102,49 +92,22 @@
     </h5>
 
 
-
-    <style>
-
-      .radio{
-        background: red;
-        padding: 0;
-        margin: 0;
-        border-bottom: 1px solid #111;
-      }
-
-      .sortingUl{
-        display: none;
-        border: 2px solid #111;
-      }
-
-      #hepek{
-        cursor: pointer;
-      }
-    
-    #hepek:hover .sortingUl{
-      display: block;
-    }
-    
-    </style>
-
-
     <script>
 
-      let radio = 'Date created';
+      /* Change status */
 
-// 
+      /* Sort documents */
 
+      let sort = 'Date created';
 
       $("input[type='radio']").click(function() {
-  
-   //     if($("input[type='radio']").is(':checked')) { alert("it's checked"); }
 
-   console.log("Radio before: " + radio);
+      sort = $(this).parent(".radio").text();
+      sort = sort.trim();
 
-  radio = $(this).parent(".radio").text();
-  radio = radio.trim();
+      /* Limit search */
 
-  console.log("Radio after: " + radio);
+
     
   });
     
@@ -158,41 +121,20 @@
       return console.log("Enter text to complete the search");
     }
 
-
-
-      console.log(radio);
-
-        //  if($("input[type='radio']").is(':checked')) {
-
-      //    var baby =  $("input[type='radio']").attr("checked", "checked");
-
-         //   var radio = $("input[checked]").parent(".radio").text();
-            
-        //    console.log(baby);
-            // }
-
-        //    if($("input[type='radio']").is(':checked')) { alert("it's checked"); }
-
-//var radio = $("input[type='radio']").is(':checked');
-
-// console.log(radio); // returns true
-
-// .parent(".radio").text();
-
-
-
-
-
     let completed =  $('#filterCompleted').find(":selected").text();
 
     let limit = $('#limitResults').find(":selected").text();
 
-    let sort = $("#sortByDate").find(":selected").text();
 
       $.ajax({
         type: "GET",
-        url: `/todos/${text}/${completed}/${limit}/${radio}`,
+        url: `/todos/${text}/${completed}/${limit}/${sort}`,
         success: function (data) {
+
+          if (data.todos.length == 0) {
+            return console.log("No match found");
+          }
+
           console.log(data);
           var li = '';
 
