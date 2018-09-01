@@ -284,40 +284,36 @@ h1 {
   position: sticky;
   position: -webkit-sticky;
   top: 0;
-  z-index: 5;
-  display: flex;
-  justify-content: center;
-  flex-direction: column; }
+  z-index: 5; }
 
 .navbarUl {
-  width: 50%;
+  width: 100%;
   position: absolute;
-  bottom: 1%; }
+  bottom: 1%;
+  margin: 0 auto; }
 
 .nav .navbarUl {
-  list-style: none;
-  text-align: center; }
+  list-style: none; }
 
 .nav .navbarUl .navbarLi {
-  display: inline-block;
-  padding-right: 15%; }
+  display: inline-block; }
 
 .navbarLi {
-  color: white;
+  text-align: center;
+  color: #FFF;
   cursor: pointer;
   position: relative; }
   .navbarLi:hover {
     color: #DDD; }
 
 .innerUl {
-  display: none;
-  border: 1px solid #111;
+  border: 1px solid #444;
+  border-bottom: none;
   position: absolute;
   background: #222;
   margin: 0;
   padding: 0;
   width: 120px;
-  left: -10%;
   text-align: center;
   -webkit-box-shadow: 0 8px 4px -4px #000;
   -moz-box-shadow: 0 8px 4px -4px #000;
@@ -327,11 +323,18 @@ h1 {
 /* Display results */
 #displayUl {
   display: none;
-  width: 180px;
+  width: 140px;
   height: 80px;
   padding: 0; }
 
+  /*
+  #displayLi:not(:hover){
+
+  }
+  */
 #displayLi {
+  width: 140px;
+  border-right: 2px solid #007BFF;
   cursor: pointer; }
   #displayLi:hover #displayUl {
     display: block; }
@@ -344,6 +347,8 @@ h1 {
   padding: 0; }
 
 #sortLi {
+  width: 140px;
+  border-right: 2px solid #007BFF;
   cursor: pointer; }
   #sortLi:hover #sortUl {
     display: block; }
@@ -352,9 +357,10 @@ h1 {
 #limitUl {
   display: none;
   padding: 0;
-  width: 90px; }
+  width: 140px; }
 
 #limitLi {
+  width: 140px;
   cursor: pointer; }
   #limitLi:hover #limitUl {
     display: block; }
@@ -369,7 +375,7 @@ h1 {
   padding-top: 5px;
   margin: 0; }
   .radio:hover {
-    background: #111;
+    background: #007BFF;
     transition: all 1s; }
   .radio input {
     display: none; }

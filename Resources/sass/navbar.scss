@@ -1,6 +1,9 @@
 @import "styles.scss";
 
 
+$navbarLiWidth: 140px;
+
+
 .nav{
     height: 100px;
     background: #222;
@@ -8,34 +11,30 @@
     position: -webkit-sticky;
     top: 0;
     z-index: 5;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
 }
 
 .navbarUl{
-    width: 50%;
+    width: 100%;
     position: absolute;
     bottom: 1%;
+    margin: 0 auto;
 }
 
 .nav .navbarUl {
    list-style: none;
-   text-align: center;
 }
 
 .nav .navbarUl .navbarLi {
    display: inline-block;
-   padding-right: 15%;
 }
 
 
 
 .navbarLi{
-    color: white;
+    text-align: center;
+    color: #FFF;
     cursor: pointer;
     position: relative;
-    // padding: 0px 0 10px 0;
 
     &:hover{
         color: #DDD;
@@ -43,14 +42,13 @@
 }
 
 .innerUl{
-    display: none;
-    border: 1px solid #111;
+    border: 1px solid #444;
+    border-bottom: none;
     position: absolute;
     background: #222;
     margin: 0;
     padding: 0;  
     width: 120px; 
-    left: -10%;
     text-align: center;
     @include shadowBottom(0, 8px, 4px, -4px, #000);
 }
@@ -64,30 +62,51 @@
 
 #displayUl{
     display: none;
-    width: 180px;
+    width: $navbarLiWidth;
     height: 80px;
     padding: 0;
+  //   -o-transition:.2s;
+  // -ms-transition:.2s;
+  // -moz-transition:.2s;
+  // -webkit-transition:.2s;
+  // transition:.2s;
   }
   
+  /*
+  #displayLi:not(:hover){
+
+  }
+  */
+
   
   #displayLi{
+    width: $navbarLiWidth;
+    // border-left: 2px solid $btnBackground;
+    border-right: 2px solid $btnBackground;
     cursor: pointer;
     &:hover #displayUl{
       display: block;
+      // -webkit-transition: opacity 3s ease-in;
+      // -moz-transition: opacity 3s ease-in;
+      // -ms-transition: opacity 3s ease-in;
+      // -o-transition: opacity 3s ease-in;
     }
   }
+
   
   /* Sort results */
   
   #sortUl{
     display: none;
-    width: 140px;
+    width: $navbarLiWidth;
     height: 55px;
     padding: 0;
   }
   
   
   #sortLi{
+    width: $navbarLiWidth;
+    border-right: 2px solid $btnBackground;
     cursor: pointer;
     &:hover #sortUl{
       display: block;
@@ -99,11 +118,13 @@
   #limitUl{
     display: none;
     padding: 0;
-    width: 90px;
+    width: $navbarLiWidth;
   }
   
   
   #limitLi{
+    width: $navbarLiWidth;
+    // border-right: 2px solid $btnBackground;
     cursor: pointer;
     &:hover #limitUl{
       display: block;
@@ -124,7 +145,7 @@
     margin: 0;
   
     &:hover{
-      background: #111;
+      background: $btnBackground;
       transition: all 1s;
     }
   
