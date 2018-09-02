@@ -1,6 +1,7 @@
 const _ = require('lodash');
 var express = require('express');
 var bodyParser = require('body-parser');
+const path = require('path');
 
 var {mongoose} = require('./db/mongoose');
 var Todo = require('./models/todo');
@@ -247,6 +248,29 @@ app.delete("/todos", (req, res) => {
   Todo.remove({}).then((result) => {});
 
 });
+
+
+
+/* Render Error Page */
+
+const router = express.Router();
+
+router.use(function(req, res, next) {
+    if (!req.route)
+        return next (new Error('404'));  
+    next();
+});
+
+router.use(function(err, req, res, next){
+   // res.send(err.message);
+    res.sendFile("errorPage.html", { root: path.join(__dirname, '../Web-Info') });
+})
+
+router.use(function(req, res){
+    res.send(app.locals.test + '');
+});
+
+ app.use(router);
 
 
 /* Port */
