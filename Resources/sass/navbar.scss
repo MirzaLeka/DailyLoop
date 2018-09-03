@@ -25,9 +25,14 @@ $navbarLiWidth: 140px;
     cursor: pointer;
     position: relative;
     font-weight: 600;
+    border-right: 2px solid $btnBackground;
 
     &:hover{
         color: #DDD;
+    }
+
+    &:last-child{
+      border-right: none;
     }
 }
 
@@ -41,36 +46,56 @@ $navbarLiWidth: 140px;
     width: 120px; 
     text-align: center;
     @include shadowBottom(0, 8px, 4px, -4px, #000);
-    transition: opacity .4s ease-in-out;
-    -moz-transition: opacity .4s ease-in-out;
-    -webkit-transition: opacity .4s ease-in-out;
+    transition: opacity .5s ease-in-out;
+    -moz-transition: opacity .5s ease-in-out;
+    -webkit-transition: opacity .5s ease-in-out;
     opacity: 0;
+    cursor: pointer;
 }
 
 
 
 /* >>> Filter Search <<< */ 
 
+.grid{
+  margin-top: 20px;
+}
+
+
+/* Align results */
+
+#alignUl{
+  width: $navbarLiWidth;
+  height: 55px;
+  padding: 0;
+}
+
+
+#alignLi{
+  width: $navbarLiWidth;
+  &:hover #alignUl{
+    opacity: 1;
+  }
+}
+
 
 /* Display results */
 
 #displayUl{
-    width: $navbarLiWidth;
-    height: 80px;
-    padding: 0;
-  }
-  
-  
-  #displayLi{
-    width: $navbarLiWidth;
-    border-right: 2px solid $btnBackground;
-    cursor: pointer;
-    &:hover #displayUl{
-      opacity: 1;
-    }
-  }
+  width: $navbarLiWidth;
+  height: 80px;
+  padding: 0;
+}
 
-  
+
+#displayLi{
+  width: $navbarLiWidth;
+  &:hover #displayUl{
+    opacity: 1;
+  }
+}
+
+
   /* Sort results */
   
   #sortUl{
@@ -82,12 +107,11 @@ $navbarLiWidth: 140px;
   
   #sortLi{
     width: $navbarLiWidth;
-    border-right: 2px solid $btnBackground;
-    cursor: pointer;
     &:hover #sortUl{
       opacity: 1;
     }
   }
+
   
   /* Limit results */
   

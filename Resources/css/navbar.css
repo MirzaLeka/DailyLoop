@@ -296,9 +296,12 @@ h1 {
   color: #FFF;
   cursor: pointer;
   position: relative;
-  font-weight: 600; }
+  font-weight: 600;
+  border-right: 2px solid #007BFF; }
   .navbarLi:hover {
     color: #DDD; }
+  .navbarLi:last-child {
+    border-right: none; }
 
 .innerUl {
   border: 1px solid #444;
@@ -312,12 +315,27 @@ h1 {
   -webkit-box-shadow: 0 8px 4px -4px #000;
   -moz-box-shadow: 0 8px 4px -4px #000;
   box-shadow: 0 8px 4px -4px #000;
-  transition: opacity .4s ease-in-out;
-  -moz-transition: opacity .4s ease-in-out;
-  -webkit-transition: opacity .4s ease-in-out;
-  opacity: 0; }
+  transition: opacity .5s ease-in-out;
+  -moz-transition: opacity .5s ease-in-out;
+  -webkit-transition: opacity .5s ease-in-out;
+  opacity: 0;
+  cursor: pointer; }
 
 /* >>> Filter Search <<< */
+.grid {
+  margin-top: 20px; }
+
+/* Align results */
+#alignUl {
+  width: 140px;
+  height: 55px;
+  padding: 0; }
+
+#alignLi {
+  width: 140px; }
+  #alignLi:hover #alignUl {
+    opacity: 1; }
+
 /* Display results */
 #displayUl {
   width: 140px;
@@ -325,9 +343,7 @@ h1 {
   padding: 0; }
 
 #displayLi {
-  width: 140px;
-  border-right: 2px solid #007BFF;
-  cursor: pointer; }
+  width: 140px; }
   #displayLi:hover #displayUl {
     opacity: 1; }
 
@@ -338,9 +354,7 @@ h1 {
   padding: 0; }
 
 #sortLi {
-  width: 140px;
-  border-right: 2px solid #007BFF;
-  cursor: pointer; }
+  width: 140px; }
   #sortLi:hover #sortUl {
     opacity: 1; }
 

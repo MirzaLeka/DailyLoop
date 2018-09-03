@@ -39,6 +39,25 @@
 
       <ul class="navbarUl">
 
+
+        <!-- Aligh documents-->
+
+        <li class="navbarLi" id="alignLi">Align &#9660
+            <ul class="innerUl" id="alignUl">
+              <label class="radio">
+              <input class="alignRadio" name="align" type="radio" checked>
+              <span style="font-weight: 100; text-align: center;">List</span>
+            </label>
+            <label class="radio">
+              <input class="alignRadio" name="align" type="radio">
+              <span style="font-weight: 100; text-align: center;">Grid</span>
+            </label>
+              
+            </ul>
+          
+          </li>
+
+
           <!-- Display documents -->
         &nbsp;
           <li class="navbarLi" id="displayLi">Display &#9660
@@ -119,15 +138,25 @@
 
       <br>       <br>       <br>
 
-  
 
-    <h5 style="color: white;">
-
-
-    </h5>
+    <div id="showList" style="color: white;">
+    </div>
 
 
     <script>
+
+      /* Align documents */
+
+      let align = "List";
+
+      $(".alignRadio").click(function() {
+
+      align = $(this).parent(".radio").text();
+      align = align.trim();  
+
+      search();
+  });
+
 
       /* Display documents */
 
@@ -137,6 +166,11 @@
 
       display = $(this).parent(".radio").text();
       display = display.trim();  
+
+      search();
+
+      // TODO: Disable date COMPLETED when you display NOT completed 
+
   });
 
       /* Sort documents */
@@ -147,6 +181,8 @@
 
       sort = $(this).parent(".radio").text();
       sort = sort.trim();  
+
+      search();
   });
 
         /* Limit search */
@@ -157,6 +193,8 @@
 
         limit = $(this).parent(".radio").text();
         limit = limit.trim();  
+
+        search();
       });
 
 
@@ -186,12 +224,24 @@
 
           console.log(data);
           var li = '';
+          
+            for (var i = 0; i < data.todos.length; i++) {
 
-          for (var i = 0; i < data.todos.length; i++) {
+          if (align == "List") {
             li+= `<li>Text: ${data.todos[i].text}, Completed: ${data.todos[i].completed}</li>`;
           }
+           else {
+             li+= `<div class="col-sm-4">
+              <div class="grid" style="border: 2px solid #FFF">
+             <p>Text: ${data.todos[i].text}</p> 
+             <p>Completed: ${data.todos[i].completed}</p>
+                  </div>
+             </div>`;
+              }
 
-          $("h5").html(li);
+          }
+
+          $("#showList").html(li);
 
         }
       })
