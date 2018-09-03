@@ -137,14 +137,9 @@ if (sort == "Date created") {
 
 } else {
 
-  // {$text: {$search: searchString}}
-
 
   if (sort == "Date created") {
   
-
-// console.log(test);
-
   Todo.find( { text: rec } ).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
       res.send({todos}); 
     }, (e) => { 

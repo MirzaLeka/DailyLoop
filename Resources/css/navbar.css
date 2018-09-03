@@ -13,10 +13,13 @@ textarea:active, input:active {
   background: transparent; }
 
 .nav {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 5;
   background: #222;
-  height: 100px;
+  height: 50px;
   width: 100%;
-  position: relative;
   display: flex;
   justify-content: center;
   text-align: center;
@@ -278,18 +281,8 @@ h1 {
   width: 100%;
   background: #310594; }
 
-.nav {
-  height: 100px;
-  background: #222;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
-  z-index: 5; }
-
 .navbarUl {
   width: 100%;
-  position: absolute;
-  bottom: 1%;
   margin: 0 auto; }
 
 .nav .navbarUl {
@@ -302,7 +295,8 @@ h1 {
   text-align: center;
   color: #FFF;
   cursor: pointer;
-  position: relative; }
+  position: relative;
+  font-weight: 600; }
   .navbarLi:hover {
     color: #DDD; }
 
@@ -377,13 +371,13 @@ h1 {
   .radio:hover {
     background: #007BFF;
     transition: all 1s; }
-  .radio input {
+  .radio input[type="radio"] {
     display: none; }
-    .radio input + span {
+    .radio input[type="radio"] + span {
       display: inline-block;
       position: relative;
       padding-left: 20px; }
-      .radio input + span:before {
+      .radio input[type="radio"] + span:before {
         content: '';
         display: block;
         position: absolute;
@@ -395,7 +389,7 @@ h1 {
         height: 16px;
         border: 1px solid #ccc;
         background: #fff; }
-      .radio input + span:after {
+      .radio input[type="radio"] + span:after {
         content: '';
         display: block;
         width: 10px;
@@ -408,7 +402,7 @@ h1 {
         opacity: 0;
         transform: scale(0, 0);
         transition: all 0.2s cubic-bezier(0.64, 0.57, 0.67, 1.53); }
-    .radio input:checked + span:after {
+    .radio input[type="radio"]:checked + span:after {
       opacity: 1;
       transform: scale(1, 1); }
 

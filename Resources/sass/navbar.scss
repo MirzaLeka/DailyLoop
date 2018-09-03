@@ -4,19 +4,10 @@
 $navbarLiWidth: 140px;
 
 
-.nav{
-    height: 100px;
-    background: #222;
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0;
-    z-index: 5;
-}
-
 .navbarUl{
     width: 100%;
-    position: absolute;
-    bottom: 1%;
+    // position: absolute;
+    // bottom: 0%;
     margin: 0 auto;
 }
 
@@ -35,6 +26,7 @@ $navbarLiWidth: 140px;
     color: #FFF;
     cursor: pointer;
     position: relative;
+    font-weight: 600;
 
     &:hover{
         color: #DDD;
@@ -149,7 +141,7 @@ $navbarLiWidth: 140px;
       transition: all 1s;
     }
   
-    input{
+    input[type="radio"]{
       display: none;
       &+span{
         display: inline-block; 
@@ -173,7 +165,7 @@ $navbarLiWidth: 140px;
           display: block; 
           width: 10px;
           height: 10px;
-          background: #007BFF;
+          background: $btnBackground;
           position: absolute;
           border-radius: 50%;
           top: 3px;
