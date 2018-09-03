@@ -311,31 +311,28 @@ h1 {
   text-align: center;
   -webkit-box-shadow: 0 8px 4px -4px #000;
   -moz-box-shadow: 0 8px 4px -4px #000;
-  box-shadow: 0 8px 4px -4px #000; }
+  box-shadow: 0 8px 4px -4px #000;
+  transition: opacity .4s ease-in-out;
+  -moz-transition: opacity .4s ease-in-out;
+  -webkit-transition: opacity .4s ease-in-out;
+  opacity: 0; }
 
-/* Filter Search */
+/* >>> Filter Search <<< */
 /* Display results */
 #displayUl {
-  display: none;
   width: 140px;
   height: 80px;
   padding: 0; }
 
-  /*
-  #displayLi:not(:hover){
-
-  }
-  */
 #displayLi {
   width: 140px;
   border-right: 2px solid #007BFF;
   cursor: pointer; }
   #displayLi:hover #displayUl {
-    display: block; }
+    opacity: 1; }
 
 /* Sort results */
 #sortUl {
-  display: none;
   width: 140px;
   height: 55px;
   padding: 0; }
@@ -345,11 +342,10 @@ h1 {
   border-right: 2px solid #007BFF;
   cursor: pointer; }
   #sortLi:hover #sortUl {
-    display: block; }
+    opacity: 1; }
 
 /* Limit results */
 #limitUl {
-  display: none;
   padding: 0;
   width: 140px; }
 
@@ -357,7 +353,7 @@ h1 {
   width: 140px;
   cursor: pointer; }
   #limitLi:hover #limitUl {
-    display: block; }
+    opacity: 1; }
 
 /* Radio Button Design */
 .radio {

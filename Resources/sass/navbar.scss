@@ -6,8 +6,6 @@ $navbarLiWidth: 140px;
 
 .navbarUl{
     width: 100%;
-    // position: absolute;
-    // bottom: 0%;
     margin: 0 auto;
 }
 
@@ -43,45 +41,32 @@ $navbarLiWidth: 140px;
     width: 120px; 
     text-align: center;
     @include shadowBottom(0, 8px, 4px, -4px, #000);
+    transition: opacity .4s ease-in-out;
+    -moz-transition: opacity .4s ease-in-out;
+    -webkit-transition: opacity .4s ease-in-out;
+    opacity: 0;
 }
 
 
-/* Filter Search */ 
 
+/* >>> Filter Search <<< */ 
 
 
 /* Display results */
 
 #displayUl{
-    display: none;
     width: $navbarLiWidth;
     height: 80px;
     padding: 0;
-  //   -o-transition:.2s;
-  // -ms-transition:.2s;
-  // -moz-transition:.2s;
-  // -webkit-transition:.2s;
-  // transition:.2s;
   }
   
-  /*
-  #displayLi:not(:hover){
-
-  }
-  */
-
   
   #displayLi{
     width: $navbarLiWidth;
-    // border-left: 2px solid $btnBackground;
     border-right: 2px solid $btnBackground;
     cursor: pointer;
     &:hover #displayUl{
-      display: block;
-      // -webkit-transition: opacity 3s ease-in;
-      // -moz-transition: opacity 3s ease-in;
-      // -ms-transition: opacity 3s ease-in;
-      // -o-transition: opacity 3s ease-in;
+      opacity: 1;
     }
   }
 
@@ -89,7 +74,6 @@ $navbarLiWidth: 140px;
   /* Sort results */
   
   #sortUl{
-    display: none;
     width: $navbarLiWidth;
     height: 55px;
     padding: 0;
@@ -101,14 +85,13 @@ $navbarLiWidth: 140px;
     border-right: 2px solid $btnBackground;
     cursor: pointer;
     &:hover #sortUl{
-      display: block;
+      opacity: 1;
     }
   }
   
   /* Limit results */
   
   #limitUl{
-    display: none;
     padding: 0;
     width: $navbarLiWidth;
   }
@@ -116,10 +99,9 @@ $navbarLiWidth: 140px;
   
   #limitLi{
     width: $navbarLiWidth;
-    // border-right: 2px solid $btnBackground;
     cursor: pointer;
     &:hover #limitUl{
-      display: block;
+      opacity: 1;
     }
   }
   
@@ -132,7 +114,6 @@ $navbarLiWidth: 140px;
     user-select: none;
     height: 30px;
     text-align: left;
-    // padding: 0;
     padding-top: 5px;
     margin: 0;
   
