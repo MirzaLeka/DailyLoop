@@ -59,7 +59,7 @@
 
 
           <!-- Display documents -->
-        &nbsp;
+        
           <li class="navbarLi" id="displayLi">Display &#9660
             <ul class="innerUl" id="displayUl">
               <label class="radio">
@@ -91,6 +91,10 @@
       <input class="sortRadio" name="sort" type="radio">
       <span style="font-weight: 100; text-align: center;">Date completed</span>
     </label>
+    <label class="radio">
+        <input class="sortRadio" name="sort" type="radio">
+        <span style="font-weight: 100; text-align: center;">Last updated</span>
+      </label>
       
     </ul>
   
@@ -129,6 +133,40 @@
       </ul>
     
     </li>
+
+
+        <!-- Themes results -->
+
+        <li class="navbarLi" id="themeLi">Theme &#9660
+          <ul class="innerUl" id="themeUl">
+            <label class="radio">
+            <input class="themeRadio"  name="theme" type="radio" checked>
+            <span style="font-weight: 100; text-align: center;">Default</span>
+          </label>
+          <label class="radio">
+            <input class="themeRadio" name="theme" type="radio">
+            <span style="font-weight: 100; text-align: center;">Blue / Orange</span>
+          </label>
+          <label class="radio">
+            <input class="themeRadio" name="theme" type="radio">
+            <span style="font-weight: 100; text-align: center;">Red / Black</span>
+          </label>
+          <label class="radio">
+            <input class="themeRadio" name="theme" type="radio">
+            <span style="font-weight: 100; text-align: center;">Purple / White</span>
+          </label>
+          <label class="radio">
+            <input class="themeRadio" name="theme" type="radio">
+            <span style="font-weight: 100; text-align: center;">Orange / Black</span>
+            </label> 
+            <label class="radio">
+              <input class="themeRadio" name="theme" type="radio">
+              <span style="font-weight: 100; text-align: center;">Forest / Mud</span>
+              </label> 
+        
+          </ul>
+        
+        </li>
 
 
       </ul>
@@ -212,6 +250,7 @@
 
  //   let limit = $('#limitResults').find(":selected").text();
 
+// POST previous variables to backend but don't use location.reload() when posting
 
       $.ajax({
         type: "GET",

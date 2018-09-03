@@ -328,7 +328,6 @@ h1 {
 /* Align results */
 #alignUl {
   width: 140px;
-  height: 55px;
   padding: 0; }
 
 #alignLi {
@@ -339,7 +338,6 @@ h1 {
 /* Display results */
 #displayUl {
   width: 140px;
-  height: 80px;
   padding: 0; }
 
 #displayLi {
@@ -350,7 +348,6 @@ h1 {
 /* Sort results */
 #sortUl {
   width: 140px;
-  height: 55px;
   padding: 0; }
 
 #sortLi {
@@ -364,9 +361,21 @@ h1 {
   width: 140px; }
 
 #limitLi {
+  border-right: 2px solid #007BFF;
   width: 140px;
   cursor: pointer; }
   #limitLi:hover #limitUl {
+    opacity: 1; }
+
+/* Limit results */
+#themeUl {
+  padding: 0;
+  width: 140px; }
+
+#themeLi {
+  width: 140px;
+  cursor: pointer; }
+  #themeLi:hover #themeUl {
     opacity: 1; }
 
 /* Radio Button Design */
