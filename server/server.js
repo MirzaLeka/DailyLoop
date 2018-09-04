@@ -106,6 +106,20 @@ if (limit == "No limit") {
   limit = 0;
 }
 
+// Sort todos asc or desc order 
+var asc = 0;
+
+if (sort == "Date completed ⇧") {
+  
+  asc = -1;
+
+} else if (sort == "Date completed ⇩") {
+
+  asc = 1;
+
+}
+
+
 
 var test =  req.params.text + "{1,}"
 
@@ -135,7 +149,7 @@ if (sort == "Date created") {
 
 else {
 
-  Todo.find( { text: rec, completed: isCompleted } ).sort({completedAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
+  Todo.find( { text: rec, completed: isCompleted } ).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
     res.send({todos}); 
   }, (e) => { 
     res.status(400).send(e);
@@ -168,7 +182,7 @@ else {
   
   else {
   
-    Todo.find( { text: rec }  ).sort({completedAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
+    Todo.find( { text: rec }  ).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
       res.send({todos}); 
     }, (e) => { 
       res.status(400).send(e);
