@@ -1,4 +1,4 @@
-var mongoose = require('mongoose'); // we are not importing mongose jjs fie. we are just requiring regular mongoose library.
+var mongoose = require('mongoose'); // we are not importing mongose js fie. we are just requiring regular mongoose library.
 
 
 var Todo = new mongoose.Schema({
@@ -27,6 +27,9 @@ var Todo = new mongoose.Schema({
     completedAtTimestamp: {
         type: Number,
         default: null
+    },
+    lastUpdated: {
+        type: Number
     },
     someNew: {
         type: String,

@@ -53,8 +53,8 @@ app.post('/todos', (req, res) => {
   var todo = new Todo({
     text: req.body.text,
     createdAt: str,
-    createdAtTimestamp: d.getTime()
-
+    createdAtTimestamp: d.getTime(),
+    lastUpdated: d.getTime()
   });
 
   todo.save().then((doc) => {
@@ -123,7 +123,17 @@ if (sort == "Date created") {
     res.status(400).send(e);
   });
 
-} else {
+} else if (sort == "Last updated") {
+  
+  Todo.find( { text: rec, completed: isCompleted } ).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
+    res.send({todos}); 
+  }, (e) => { 
+    res.status(400).send(e);
+  });
+
+   }
+
+else {
 
   Todo.find( { text: rec, completed: isCompleted } ).sort({completedAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
     res.send({todos}); 
@@ -146,7 +156,17 @@ if (sort == "Date created") {
       res.status(400).send(e);
     });
   
-  } else {
+  } else if (sort == "Last updated") {
+  
+    Todo.find( { text: rec }  ).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
+      res.send({todos}); 
+    }, (e) => { 
+      res.status(400).send(e);
+    });
+  
+     }
+  
+  else {
   
     Todo.find( { text: rec }  ).sort({completedAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
       res.send({todos}); 
@@ -179,6 +199,9 @@ app.patch('/todos/:id', (req, res) => {
   if (!ObjectID.isValid(id)) {
    return res.status(400).send('Id is not valid'); 
   }
+
+  // Last updated will change whenever you update, no matters if you todo is completed or isn't
+    body.lastUpdated = new Date().getTime();
   
   // if completed is boolean and is completed then give date of completion to completeAt (remove null)
   if (_.isBoolean(body.completed) && body.completed) {
