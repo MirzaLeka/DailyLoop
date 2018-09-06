@@ -6,7 +6,7 @@
     <title>My Todo App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   
-      <!-- Bootstrap CSS script -->
+   <!-- Bootstrap CSS script -->
   <link rel="stylesheet" href="../Resources/scripts/bootstrap.css">
   <!-- jQuery script -->
   <script src="../Resources/scripts/jquery.js"></script>
@@ -149,23 +149,23 @@
           </label>
           <label class="radio">
             <input class="themeRadio" name="theme" type="radio">
-            <span style="font-weight: 100; text-align: center;">Blue / Orange</span>
+            <span style="font-weight: 100; text-align: center;">Blue / Orange</span> <!-- Cobalt -->
           </label>
           <label class="radio">
             <input class="themeRadio" name="theme" type="radio">
-            <span style="font-weight: 100; text-align: center;">Red / Black</span>
+            <span style="font-weight: 100; text-align: center;">Red / Black</span> <!-- Red Dragon -->
           </label>
           <label class="radio">
             <input class="themeRadio" name="theme" type="radio">
-            <span style="font-weight: 100; text-align: center;">Purple / White</span>
+            <span style="font-weight: 100; text-align: center;">Purple / White</span> <!-- Snowball -->
           </label>
           <label class="radio">
             <input class="themeRadio" name="theme" type="radio">
-            <span style="font-weight: 100; text-align: center;">Green / Black</span>
+            <span style="font-weight: 100; text-align: center;">Green / Black</span> <!-- Matrix -->
             </label> 
             <label class="radio">
               <input class="themeRadio" name="theme" type="radio">
-              <span style="font-weight: 100; text-align: center;">Forest / Mud</span>
+              <span style="font-weight: 100; text-align: center;">Forest / Mud</span> <!-- Camo -->
               </label> 
         
           </ul>
@@ -237,6 +237,15 @@
         limit = limit.trim();  
 
         search();
+      });
+
+
+      /* Themes */
+
+      $(".themeRadio").click(() => {
+
+        $("body").css("background", "#09223f");
+
       });
 
 

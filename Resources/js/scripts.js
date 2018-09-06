@@ -262,7 +262,7 @@ location.reload();
 
 /* UPDATE ONE TODO */
 
-function updateTodo(text, completed, id, refresh) {
+function updateTodo(text, completed, id, refresh, modalFinished) {
 
     var errorCounter = 0;
 
@@ -294,8 +294,8 @@ function updateTodo(text, completed, id, refresh) {
 
 var data = {
     text,
-    completed
-    // someNew: str
+    completed,
+    someNew: modalFinished
 };
 
 if (refresh && errorCounter == 0) {
@@ -310,7 +310,7 @@ dataType: 'json',
 success: function (data) {
 
 $("#myModal").fadeOut();
-location.reload();
+// location.reload();
 
             }
         });
@@ -321,15 +321,34 @@ location.reload();
 
 var data = {};
 
-function combineValues(text, isCompleted, id, refresh) { 
+var keepTheDate = '';
+
+function combineValues(text, isCompleted, id, refresh, modalFinished, completedAt) { 
+
+
+    // modalFinished the time you altered when you clicked on toggle button inside Modal
+    // completedAt is the time that came from the DB if todo was completed
+
+    // MAYBE THE ORDER OF OPERATIONS MATTERS (completed btn vs form input)
+
+
+    if (typeof(modalFinished) === 'string') {
+        keepTheDate = modalFinished;
+        
+     }  else {
+         keepTheDate = completedAt; /// THIS LINE
+     }
 
     if (typeof(text) === 'string') {
         data.text = text;
 
         if (  $(".switchModal").hasClass("moveModal") ) {
             data.completed = true;
+            keepTheDate = keepTheDate;
+            
         } else {
             data.completed = false;
+            keepTheDate = null;
         }
      
         refresh = true;
@@ -338,9 +357,18 @@ function combineValues(text, isCompleted, id, refresh) {
    else if (typeof(text) === "number") {
         data.completed = isCompleted;
         refresh = false;
+
+        if (isCompleted) {
+            keepTheDate = modalFinished;
+        } else {
+            keepTheDate = null;
+        }
+
     }
 
-    updateTodo(data.text, data.completed, id, refresh);
+    console.log("keepTheDate is " + keepTheDate);
+
+    updateTodo(data.text, data.completed, id, refresh, keepTheDate);
 
 }
 
@@ -385,7 +413,7 @@ function completeInModal(text, isCompleted, id, refresh, completedAt, i) {
       
      toggleCounter++;
 
-     combineValues(text, toggleValue[i], id, refresh);
+     combineValues(text, toggleValue[i], id, refresh, modalFinished, completedAt);
 
 }
 
@@ -495,7 +523,7 @@ if (isCompleted) {
 // modal footer
 
 var mf = `<button id="cancelBtn" class="modalBtns" onclick="closeModal(47, ${isCompleted},\`` + id + `\`, false)">Cancel</button>
-<button id="updateBtn" class="modalBtns" onclick="combineValues(\`` + text + `\`,${isCompleted},\`` + id + `\`, true)">Update</button>`;
+<button id="updateBtn" class="modalBtns" onclick="combineValues(\`` + text + `\`,${isCompleted},\`` + id + `\`, true, 4,\`` + completedAt + `\`)">Update</button>`; 
 
     $(".modal-footer").html(mf);
 
