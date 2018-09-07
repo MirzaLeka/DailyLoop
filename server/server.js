@@ -84,10 +84,26 @@ app.get('/todos', (req, res) => {
 });
 
 
+/* Get all todos + align */
+
+app.get('/todos/:align', (req, res) => {
+
+  let align = req.params.align;
+
+  Todo.find({align}).sort({completedAtTimestamp: 1}).then((todos) => {
+    res.send({todos}); 
+  }, (e) => { 
+    res.status(400).send(e);
+  });
+
+
+});
+
+
 
 /* Get todos by text */
 
-app.get("/todos/:text/:completed/:limit/:sort:/align", (req, res) => {
+app.get("/todos/:text/:completed/:limit/:sort", (req, res) => {
 
 var getCompleted = req.params.completed;
 var limit = req.params.limit;
@@ -250,6 +266,9 @@ app.patch('/todos/:id', (req, res) => {
   });
   
   });
+
+
+  /* Update align for all todos */
 
   app.patch("/todos", (req, res) => {
 
