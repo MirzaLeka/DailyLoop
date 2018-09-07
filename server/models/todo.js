@@ -34,6 +34,26 @@ var Todo = new mongoose.Schema({
     someNew: {
         type: String,
         default: null
+    },
+    align: {
+       type: String, 
+       default: "List"
+    },
+    // display: {
+    //     type: String,
+    //     default: "All"
+    // },
+    // sort: {
+    //     type: String,
+    //     default: "Date created"
+    // },
+    // limit: {
+    //     type: String,
+    //     default: "No limit"
+    // },
+    selectedTag: {
+        type: Number,
+        default: 0
     }
 }); 
 

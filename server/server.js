@@ -54,7 +54,11 @@ app.post('/todos', (req, res) => {
     text: req.body.text,
     createdAt: str,
     createdAtTimestamp: d.getTime(),
-    lastUpdated: d.getTime()
+    lastUpdated: d.getTime(),
+    align: req.body.align
+    // display: req.body.display,
+    // sort: req.body.sort,
+    // limit: req.body.limit
   });
 
   todo.save().then((doc) => {
@@ -83,7 +87,7 @@ app.get('/todos', (req, res) => {
 
 /* Get todos by text */
 
-app.get("/todos/:text/:completed/:limit/:sort", (req, res) => {
+app.get("/todos/:text/:completed/:limit/:sort:/align", (req, res) => {
 
 var getCompleted = req.params.completed;
 var limit = req.params.limit;
@@ -245,6 +249,23 @@ app.patch('/todos/:id', (req, res) => {
   res.status(400).send();
   });
   
+  });
+
+  app.patch("/todos", (req, res) => {
+
+    var body = _.pick(req.body, ['align']);
+
+    Todo.updateMany(Todo.align, {$set: body}, {new: true}).then((todos) => {
+  
+      if (!todos) {
+      return res.status(404).send();
+      }
+      res.send({todos});
+      
+      }).catch((e) => {
+      res.status(400).send();
+      });
+
   });
 
 
