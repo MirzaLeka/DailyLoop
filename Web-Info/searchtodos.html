@@ -49,7 +49,7 @@
               <span style="font-weight: 100; text-align: center;">List</span>
             </label>
             <label class="radio">
-              <input class="alignRadio" name="align" type="radio" checked>
+              <input class="alignRadio" name="align" type="radio">
               <span style="font-weight: 100; text-align: center;">Grid</span>
             </label>
               
@@ -191,12 +191,75 @@
 
     <br> <br>
 
+    <select>
+        <option value=0>No tag</option>
+        <option value=1>Birthday</option>
+        <option value=2>Clean</option>
+        <option value=3>Coffee</option>
+        <option value=4>Date</option>
+        <option value=5>Event</option>
+        <option value=6>Food</option>
+        <option value=7>Game</option>
+        <option value=8>Holiday</option>
+        <option value=9>Movie</option>
+        <option value=10>Music</option>
+        <option value=11>Pet</option>
+        <option value=12>Pray</option>
+        <option value=13>Relax</option>
+        <option value=14>Sleep</option>
+        <option value=15>Shop</option>
+        <option value=16>Shower</option>
+        <option value=17>Sports</option>
+        <option value=18>Travel</option>
+        <option value=19>Work</option>
+        <option value=20>Wedding</option>
+        
+      </select>
+      
+      <button class="btn btn-success" onclick="getSelected()">Get Value of Selected</button>
+        
 
     <script>
 
+      function getSelected() {
+
+      var select = $('select').find(":selected").attr("value"); // .find(":selected").text() would return text of selected
+      alert(select);
+
+      // you will post value of selected to DB
+      // once get request starts, you'll pull that value through API
+
+      // example: data.todos[i].nesto <img src="arrayOfImages[selectedValue]" SOMETHING LIKE THIS :)
+
+}
+
+
+
+
+
+      let align = "";
+
+      $(document).ready(() => {
+
+        // Fake GET request
+
+        if (2 < 5) {
+          $(".alignRadio:eq(1)").attr('checked', true); // give 0th or whichever element attribute selected once it comes from DB
+        }
+
+          align =  $(".alignRadio:checked").parent(".radio").text(); // get it's text
+          align = align.trim(); // trim it
+
+          // GET AND POST in the same function
+          // document on ready to initiate default GET
+          // second get should be throught search() function that starts with GET, ends with POST but does not refresh
+          // so the second GET doesn't pull from DB. It just plays with data, while the first one pulls from POSTED data
+
+      });
+
       /* Align documents */
 
-      let align = "List";
+      
 
       $(".alignRadio").click(function() {
 
@@ -259,6 +322,8 @@
 
 
     function search() {
+
+      console.log(align);
 
     let text = $("input").val();
 
