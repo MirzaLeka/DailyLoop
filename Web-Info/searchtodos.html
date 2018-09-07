@@ -191,28 +191,28 @@
 
     <br> <br>
 
-    <select>
-        <option value=0>No tag</option>
-        <option value=1>Birthday</option>
-        <option value=2>Clean</option>
-        <option value=3>Coffee</option>
-        <option value=4>Date</option>
-        <option value=5>Event</option>
-        <option value=6>Food</option>
-        <option value=7>Game</option>
-        <option value=8>Holiday</option>
-        <option value=9>Movie</option>
-        <option value=10>Music</option>
-        <option value=11>Pet</option>
-        <option value=12>Pray</option>
-        <option value=13>Relax</option>
-        <option value=14>Sleep</option>
-        <option value=15>Shop</option>
-        <option value=16>Shower</option>
-        <option value=17>Sports</option>
-        <option value=18>Travel</option>
-        <option value=19>Work</option>
-        <option value=20>Wedding</option>
+    <select id="selectTag">
+        <option class="optionTag" value=0>No tag</option>
+        <option class="optionTag" value=1>Birthday</option>
+        <option class="optionTag" value=2>Clean</option>
+        <option class="optionTag" value=3>Coffee</option>
+        <option class="optionTag" value=4>Date</option>
+        <option class="optionTag" value=5>Event</option>
+        <option class="optionTag" value=6>Food</option>
+        <option class="optionTag" value=7>Game</option>
+        <option class="optionTag" value=8>Holiday</option>
+        <option class="optionTag" value=9>Movie</option>
+        <option class="optionTag" value=10>Music</option>
+        <option class="optionTag" value=11>Pet</option>
+        <option class="optionTag" value=12>Pray</option>
+        <option class="optionTag" value=13>Relax</option>
+        <option class="optionTag" value=14>Sleep</option>
+        <option class="optionTag" value=15>Shop</option>
+        <option class="optionTag" value=16>Shower</option>
+        <option class="optionTag" value=17>Sports</option>
+        <option class="optionTag" value=18>Travel</option>
+        <option class="optionTag" value=19>Work</option>
+        <option class="optionTag" value=20>Wedding</option>
         
       </select>
       
@@ -223,7 +223,7 @@
 
       function getSelected() {
 
-      var select = $('select').find(":selected").attr("value"); // .find(":selected").text() would return text of selected
+        var select = $('select').find(":selected").attr("value"); // .find(":selected").text() would return text of selected
       alert(select);
 
       // you will post value of selected to DB
@@ -240,6 +240,15 @@
       let align = "";
 
       $(document).ready(() => {
+
+        
+        // Fake GET request
+
+        if (4 < 5) {
+          $(".optionTag:eq(5)").attr('selected', true); // DIsplay SELECTED OPTION once you pull data from DB
+        }
+
+      
 
         // Fake GET request
 

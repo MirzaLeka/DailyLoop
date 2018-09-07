@@ -281,6 +281,16 @@ h1 {
   width: 100%;
   background: #310594; }
 
+#selectTag {
+  cursor: pointer;
+  margin: 50px;
+  width: 130px;
+  padding: 5px 35px 5px 5px;
+  font-size: 16px;
+  border: 1px solid #CCC;
+  height: 34px;
+  background: #EEE; }
+
 .navbarUl {
   width: 100%;
   margin: 0 auto; }
