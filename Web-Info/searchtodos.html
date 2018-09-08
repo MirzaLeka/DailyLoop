@@ -109,31 +109,7 @@
 
     <li class="navbarLi" id="limitLi">Limit &#9660
       <ul class="innerUl" id="limitUl">
-        <label class="radio">
-        <input class="limitRadio"  name="limit" type="radio" checked>
-        <span style="font-weight: 100; text-align: center;">No limit</span>
-      </label>
-      <label class="radio">
-        <input class="limitRadio" name="limit" type="radio">
-        <span style="font-weight: 100; text-align: center;">1</span>
-      </label>
-      <label class="radio">
-        <input class="limitRadio" name="limit" type="radio">
-        <span style="font-weight: 100; text-align: center;">5</span>
-      </label>
-      <label class="radio">
-        <input class="limitRadio" name="limit" type="radio">
-        <span style="font-weight: 100; text-align: center;">10</span>
-      </label>
-      <label class="radio">
-        <input class="limitRadio" name="limit" type="radio">
-        <span style="font-weight: 100; text-align: center;">15</span>
-        </label>
-        <label class="radio">
-         <input class="limitRadio" name="limit" type="radio">
-          <span style="font-weight: 100; text-align: center;">20</span>
-        </label>    
-    
+  
       </ul>
     
     </li>
@@ -143,30 +119,7 @@
 
         <li class="navbarLi" id="themeLi">Theme &#9660
           <ul class="innerUl" id="themeUl">
-            <label class="radio">
-            <input class="themeRadio"  name="theme" type="radio" checked>
-            <span style="font-weight: 100; text-align: center;">Default</span>
-          </label>
-          <label class="radio">
-            <input class="themeRadio" name="theme" type="radio">
-            <span style="font-weight: 100; text-align: center;">Blue / Orange</span> <!-- Cobalt -->
-          </label>
-          <label class="radio">
-            <input class="themeRadio" name="theme" type="radio">
-            <span style="font-weight: 100; text-align: center;">Red / Black</span> <!-- Red Dragon -->
-          </label>
-          <label class="radio">
-            <input class="themeRadio" name="theme" type="radio">
-            <span style="font-weight: 100; text-align: center;">Purple / White</span> <!-- Snowball -->
-          </label>
-          <label class="radio">
-            <input class="themeRadio" name="theme" type="radio">
-            <span style="font-weight: 100; text-align: center;">Green / Black</span> <!-- Matrix -->
-            </label> 
-            <label class="radio">
-              <input class="themeRadio" name="theme" type="radio">
-              <span style="font-weight: 100; text-align: center;">Forest / Mud</span> <!-- Camo -->
-              </label> 
+
         
           </ul>
         
@@ -192,29 +145,8 @@
     <br> <br>
 
 
-    <select id="selectTag">
-        <option class="optionTag" value=0>No tag</option>
-        <option class="optionTag" value=1>Birthday</option>
-        <option class="optionTag" value=2>Clean</option>
-        <option class="optionTag" value=3>Coffee</option>
-        <option class="optionTag" value=4>Date</option>
-        <option class="optionTag" value=5>Drive</option>
-        <option class="optionTag" value=6>Event</option>
-        <option class="optionTag" value=7>Food</option>
-        <option class="optionTag" value=8>Game</option>
-        <option class="optionTag" value=9>Holiday</option>
-        <option class="optionTag" value=10>Movie</option>
-        <option class="optionTag" value=11>Music</option>
-        <option class="optionTag" value=12>Pet</option>
-        <option class="optionTag" value=13>Pray</option>
-        <option class="optionTag" value=14>Relax</option>
-        <option class="optionTag" value=15>Sleep</option>
-        <option class="optionTag" value=16>Shop</option>
-        <option class="optionTag" value=17>Shower</option>
-        <option class="optionTag" value=18>Sports</option>
-        <option class="optionTag" value=19>Travel</option>
-        <option class="optionTag" value=20>Work</option>
-        <option class="optionTag" value=21>Wedding</option>
+    <select id="selectTag"> 
+        
         
       </select>
       
@@ -244,9 +176,28 @@
 
 
       let align = "";
+      let limit = "No limit";
+      let theme = "";
 
       $(document).ready(() => {
 
+        options();
+        themes();
+        limits();
+
+
+              /* Limit search */
+
+      
+
+$(".limitRadio").click(function() {
+
+limit = $(this).parent(".radio").text();
+limit = limit.trim();  
+
+
+patch();
+});
         
         // Fake GET request
 
@@ -391,17 +342,7 @@
       patch();
   });
 
-        /* Limit search */
 
-        let limit = "No limit";
-
-        $(".limitRadio").click(function() {
-
-        limit = $(this).parent(".radio").text();
-        limit = limit.trim();  
-
-        patch();
-      });
 
 
       /* Themes */
@@ -590,9 +531,70 @@ success: function (data) {
 
 
 
+function options() {
+
+        const options = [
+          "No tag", "Birthday", "Book", "Clean", "Coffee",
+          "Dance", "Date", "Diet", "Dress up", "Drive",
+          "Event", "Explore", "Farm", "Food", "Games",
+          "Help", "Health", "Holiday", "Movie", "Music",
+          "Pet", "Pray", "Relax", "Sleep", "Shop",
+          "Shower", "Sports", "Travel", "Work", "Wedding",
+          "Workout"];
+
+    let addOption = '';
+    options.forEach((option, i) => {
+      addOption += `<option class="optionTag" value=${i}>${option}</option>`;
+    });
+
+    $("#selectTag").append(addOption);
+
+}
 
 
+function themes() {
 
+      const themesArray = ["Default", "Cobalt", "Matrix", "Snowball", "Dirt", "Red tiger"];
+
+    let addTheme = '';
+    themesArray.forEach((theme, i) => {
+      addTheme += `
+    <label class="radio">
+      <input class="themeRadio"  name="theme" type="radio">
+      <span style="font-weight: 100; text-align: center;">${theme}</span>
+    </label>
+     `;
+    });
+
+    $("#themeUl").append(addTheme);
+
+    $(".themeRadio:eq(0)").attr('checked', true);
+
+}
+
+
+function limits() {
+
+  const limitArray = ["No limit", 1, 3, 5, 10, 15, 20];
+
+    let addLimit = '';
+    limitArray.forEach((lim, i) => {
+      addLimit += `
+    <label class="radio">
+    <input class="limitRadio"  name="limit" type="radio">
+    <span style="font-weight: 100; text-align: center;">${lim}</span>
+    </label>
+  `;
+    });
+
+  $("#limitUl").append(addLimit);
+
+  $(".limitRadio:eq(0)").attr('checked', true);
+
+
+}
+
+   
 
 
 
