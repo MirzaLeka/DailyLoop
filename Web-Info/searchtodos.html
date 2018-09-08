@@ -44,15 +44,7 @@
 
         <li class="navbarLi" id="alignLi">Align &#9660
             <ul class="innerUl" id="alignUl">
-              <label class="radio">
-              <input class="alignRadio" name="align" type="radio" >
-              <span style="font-weight: 100; text-align: center;">List</span>
-            </label>
-            <label class="radio">
-              <input class="alignRadio" name="align" type="radio">
-              <span style="font-weight: 100; text-align: center;">Grid</span>
-            </label>
-              
+    
             </ul>
           
           </li>
@@ -62,18 +54,7 @@
         
           <li class="navbarLi" id="displayLi">Display &#9660
             <ul class="innerUl" id="displayUl">
-              <label class="radio">
-              <input class="displayRadio"  name="display" type="radio" checked>
-              <span style="font-weight: 100; text-align: center;">All</span>
-            </label>
-            <label class="radio">
-              <input class="displayRadio" name="display" type="radio">
-              <span style="font-weight: 100; text-align: center;">Completed</span>
-            </label>
-            <label class="radio">
-              <input class="displayRadio" name="display" type="radio">
-              <span style="font-weight: 100; text-align: center;">Not completed</span>
-            </label>
+
           
             </ul>
           
@@ -178,26 +159,18 @@
       let align = "";
       let limit = "No limit";
       let theme = "";
+      let display = "Display all";
 
       $(document).ready(() => {
 
         options();
         themes();
-        limits();
+        limiting();
+        //sorting();
+        displaying();
+        aligning();
 
 
-              /* Limit search */
-
-      
-
-$(".limitRadio").click(function() {
-
-limit = $(this).parent(".radio").text();
-limit = limit.trim();  
-
-
-patch();
-});
         
         // Fake GET request
 
@@ -315,20 +288,7 @@ patch();
   });
 
 
-      /* Display documents */
 
-      let display = "Display all";
-
-      $(".displayRadio").click(function() {
-
-      display = $(this).parent(".radio").text();
-      display = display.trim();  
-
-      patch();
-
-      // TODO: Disable date COMPLETED when you display NOT completed 
-
-  });
 
       /* Sort documents */
 
@@ -573,7 +533,7 @@ function themes() {
 }
 
 
-function limits() {
+function limiting() {
 
   const limitArray = ["No limit", 1, 3, 5, 10, 15, 20];
 
@@ -590,6 +550,70 @@ function limits() {
   $("#limitUl").append(addLimit);
 
   $(".limitRadio:eq(0)").attr('checked', true);
+
+
+      /* Limit search */
+
+      $(".limitRadio").click(function() {
+
+      limit = $(this).parent(".radio").text();
+      limit = limit.trim();  
+
+      patch();
+  });
+
+
+
+}
+
+function displaying() {
+
+  const displayArray = ["All", "Completed", "Not completed"];
+
+    let addDisplay = '';
+    displayArray.forEach((dis, i) => {
+    addDisplay += `
+    <label class="radio">
+              <input class="displayRadio" name="display" type="radio">
+              <span style="font-weight: 100; text-align: center;">${dis}</span>
+            </label>
+    `;
+  });
+
+  $("#displayUl").append(addDisplay);
+
+  $(".displayRadio:eq(0)").attr('checked', true);
+
+    
+        /* Display documents */
+
+      $(".displayRadio").click(function() {
+
+    display = $(this).parent(".radio").text();
+    display = display.trim();  
+
+    patch();
+
+    });
+
+}
+
+
+function aligning() {
+
+  const alignArray = ["List", "Grid"];
+
+  let addAlign = '';
+  alignArray.forEach((ali, i) => {
+    addAlign += `
+    <label class="radio">
+              <input class="alignRadio" name="align" type="radio">
+              <span style="font-weight: 100; text-align: center;">${ali}</span>
+            </label>
+    `;
+  });
+
+  $("#alignUl").append(addAlign);
 
 
 }
