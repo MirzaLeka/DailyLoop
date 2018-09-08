@@ -156,7 +156,7 @@
 
 
 
-      let align = "";
+  //    let align = "";
       let limit = "No limit";
       let theme = "";
       let display = "Display all";
@@ -174,25 +174,20 @@
         
         // Fake GET request
 
-        if (4 < 5) {
-          $(".optionTag:eq(5)").attr('selected', true); // DIsplay SELECTED OPTION once you pull data from DB
-        }
+        // if (4 < 5) {
+        //   $(".optionTag:eq(5)").attr('selected', true); // DIsplay SELECTED OPTION once you pull data from DB
+        // }
 
       
 
-        // Fake GET request
+        // Fake GET request -- CHANGE SELECTED VALUE
 
         // if (2 < 5) {
         //   $(".alignRadio:eq(0)").attr('checked', true); // give 0th or whichever element attribute selected once it comes from DB
         // }
 
-          align =  $(".alignRadio:checked").parent(".radio").text(); // get it's text
-          align = align.trim(); // trim it
+        
 
-          // GET AND POST in the same function
-          // document on ready to initiate default GET
-          // second get should be throught search() function that starts with GET, ends with POST but does not refresh
-          // so the second GET doesn't pull from DB. It just plays with data, while the first one pulls from POSTED data
 
 
     getAllTodos();
@@ -202,13 +197,15 @@
 
       function getAllTodos() {
 
+        let align =  $(".alignRadio:checked").parent(".radio").text(); 
+        align = align.trim(); 
+
         $.ajax({
           type: "GET",
           url: `/todos/${align}`,
           success: function(data) {
 
             console.log(data);
-            console.log(align);
 
                       var li = '';
           
@@ -229,7 +226,7 @@
     
             <div class="grid" style="border: 2px solid white; color: #FFF; height: 350px; position: relative;">
               
-                <img src="../Resources/img/tags/music.jpg" class="img-responsive" style="width:100%; height: 250px;" alt="Image">
+                <img src="../Resources/img/tags/drive.jpg" class="img-responsive" style="width:100%; height: 250px;" alt="Image">
 
                 
     <div class="col-xs-12" >  
@@ -273,20 +270,6 @@
 
 
 
-      /* Align documents */
-
-      $(".alignRadio").click(function() {
-
-      align = $(this).parent(".radio").text();
-      align = align.trim();  
-
-      patch();
-
-      //getAllTodos();
-
-  //    search();
-  });
-
 
 
 
@@ -296,27 +279,27 @@
 
       $(".sortRadio").click(function() {
 
+        let text = $("#text").val();
+
       sort = $(this).parent(".radio").text();
       sort = sort.trim();  
 
       patch();
+
+     if (text  != "") {
+     search();
+    }
   });
 
 
 
 
-      /* Themes */
-
-      $(".themeRadio").click(() => {
-
-        $("body").css("background", "#09223f");
-
-      });
-
-
 
 
     function search() {
+
+      let align =  $(".alignRadio:checked").parent(".radio").text(); 
+      align = align.trim(); 
 
     let text = $("input").val();
 
@@ -353,7 +336,7 @@
       
               <div class="grid" style="border: 2px solid white; color: #FFF; height: 350px; position: relative;">
                 
-                  <img src="../Resources/img/tags/music.jpg" class="img-responsive" style="width:100%; height: 250px;" alt="Image">
+                  <img src="../Resources/img/tags/drive.jpg" class="img-responsive" style="width:100%; height: 250px;" alt="Image">
 
                   
       <div class="col-xs-12" >  
@@ -399,6 +382,10 @@
 
 function patch() {
 
+  
+      let align =  $(".alignRadio:checked").parent(".radio").text(); 
+      align = align.trim(); 
+
       $.ajax({
         type: "GET",
         url: `/todos/${display}/${limit}/${sort}/`,
@@ -423,7 +410,7 @@ function patch() {
       
               <div class="grid" style="border: 2px solid white; color: #FFF; height: 350px; position: relative;">
                 
-                  <img src="../Resources/img/tags/music.jpg" class="img-responsive" style="width:100%; height: 250px;" alt="Image">
+                  <img src="../Resources/img/tags/drive.jpg" class="img-responsive" style="width:100%; height: 250px;" alt="Image">
 
                   
       <div class="col-xs-12" >  
@@ -465,7 +452,6 @@ function patch() {
 
 /////////////////////////
 
-console.log(align);
 
 var data = {
  "align": align
@@ -488,7 +474,6 @@ success: function (data) {
 
 
 }
-
 
 
 function options() {
@@ -514,7 +499,7 @@ function options() {
 
 function themes() {
 
-      const themesArray = ["Default", "Cobalt", "Matrix", "Snowball", "Dirt", "Red tiger"];
+    const themesArray = ["Default", "Cobalt", "Matrix", "Snowball", "Dirt", "Red tiger"];
 
     let addTheme = '';
     themesArray.forEach((theme, i) => {
@@ -530,10 +515,22 @@ function themes() {
 
     $(".themeRadio:eq(0)").attr('checked', true);
 
+
+    /* Change Theme WIP */
+
+      $(".themeRadio").click(() => {
+
+      $("body").css("background", "#09223f");
+
+      });
+
+
 }
 
 
 function limiting() {
+
+  let text = $("#text").val();
 
   const limitArray = ["No limit", 1, 3, 5, 10, 15, 20];
 
@@ -560,6 +557,11 @@ function limiting() {
       limit = limit.trim();  
 
       patch();
+
+    if (text  != "") {
+     search();
+    }
+
   });
 
 
@@ -567,6 +569,8 @@ function limiting() {
 }
 
 function displaying() {
+
+  let text = $("#text").val();
 
   const displayArray = ["All", "Completed", "Not completed"];
 
@@ -594,12 +598,18 @@ function displaying() {
 
     patch();
 
+     if (text  != "") {
+     search();
+    }
+
     });
 
 }
 
 
 function aligning() {
+
+  let text = $("#text").val();
 
   const alignArray = ["List", "Grid"];
 
@@ -614,6 +624,24 @@ function aligning() {
   });
 
   $("#alignUl").append(addAlign);
+
+        /* Align documents */
+
+  $(".alignRadio").click(function() {
+
+  align = $(this).parent(".radio").text();
+  align = align.trim();  
+
+  patch();
+
+     if (text  != "") {
+     search();
+    }
+
+    //getAllTodos();
+
+  //    search();
+    });
 
 
 }
