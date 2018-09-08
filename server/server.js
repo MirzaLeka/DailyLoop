@@ -101,6 +101,117 @@ app.get('/todos/:align', (req, res) => {
 
 
 
+/* Get todos after patch */ 
+
+app.get("/todos/:display/:limit/:sort", (req, res) => {
+
+  var getCompleted = req.params.display;
+  var limit = req.params.limit;
+  var sort = req.params.sort;
+
+  var isCompleted;
+  
+  if (getCompleted == "Completed") {
+    isCompleted = true;
+  }
+  else if (getCompleted == "Not completed") {
+    isCompleted = false;
+  }
+  else {
+    isCompleted = '';
+  }
+  
+  
+  if (limit == "No limit") {
+    limit = 0;
+  }
+
+  // Sort todos asc or desc order 
+var asc = 0;
+
+if (sort == "Date completed ⇧") {
+  
+  asc = -1;
+
+} else if (sort == "Date completed ⇩") {
+
+  asc = 1;
+
+}
+
+
+if ( typeof(isCompleted) === 'boolean' ) {
+
+  if (sort == "Date created") {
+  
+    Todo.find({completed: isCompleted}).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
+      res.send({todos}); 
+    }, (e) => { 
+      res.status(400).send(e);
+    });
+  
+  } else if (sort == "Last updated") {
+    
+    Todo.find({completed: isCompleted}).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
+      res.send({todos}); 
+    }, (e) => { 
+      res.status(400).send(e);
+    });
+  
+     }
+  
+  else {
+  
+    Todo.find({completed: isCompleted}).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
+      res.send({todos}); 
+    }, (e) => { 
+      res.status(400).send(e);
+    });
+  
+  }
+  
+  
+  
+  } else {
+  
+  
+    if (sort == "Date created") {
+    
+    Todo.find({}).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
+        res.send({todos}); 
+      }, (e) => { 
+        res.status(400).send(e);
+      });
+    
+    } else if (sort == "Last updated") {
+    
+      Todo.find({}).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
+        res.send({todos}); 
+      }, (e) => { 
+        res.status(400).send(e);
+      });
+    
+       }
+    
+    else {
+    
+      Todo.find({}).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
+        res.send({todos}); 
+      }, (e) => { 
+        res.status(400).send(e);
+      });
+    
+       }
+    
+    
+  
+    }
+  
+
+});
+
+
+
 /* Get todos by text */
 
 app.get("/todos/:text/:completed/:limit/:sort", (req, res) => {
