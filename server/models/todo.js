@@ -54,6 +54,10 @@ var Todo = new mongoose.Schema({
     selectedTag: {
         type: Number,
         default: 0
+    },
+    theme: {
+        type: String,
+        default: "Default"
     }
 }); 
 

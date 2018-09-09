@@ -86,7 +86,7 @@ app.get('/todos', (req, res) => {
 
 /* Get all todos + align */
 
-app.get('/todos/:align', (req, res) => {
+app.get('/todos/:align/:theme', (req, res) => {
 
   let align = req.params.align;
 
@@ -383,9 +383,12 @@ app.patch('/todos/:id', (req, res) => {
 
   app.patch("/todos", (req, res) => {
 
-    var body = _.pick(req.body, ['align']);
+    let body = _.pick(req.body, ['align', 'theme']);
 
-    Todo.updateMany(Todo.align, {$set: body}, {new: true}).then((todos) => {
+    Todo.updateMany(
+    Todo.align, {$set: body}, {new: true},
+    Todo.theme, {$set: body}, {new: true} 
+    ).then((todos) => {
   
       if (!todos) {
       return res.status(404).send();

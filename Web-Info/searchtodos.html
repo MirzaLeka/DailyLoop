@@ -262,6 +262,12 @@
         }
 
         $("#showList").html(li);
+
+        /* THEMES SECTION 
+        
+        
+        
+        */
             
           }
         })
@@ -303,7 +309,7 @@
         success: function (data) {
 
           if (data.todos.length == 0) {
-            return console.log("No match found");
+            return console.log("No match found"); /////////////////////////////////////////////////////////////////////////////////
           }
 
           console.log(data);
@@ -369,6 +375,26 @@ function patch() {
   
       let align =  $(".alignRadio:checked").parent(".radio").text(); 
       align = align.trim(); 
+
+      let theme =  $(".themeRadio:checked").parent(".radio").text(); 
+      theme = theme.trim(); 
+
+      
+      /* Change Theme */ // TODO THAT RADIO btn like with list/grid
+
+      if (theme == "Cobalt") {
+        $("body").css("background", "#09223f");
+      } else if (theme == "Red tiger") {
+        $("body").css("background", "#111");
+      } else if (theme == "Snowball") {
+        $("body").css("background", "#FFF");
+      } else if (theme == "Dirt") {
+        $("body").css("background", "#f7bb7b");
+      } else if(theme == "Matrix") {
+        $("body").css("background", "#2cbe2b");
+      } else {
+        $("body").css("background", "#343e4a"); // Default body background
+      }
 
       $.ajax({
         type: "GET",
@@ -436,9 +462,11 @@ function patch() {
 
 /////////////////////////
 
+console.log("THeme is " + theme);
 
 var data = {
- "align": align
+ "align": align,
+ "theme": theme
 };
 
 
@@ -451,6 +479,9 @@ processData: false,
 dataType: 'json',
 success: function (data) {
 // location.reload();
+},
+error: function(err) {
+  console.log(err);
 }
 
 
@@ -500,13 +531,21 @@ function themes() {
     $(".themeRadio:eq(0)").attr('checked', true);
 
 
-    /* Change Theme WIP */
+    /* Pick Theme */
+    
+    
+    $(".themeRadio").click(() => {
 
-      $(".themeRadio").click(() => {
+      theme = $(this).parent(".radio").text();
+      theme = theme.trim();  
 
-      $("body").css("background", "#09223f");
 
-      });
+
+      patch();
+
+
+
+    });
 
 
 }
