@@ -68,12 +68,12 @@
       <input class="sortRadio" name="sort" type="radio" checked>
       <span style="font-weight: 100; text-align: center;">Date created</span>
     </label>
-    <label class="radio">
-      <input class="sortRadio" name="sort" type="radio">
+    <label class="radio labelCompleted">
+      <input class="sortRadio sortCompleted" name="sort" type="radio">
       <span style="font-weight: 100; text-align: center;">Date completed <span style="color: gold">&#x21E7;</span></span>
     </label>
-    <label class="radio">
-      <input class="sortRadio" name="sort" type="radio">
+    <label class="radio labelCompleted">
+      <input class="sortRadio sortCompleted" name="sort" type="radio">
       <span style="font-weight: 100; text-align: center;">Date completed <span style="color: gold">&#x21E9;</span></span>
     </label>
     <label class="radio">
@@ -595,6 +595,27 @@ function displaying() {
 
     display = $(this).parent(".radio").text();
     display = display.trim();  
+
+    if (display == "Not completed") {
+      $(".sortCompleted").attr("disabled",true);
+      $(`.labelCompleted`).css({ "cursor": "not-allowed" });
+      $(".labelCompleted").hover(  function () {
+        $(this).css("background", "#222");
+      });
+
+    } else {
+      $(".sortCompleted").attr("disabled",false);
+      $(`.labelCompleted`).css({ "cursor": "pointer" });
+
+      $(".labelCompleted").on('mouseenter',  function () {
+        $(this).css("background", "#007BFF");
+      });
+
+      $(".labelCompleted").on('mouseleave',  function () {
+        $(this).css("background", "#222");
+      });
+
+    }
 
     patch();
 
