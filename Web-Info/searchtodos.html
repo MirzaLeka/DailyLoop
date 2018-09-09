@@ -160,13 +160,14 @@
       let limit = "No limit";
       let theme = "";
       let display = "Display all";
+      let sort = 'Date created';
 
       $(document).ready(() => {
 
         options();
         themes();
         limiting();
-        //sorting();
+        sorting();
         displaying();
         aligning();
 
@@ -273,23 +274,6 @@
 
 
 
-      /* Sort documents */
-
-      let sort = 'Date created';
-
-      $(".sortRadio").click(function() {
-
-        let text = $("#text").val();
-
-      sort = $(this).parent(".radio").text();
-      sort = sort.trim();  
-
-      patch();
-
-     if (text  != "") {
-     search();
-    }
-  });
 
 
 
@@ -568,6 +552,28 @@ function limiting() {
 
 }
 
+
+function sorting() {
+
+      /* Sort documents */
+
+      $(".sortRadio").click(function() {
+
+    let text = $("#text").val();
+
+    sort = $(this).parent(".radio").text();
+    sort = sort.trim();  
+
+    patch();
+
+    if (text  != "") {
+    search();
+    }
+});
+
+
+}
+
 function displaying() {
 
   let text = $("#text").val();
@@ -598,7 +604,7 @@ function displaying() {
 
     if (display == "Not completed") {
       $(".sortCompleted").attr("disabled",true);
-      $(`.labelCompleted`).css({ "cursor": "not-allowed" });
+      $(`.labelCompleted`).css({ "cursor": "default" });
       $(".labelCompleted").hover(  function () {
         $(this).css("background", "#222");
       });
@@ -667,9 +673,15 @@ function aligning() {
 
 }
 
+  /* Fade in / out navbar inner lists */
    
+$(".navbarLi").on('mouseenter', function() {
+$(this).find(".innerUl").fadeIn();
+});
 
-
+$(".navbarLi").on('mouseleave', function() {
+$(this).find(".innerUl").fadeOut();
+});
 
 
 
