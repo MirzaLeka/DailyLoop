@@ -164,6 +164,8 @@
 
       $(document).ready(() => {
 
+        getAllTodos();
+
         options();
         themes();
         limiting();
@@ -189,10 +191,6 @@
 
         
 
-
-
-    getAllTodos();
-
       });
 
 
@@ -206,11 +204,36 @@
           url: `/todos/${align}`,
           success: function(data) {
 
-            console.log(data);
-
                       var li = '';
           
           for (var i = 0; i < data.todos.length; i++) {
+
+            let theme = data.todos[i].theme;
+
+            // FIX THIS WITH COUNTER
+            // PUT THIS INTO FUNCTION RATHER THAN COPY PASTE MULTIPLE TIMES
+            // MAKE SURE THIS EXECUTES AS CSS RATHER THAN AFTER SCRIPT IS CALLED AND AJAX IS COMPLETE
+            // CREATE AN OBJECT, LIKE THE ONE FROM OBJECT FILE
+
+        if (theme == "Cobalt") {
+        $("body").css("background", "#09223f");
+        $(".themeRadio:eq(1)").attr('checked', true);
+      } else if (theme == "Red tiger") {
+        $("body").css("background", "#111");
+        $(".themeRadio:eq(5)").attr('checked', true);
+      } else if (theme == "Snowball") {
+        $("body").css("background", "#FFF");
+        $(".themeRadio:eq(3)").attr('checked', true);
+      } else if (theme == "Dirt") {
+        $("body").css("background", "#f7bb7b");
+        $(".themeRadio:eq(4)").attr('checked', true);
+      } else if(theme == "Matrix") {
+        $("body").css("background", "#2cbe2b");
+        $(".themeRadio:eq(2)").attr('checked', true);
+      } else {
+        $("body").css("background", "#343e4a"); // Default body background
+        $(".themeRadio:eq(0)").attr('checked', true);
+      }
 
         if (data.todos[i].align == "List") {
 
@@ -494,11 +517,11 @@ error: function(err) {
 function options() {
 
         const options = [
-          "No tag", "Birthday", "Book", "Clean", "Coffee",
+          "- No tag -", "Birthday", "Book", "Clean", "Coffee",
           "Dance", "Date", "Diet", "Dress up", "Drive",
-          "Event", "Explore", "Farm", "Food", "Games",
-          "Help", "Health", "Holiday", "Movie", "Music",
-          "Pet", "Pray", "Relax", "Sleep", "Shop",
+          "Event", "Explore", "Farm", "Food", "Help",
+          "Health", "Holiday", "Movie", "Music", "Nap",
+          "Pet", "Play", "Pray", "Relax", "Shop",
           "Shower", "Sports", "Travel", "Work", "Wedding",
           "Workout"];
 
@@ -528,7 +551,7 @@ function themes() {
 
     $("#themeUl").append(addTheme);
 
-    $(".themeRadio:eq(0)").attr('checked', true);
+    //$(".themeRadio:eq(0)").attr('checked', true);
 
 
     /* Pick Theme */
