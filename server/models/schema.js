@@ -1,6 +1,15 @@
 const mongoose = require('mongoose');
  
 const { ObjectId } = mongoose.Schema.Types;
+
+var booksSchema = new mongoose.Schema({
+  text: {
+      type: String,
+      default: null
+  }
+});
+
+
  
 const productSchema = new mongoose.Schema({
   name: {
@@ -18,6 +27,7 @@ const productSchema = new mongoose.Schema({
     required: true,
     min: 0,
   },
+  books: [booksSchema]
 });
 
 productSchema.index({

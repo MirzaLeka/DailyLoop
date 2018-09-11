@@ -40,6 +40,8 @@ app.use("/Resources", express.static(__dirname + '/../Resources'));
 
 /* Routing */
 
+var updatedAlign = '';
+var originalAlign = '';
 
 
 /* Post todo */
@@ -50,12 +52,19 @@ app.post('/todos', (req, res) => {
   var str = d.toString();
   str = str.substr(4,20);
 
+
+  if (updatedAlign.length == 0) {
+    originalAlign = "List"; // list by default
+  } else {
+    originalAlign = updatedAlign;
+  }
+
   var todo = new Todo({
     text: req.body.text,
     createdAt: str,
     createdAtTimestamp: d.getTime(),
     lastUpdated: d.getTime(),
-    align: req.body.align
+    align: originalAlign
     // display: req.body.display,
     // sort: req.body.sort,
     // limit: req.body.limit
@@ -384,6 +393,8 @@ app.patch('/todos/:id', (req, res) => {
   app.patch("/todos", (req, res) => {
 
     let body = _.pick(req.body, ['align', 'theme']);
+
+    updatedAlign = body.align; // I'll take value of align that comes from AJAX and is Patched via body object
 
     Todo.updateMany(
     Todo.align, {$set: body}, {new: true},

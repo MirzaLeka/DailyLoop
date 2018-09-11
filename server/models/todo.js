@@ -36,8 +36,7 @@ var Todo = new mongoose.Schema({
         default: null
     },
     align: {
-       type: String, 
-       default: "List"
+       type: String
     },
     // display: {
     //     type: String,
