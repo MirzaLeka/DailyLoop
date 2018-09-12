@@ -1,5 +1,11 @@
 /* Variables */
 /* Mixins */
+@font-face {
+  font-family: headerFont;
+  src: url(../fonts/headerfont.otf); }
+textarea:focus, input:focus, button:focus {
+  outline: none; }
+
 body {
   background: #343e4a; }
 

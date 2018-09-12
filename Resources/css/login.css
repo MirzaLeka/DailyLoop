@@ -1,5 +1,11 @@
 /* Variables */
 /* Mixins */
+@font-face {
+  font-family: headerFont;
+  src: url(../fonts/headerfont.otf); }
+textarea:focus, input:focus, button:focus {
+  outline: none; }
+
 body {
   background: url("../img/login/loginbike.jpeg");
   overflow: hidden;
@@ -16,6 +22,55 @@ body {
   justify-content: center;
   text-align: center;
   flex-direction: column;
-  align-items: center; }
+  align-items: center;
+  position: relative; }
+
+#loginHeader {
+  position: absolute;
+  top: 17%;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  width: 100%;
+  color: #FFF;
+  font-size: 78px;
+  font-family: headerFont; }
+
+/* Form */
+#form {
+  background: #111;
+  opacity: .85;
+  width: 350px;
+  -webkit-box-shadow: 0 8px 6px -6px #000;
+  -moz-box-shadow: 0 8px 6px -6px #000;
+  box-shadow: 0 8px 6px -6px #000; }
+
+.formHeader {
+  color: #FFF; }
+
+.loginInput {
+  width: 85%;
+  background: transparent;
+  color: #FFF;
+  border: 1.5px solid #FFF;
+  border-radius: 5px;
+  padding-left: 10px;
+  height: 30px;
+  margin-top: 20px; }
+
+.loginInput::placeholder {
+  color: white; }
+
+.loginInput:-ms-input-placeholder {
+  color: white; }
+
+.loginInput::-ms-input-placeholder {
+  color: white; }
+
+.formBtn {
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-top: 20px;
+  margin-bottom: 20px; }
 
 /*# sourceMappingURL=login.css.map */
