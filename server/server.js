@@ -52,12 +52,41 @@ app.post('/todos', (req, res) => {
   var str = d.toString();
   str = str.substr(4,20);
 
+// UNTIL I'M COMPLETELY SURE WHAT I'M DOING
 
-  if (updatedAlign.length == 0) {
-    originalAlign = "List"; // list by default
+//   Todo.count(function (err, count) {
+//     if (!err && count === 0) {
+//               // console.log("All good!");
+//     } else {
+//       // console.log("Even better");
+//       // console.log("Todo before push: ");
+
+//       Todo.find().sort({completedAtTimestamp: 1}).then((todos) => {
+//       //  console.log(todos[0].align);
+
+//       originalAlign = todos[0].align;
+  
+//       }, (e) => { 
+//         console.log(e);
+//       });
+
+// //      console.log(Todo.find({text: "Igi"})); TO DO AND TEST
+//     }
+// });
+
+// DRUGI KORAK
+// ako je bio update bit ce ovaj Drugi uslov
+// ako nije ili ako si tek upalio app onda vazi PRVI uslov (if) i ovo odozgo
+
+  if (updatedAlign.length == 0) { // OVO CE TREBATI kad on napravi update i ako je napravio update ici ce da je tomahawk ono iz elsa
+   originalAlign = "List"; // a ako nije bio update onda ce uzeti predhodnu odozgo, tj uzet ce onu koja je pod alignom u baz
   } else {
     originalAlign = updatedAlign;
   }
+
+  // tj bit ce ako je prazna stavi list
+  // ako nije prazna onda vidi sta je u bazi pod align (todos[0].align) i stavi da tomahawk bude to
+  // a ako apdejtas onda promjeni tomahawk na to sto si dobio (raptor)
 
   var todo = new Todo({
     text: req.body.text,
@@ -71,6 +100,7 @@ app.post('/todos', (req, res) => {
   });
 
   todo.save().then((doc) => {
+    
     res.send(doc);
   }, (e) => {
     res.status(400).send(e);
@@ -83,8 +113,16 @@ app.post('/todos', (req, res) => {
 
 app.get('/todos', (req, res) => {
 
+  var todo = new Todo({});
+
+  // if todos is empty?
+
     Todo.find().sort({completedAtTimestamp: 1}).then((todos) => {
       res.send({todos}); 
+      // console.log("SSS:" + todo.align);
+      // console.log("DDD:" + todos.align);
+
+
     }, (e) => { 
       res.status(400).send(e);
     });
@@ -95,9 +133,10 @@ app.get('/todos', (req, res) => {
 
 /* Get all todos + align */
 
-app.get('/todos/:align/:theme', (req, res) => {
+app.get('/todos/:align', (req, res) => {
 
   let align = req.params.align;
+  console.log("Value of align is " + align);
 
   Todo.find({align}).sort({completedAtTimestamp: 1}).then((todos) => {
     res.send({todos}); 
