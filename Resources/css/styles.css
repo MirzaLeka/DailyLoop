@@ -4,6 +4,6 @@
   font-family: headerFont;
   src: url(../fonts/headerfont.otf); }
 textarea:focus, input:focus, button:focus {
-  outline: none; }
+  outline: none !important; }
 
 /*# sourceMappingURL=styles.css.map */

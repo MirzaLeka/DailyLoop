@@ -56,10 +56,6 @@ $navbarLiWidth: 140px;
     width: 120px; 
     text-align: center;
     @include shadowBottom(0, 8px, 4px, -4px, #000);
-    // transition: opacity .5s ease-in-out;
-    // -moz-transition: opacity .5s ease-in-out;
-    // -webkit-transition: opacity .5s ease-in-out;
-    // opacity: 0;
     display: none;
     cursor: pointer;
 }
@@ -83,9 +79,6 @@ $navbarLiWidth: 140px;
 
 #alignLi{
   width: $navbarLiWidth;
-  // &:hover #alignUl{
-  //   opacity: 1;
-  // }
 }
 
 
@@ -99,9 +92,6 @@ $navbarLiWidth: 140px;
 
 #displayLi{
   width: $navbarLiWidth;
-  // &:hover #displayUl{
-  //   opacity: 1;
-  // }
 }
 
 
@@ -115,9 +105,6 @@ $navbarLiWidth: 140px;
   
   #sortLi{
     width: $navbarLiWidth;
-    // &:hover #sortUl{
-    //   opacity: 1;
-    // }
   }
 
   
@@ -133,9 +120,6 @@ $navbarLiWidth: 140px;
     border-right: 2px solid $btnBackground;
     width: $navbarLiWidth;
     cursor: pointer;
-    // &:hover #limitUl{
-    //   opacity: 1;
-    // }
   }
 
 
@@ -150,9 +134,6 @@ $navbarLiWidth: 140px;
   #themeLi{
     width: $navbarLiWidth;
     cursor: pointer;
-    // &:hover #themeUl{
-    //   opacity: 1;
-    // }
   }
   
   

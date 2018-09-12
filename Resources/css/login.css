@@ -4,7 +4,7 @@
   font-family: headerFont;
   src: url(../fonts/headerfont.otf); }
 textarea:focus, input:focus, button:focus {
-  outline: none; }
+  outline: none !important; }
 
 body {
   background: url("../img/login/loginbike.jpeg");
@@ -70,7 +70,14 @@ body {
 .formBtn {
   padding-left: 10%;
   padding-right: 10%;
+  margin-top: 20px; }
+
+.changeForm {
+  color: #FFF;
   margin-top: 20px;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  cursor: pointer; }
+  .changeForm:hover {
+    color: #CCC; }
 
 /*# sourceMappingURL=login.css.map */

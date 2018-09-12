@@ -62,5 +62,14 @@ body{
     padding-left: 10%;
     padding-right: 10%;
     margin-top: 20px;
+}
+
+.changeForm{
+    color: #FFF;
+    margin-top: 20px;
     margin-bottom: 20px;
+    cursor: pointer;
+    &:hover{
+        color: #CCC;
+    }
 }

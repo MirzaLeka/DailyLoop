@@ -4,7 +4,7 @@
   font-family: headerFont;
   src: url(../fonts/headerfont.otf); }
 textarea:focus, input:focus, button:focus {
-  outline: none; }
+  outline: none !important; }
 
 .nav {
   position: sticky;
