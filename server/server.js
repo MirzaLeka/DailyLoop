@@ -486,6 +486,26 @@ app.delete("/todos", (req, res) => {
 });
 
 
+//////////////////////////////////////
+
+/* Users Controller */
+
+app.post('/users', (req, res) => {
+
+let body = _.pick(req.body, ["username", "email", "password"]);
+
+let user = new User(body);
+
+user.save().then((user) => {
+  res.send(user);
+  }).catch((e) => {
+  res.status(400).send(`Unable to save the user: ${e}`);
+  });
+
+});
+
+
+/////////////////////////////////////
 
 /* Render Error Page */
 

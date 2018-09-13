@@ -9,7 +9,7 @@ function changeForm(num) {
 
         form.innerHTML = `
         
-        <form id="signup-form">
+        <form class="signup-form" action="/home" method="get">
 
         <h2 class="formHeader">Sign Up</h2>
 
@@ -21,7 +21,7 @@ function changeForm(num) {
 
         <input class="loginInput" name="confirmPassword" type="password" placeholder="Confirm Password"/>
     <br>
-        <input onclick="funky()" class="btn btn-success formBtn" type="submit" id="confirmBtn" value="CONTINUE"/>
+        <input class="btn btn-success formBtn" type="submit" id="confirmBtn" value="REGISTER"/>
     
         <p class="changeForm" onclick="changeForm(1)">Already a member?</p>
 
@@ -41,7 +41,7 @@ function changeForm(num) {
 
         <input class="loginInput" type="password" placeholder="Password" required/>
 
-        <button class="btn btn-primary formBtn" id="loginBtn">LOG IN</button>
+        <button class="btn btn-primary formBtn" id="loginBtn">CONTINUE</button>
 
         <p class="changeForm" onclick="changeForm(0)">Not a member?</p>
         
@@ -49,7 +49,15 @@ function changeForm(num) {
 
     }
 
+    $('.signup-form').validate().resetForm();
+
+
 }
+
+
+$(".signup-form").submit(function(e) {
+    e.preventDefault();
+});
 
 
 $(function() {
@@ -77,7 +85,7 @@ $.validator.addMethod('strongPassword', function(value, element) {
   }, 'Password must be at least 8 characters long and contain at least one number, one character and one symbol.')
 
 
-$("#signup-form").validate({
+$(".signup-form").validate({
     rules: {
         signupUsername: {
             required: true,
@@ -114,10 +122,44 @@ $("#signup-form").validate({
 });
 
 
-function funky() {
-    // window.location.href='/home'
-}
 
+function register() {
+
+    // Make sure it validates before calling register()
+
+    $(".signup-form").submit(function(e) {
+        e.preventDefault();
+    });
+
+    let username = $("input[name='signupUsername']").val();
+    let email = $("input[name='signupEmail']").val();
+    let password = $("input[name='signupPassword']").val();
+
+    // if confirmPW != PW  { return }
+
+    let data = {
+        "username" : username,
+        "email" : email,
+        "password" : password
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/users",
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify(data),
+        success: function(data) {
+            window.location.href="/startpage";
+        },
+
+        error: function(err) {
+            console.log(err);
+        }
+    });
+
+
+}
 
 // function signup() {
 
