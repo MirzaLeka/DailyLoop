@@ -15,6 +15,8 @@
   <script src="../Resources/scripts/fontawesome.js"></script>
   <!-- jQuery Validate script -->
   <script src="../Resources/scripts/validate.js"></script>
+  <!-- jQuery Validate additional methods script -->
+  <script src="../Resources/scripts/additional-methods.js"></script>
   <!-- Login CSS-->
   <link rel="stylesheet" type="text/css" href="../Resources/css/login.css"/>
 </head>
@@ -28,13 +30,15 @@
 
                 <h2 class="formHeader">Sign Up</h2>
     
-                <input class="loginInput" name="signupUsername" type="text" placeholder="Username" autofocus required/>
+                <input class="loginInput" name="signupUsername" type="text" placeholder="Username" autofocus/>
             
                 <input class="loginInput" name="signupEmail" type="text" placeholder="Email"/>   
             
-                <input class="loginInput" name="signupPassword" type="password" placeholder="Password" required/>
+                <input class="loginInput" name="signupPassword" id="pass" type="password" placeholder="Password"/>
+
+                <input class="loginInput" name="confirmPassword" type="password" placeholder="Confirm Password"/>
             <br>
-                <input class="btn btn-success formBtn" type="submit" id="confirmBtn" value="CONFIRM"/>
+                <input onclick="funky()" class="btn btn-success formBtn" type="submit" id="confirmBtn" value="CONTINUE"/>
             
                 <p class="changeForm" onclick="changeForm(1)">Already a member?</p>
 

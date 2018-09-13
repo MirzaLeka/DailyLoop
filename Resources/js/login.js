@@ -9,20 +9,23 @@ function changeForm(num) {
 
         form.innerHTML = `
         
+        <form id="signup-form">
+
         <h2 class="formHeader">Sign Up</h2>
+
+        <input class="loginInput" name="signupUsername" type="text" placeholder="Username" autofocus/>
     
-        <input class="loginInput" type="text" placeholder="Username" id="signupUsername" autofocus required/>
-        <p class="error" id="errorUsername"></p>
+        <input class="loginInput" name="signupEmail" type="text" placeholder="Email"/>   
+    
+        <input class="loginInput" name="signupPassword" id="pass" type="password" placeholder="Password"/>
 
-        <input class="loginInput" type="email" placeholder="Email" id="signupEmail" required/>
-        <p class="error" id="errorEmail"></p>
-
-        <input class="loginInput" type="password" placeholder="Password" id="signupPassword" required/>
-        <p class="error" id="errorPassword"></p>
-
-        <button class="btn btn-success formBtn" onclick="signup()">CONFIRM</button>
-
+        <input class="loginInput" name="confirmPassword" type="password" placeholder="Confirm Password"/>
+    <br>
+        <input onclick="funky()" class="btn btn-success formBtn" type="submit" id="confirmBtn" value="CONTINUE"/>
+    
         <p class="changeForm" onclick="changeForm(1)">Already a member?</p>
+
+    </form>
         
         `;
 
@@ -51,17 +54,57 @@ function changeForm(num) {
 
 $(function() {
 
+$.validator.addMethod( "nowhitespace", function( value, element ) {
+   return this.optional( element )
+    || /^\S+$/i.test( value );
+}, "No white space please.");   
+
+
+$.validator.addMethod('strongUsername', function(value, element) {
+    return this.optional(element) 
+      || value.length >= 6
+      && /\d/.test(value)
+      && /[a-z]/i.test(value);
+  }, 'Username must be at least 6 characters long and contain at least one number and one character.')
+
+
+$.validator.addMethod('strongPassword', function(value, element) {
+    return this.optional(element) 
+      || value.length >= 8
+      && /\d/.test(value)
+      && /[a-z]/i.test(value)
+      && /[$-/:-?{-~!"^_`\[\]]/.test(value);
+  }, 'Password must be at least 8 characters long and contain at least one number, one character and one symbol.')
+
+
 $("#signup-form").validate({
     rules: {
         signupUsername: {
-            required: true
+            required: true,
+            nowhitespace: true,
+            strongUsername: true,
+            maxlength: 24
         },
         signupEmail: {
             required: true,
             email: true
         },
         signupPassword: {
-            required: true
+            required: true,
+            strongPassword: true,
+            nowhitespace: true,
+            maxlength: 24
+        },
+        confirmPassword: {
+            required: true,
+            equalTo: "#pass",
+            nowhitespace: true
+        },
+        messages: {
+            signupEmail: {
+                required: "Please enter an email address.",
+                email: "Please enter a valid email address."
+            }
         }
     }
 
@@ -69,6 +112,11 @@ $("#signup-form").validate({
 });
 
 });
+
+
+function funky() {
+    // window.location.href='/home'
+}
 
 
 // function signup() {
