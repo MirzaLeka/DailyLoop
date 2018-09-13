@@ -6,6 +6,11 @@
 textarea:focus, input:focus, button:focus {
   outline: none !important; }
 
+.error {
+  margin-top: 2px;
+  color: red;
+  font-weight: 300; }
+
 .nav {
   position: sticky;
   position: -webkit-sticky;

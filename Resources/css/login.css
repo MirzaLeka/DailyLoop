@@ -6,6 +6,11 @@
 textarea:focus, input:focus, button:focus {
   outline: none !important; }
 
+.error {
+  margin-top: 2px;
+  color: red;
+  font-weight: 300; }
+
 body {
   background: url("../img/login/loginbike.jpeg");
   overflow: hidden;
@@ -22,22 +27,22 @@ body {
   justify-content: center;
   text-align: center;
   flex-direction: column;
-  align-items: center;
-  position: relative; }
+  align-items: center; }
 
 #loginHeader {
-  position: absolute;
-  top: 17%;
   text-align: center;
   margin: 0 auto;
   display: block;
   width: 100%;
   color: #FFF;
   font-size: 78px;
-  font-family: headerFont; }
+  font-family: headerFont;
+  position: absolute;
+  top: 10%; }
 
 /* Form */
 #form {
+  position: relative;
   background: #111;
   opacity: .85;
   width: 350px;

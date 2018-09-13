@@ -13,6 +13,8 @@
   <script src="../Resources/scripts/bootstrap.js"></script>
   <!-- Font Awesome script -->
   <script src="../Resources/scripts/fontawesome.js"></script>
+  <!-- jQuery Validate script -->
+  <script src="../Resources/scripts/validate.js"></script>
   <!-- Login CSS-->
   <link rel="stylesheet" type="text/css" href="../Resources/css/login.css"/>
 </head>
@@ -22,22 +24,26 @@
 
     <div class="container" id="form">
 
-        <h2 class="formHeader">Sign Up</h2>
+            <form id="signup-form">
+
+                <h2 class="formHeader">Sign Up</h2>
     
-        <input class="loginInput" type="text" placeholder="Username" autofocus required/>
+                <input class="loginInput" name="signupUsername" type="text" placeholder="Username" autofocus required/>
+            
+                <input class="loginInput" name="signupEmail" type="text" placeholder="Email"/>   
+            
+                <input class="loginInput" name="signupPassword" type="password" placeholder="Password" required/>
+            <br>
+                <input class="btn btn-success formBtn" type="submit" id="confirmBtn" value="CONFIRM"/>
+            
+                <p class="changeForm" onclick="changeForm(1)">Already a member?</p>
 
-        <input class="loginInput" type="email" placeholder="Email" required/>
-
-        <input class="loginInput" type="password" placeholder="Password" required/>
-
-        <button class="btn btn-success formBtn" id="confirmBtn">CONFIRM</button>
-
-        <p class="changeForm" onclick="changeForm(1)">Already a member?</p>
-
-    </div>
+            </form>
 
 
-    <!-- VALIDATION paragraph below each line -->
+    </div> 
+
+
 
     <script src="../Resources/js/login.js"></script>
 </body>

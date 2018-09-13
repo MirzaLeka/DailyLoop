@@ -7,12 +7,9 @@ body{
     width: 100%;
     background-attachment: fixed;
     @include flex();   
-    position: relative; 
 }
 
 #loginHeader{
-    position: absolute;
-    top: 17%;
     text-align: center;
     margin: 0 auto;
     display: block;
@@ -20,11 +17,14 @@ body{
     color: #FFF;
     font-size: 78px;
     font-family: headerFont;
+    position: absolute;
+    top: 10%;
 }
 
 /* Form */
 
 #form{
+    position: relative;
     background: #111;
     opacity: .85;
     width: 350px;
