@@ -19,7 +19,7 @@ function changeForm(num) {
     
         <input class="loginInput" name="signupPassword" id="pass" type="password" placeholder="Password"/>
 
-        <input class="loginInput" name="confirmPassword" type="password" placeholder="Confirm Password"/>
+        <input class="loginInput" name="confirmPassword" id="confirmPass" type="password" placeholder="Confirm Password"/>
     <br>
         <input class="btn btn-success formBtn" type="submit" id="confirmBtn" value="REGISTER"/>
     
@@ -36,16 +36,20 @@ function changeForm(num) {
         /* Sign in Form */
 
         form.innerHTML = `
+
+        <form class="signin-form" onsubmit="login();return false">
         
         <h2 class="formHeader">Sign In</h2>
     
-        <input class="loginInput" type="email" placeholder="Email" autofocus required/>
+        <input class="loginInput" name="signinEmail" type="email" placeholder="Email" autofocus/>
 
-        <input class="loginInput" type="password" placeholder="Password" required/>
-
-        <button class="btn btn-primary formBtn" id="loginBtn">CONTINUE</button>
+        <input class="loginInput" name="signinPassword" id="signinPass" type="password" placeholder="Password"/>
+    <br>
+        <input class="btn btn-primary formBtn" type="submit" id="loginBtn" value="CONTINUE"/>
 
         <p class="changeForm" onclick="changeForm(0)">Not a member?</p>
+
+        </form>
         
         `;
 
@@ -54,7 +58,6 @@ function changeForm(num) {
 
 }
 
-/* Sign Up form validation */
 
 $(function() {
 
@@ -80,6 +83,33 @@ $.validator.addMethod('strongPassword', function(value, element) {
       && /[$-/:-?{-~!"^_`\[\]]/.test(value);
   }, 'Password must be at least 8 characters long and contain at least one number, one character and one symbol.')
 
+
+/* Sign In form validation */
+
+$(".signin-form").validate({
+    rules: {
+        signinEmail: {
+            required: true,
+            email: true
+        },
+        signinPassword: {
+            required: true,
+            strongPassword: true,
+            nowhitespace: true,
+            maxlength: 24
+        },
+        messages: {
+            signinEmail: {
+                required: "Please enter an email address.",
+                email: "Please enter a valid email address."
+            }
+        }
+    }
+
+
+});
+
+/* Sign Up form validation */
 
 $(".signup-form").validate({
     rules: {
@@ -120,7 +150,14 @@ $(".signup-form").validate({
 
 
 function register() {
-    
+
+    // var validator = $( "#signup-form" ).validate();
+ 
+    // /*
+    //  * Just before SPA page's navigation away.
+    //  */
+    // validator.destroy();
+
     extraValidation();
 
     let username = $("input[name='signupUsername']").val();
@@ -149,6 +186,7 @@ function register() {
         dataType : 'json',
         data : JSON.stringify(data),
         success: function(data) {
+
         window.location.href = "/home";
         },
 
@@ -159,6 +197,17 @@ function register() {
 
 
 }
+
+
+
+function login() {
+
+    extraConfirmation();
+
+}
+
+
+/* Extra stuff */
 
 
 function extraValidation() {
@@ -219,5 +268,33 @@ function extraValidation() {
      
      
      });
+
+}
+
+
+function extraConfirmation() {
+
+    $(".signin-form").validate({
+        rules: {
+            signinEmail: {
+                required: true,
+                email: true
+            },
+            signinPassword: {
+                required: true,
+                strongPassword: true,
+                nowhitespace: true,
+                maxlength: 24
+            },
+            messages: {
+                signinEmail: {
+                    required: "Please enter an email address.",
+                    email: "Please enter a valid email address."
+                }
+            }
+        }
+    
+    
+    });
 
 }

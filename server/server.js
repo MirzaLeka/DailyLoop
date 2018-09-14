@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get("/", function(req, res)
 {
-res.sendFile("index.html", {"root": __dirname + "/../Web-Info"}); 
+res.sendFile("login.html", {"root": __dirname + "/../Web-Info"}); 
     });
 
 app.get("/home", (req, res) => {
