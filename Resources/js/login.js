@@ -9,7 +9,7 @@ function changeForm(num) {
 
         form.innerHTML = `
         
-        <form class="signup-form" action="/home" method="get">
+        <form class="signup-form" onsubmit="register();return false">
 
         <h2 class="formHeader">Sign Up</h2>
 
@@ -28,6 +28,8 @@ function changeForm(num) {
     </form>
         
         `;
+
+        // action="/home" method="get"
 
     } else {
 
@@ -49,16 +51,10 @@ function changeForm(num) {
 
     }
 
-    $('.signup-form').validate().resetForm();
-
 
 }
 
-
-$(".signup-form").submit(function(e) {
-    e.preventDefault();
-});
-
+/* Sign Up form validation */
 
 $(function() {
 
@@ -124,18 +120,21 @@ $(".signup-form").validate({
 
 
 function register() {
-
-    // Make sure it validates before calling register()
-
-    $(".signup-form").submit(function(e) {
-        e.preventDefault();
-    });
+    
+    extraValidation();
 
     let username = $("input[name='signupUsername']").val();
     let email = $("input[name='signupEmail']").val();
-    let password = $("input[name='signupPassword']").val();
+    let password = $("#pass").val();
+    let confirm = $("#confirmPass").val();
 
-    // if confirmPW != PW  { return }
+    if (username == "" || email == "" || password == "" || confirm == "") {
+        return;
+    }
+
+    if (password != confirm) {
+        return;
+    }
 
     let data = {
         "username" : username,
@@ -150,7 +149,7 @@ function register() {
         dataType : 'json',
         data : JSON.stringify(data),
         success: function(data) {
-            window.location.href="/startpage";
+        window.location.href = "/home";
         },
 
         error: function(err) {
@@ -161,29 +160,64 @@ function register() {
 
 }
 
-// function signup() {
 
-//     let username = document.getElementById("signupUsername").value;
-//     let usernameError = document.getElementById("errorUsername");
+function extraValidation() {
 
-//     if (username == "") {
-//         usernameError.style.display = "block";
-//         usernameError.innerHTML = "Something"
-//     }
+    $.validator.addMethod( "nowhitespace", function( value, element ) {
+        return this.optional( element )
+         || /^\S+$/i.test( value );
+     }, "No white space please.");   
+     
+     
+     $.validator.addMethod('strongUsername', function(value, element) {
+         return this.optional(element) 
+           || value.length >= 6
+           && /\d/.test(value)
+           && /[a-z]/i.test(value);
+       }, 'Username must be at least 6 characters long and contain at least one number and one character.')
+     
+     
+     $.validator.addMethod('strongPassword', function(value, element) {
+         return this.optional(element) 
+           || value.length >= 8
+           && /\d/.test(value)
+           && /[a-z]/i.test(value)
+           && /[$-/:-?{-~!"^_`\[\]]/.test(value);
+       }, 'Password must be at least 8 characters long and contain at least one number, one character and one symbol.')
+     
+     
+     $(".signup-form").validate({
+         rules: {
+             signupUsername: {
+                 required: true,
+                 nowhitespace: true,
+                 strongUsername: true,
+                 maxlength: 24
+             },
+             signupEmail: {
+                 required: true,
+                 email: true
+             },
+             signupPassword: {
+                 required: true,
+                 strongPassword: true,
+                 nowhitespace: true,
+                 maxlength: 24
+             },
+             confirmPassword: {
+                 required: true,
+                 equalTo: "#pass",
+                 nowhitespace: true
+             },
+             messages: {
+                 signupEmail: {
+                     required: "Please enter an email address.",
+                     email: "Please enter a valid email address."
+                 }
+             }
+         }
+     
+     
+     });
 
-// // if member already exists print error
-
-// }
-
-
-// function clearErrors() {
-
-// }
-
-
-// function login() {
-
-// // if member doesn't exist print error
-
-// }
-
+}
