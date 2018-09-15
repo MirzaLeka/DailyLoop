@@ -1,12 +1,15 @@
 $(document).ready(function() {
 
-     if (localStorage.getItem("scroll") != null) {
-        $(window).scrollTop(localStorage.getItem("scroll"));
-    }
+    //  if (localStorage.getItem("scroll") != null) {
+    //     $(window).scrollTop(localStorage.getItem("scroll"));
+    // }
 
-    $(window).on("scroll", function() {
-        localStorage.setItem("scroll", $(window).scrollTop());
-    });
+    // $(window).on("scroll", function() {
+    //     localStorage.setItem("scroll", $(window).scrollTop());
+    // });
+
+    /// GET SCROLL POSITION
+    // SET TO THAT SCROLL POSITION
 
     startTime();
     changeBackgroundImg();
@@ -27,18 +30,28 @@ $.ajax({
 
     if (data.todos.length == 0) {
         $(".notYet").css("display", "none");
+        changeQuote(0, 0);
+
     } else {
-        $(".notYet").css("display", "block");
+
+        let completedTodos = 0;
+
+        for (var i = 0; i < data.todos.length; i++) {
+
+            if (data.todos[i].completed == true) {
+                completedTodos++;
+            }
+
+        }
+
+         $(".notYet").css("display", "block");
+          changeQuote(1, (data.todos.length - completedTodos));
+
     }
 
-console.log(data);  
 
-/* Hide info header if array is empty */
-if (data.todos.length > 0) {
-    $("#info").css({display: "block"});
-} else {
-    $("#info").css({display: "none"});    
-}
+    
+    console.log(data);  
 
 var list = '';
 var id = '';
@@ -606,13 +619,13 @@ const questionsArray = [
 "What's next on your mind?",
 "What's your plan for today?",
 "What do you want to do next?",
-"What is your main focus today?"
+"What is your main focus today?",
+"What's next on the list?"
 ];
 
 
 const arrayOfBackgrounds = [
     "../Resources/img/beachananas.jpeg",
-    "../Resources/img/beachshells.jpg",
     "../Resources/img/bike.jpeg",
     "../Resources/img/bottle.jpeg",
     "../Resources/img/clouds.jpeg",
@@ -634,16 +647,37 @@ const arrayOfBackgrounds = [
     
     "../Resources/img/thunder.jpeg",
     "../Resources/img/underwater.jpeg",
-    "../Resources/img/watch.jpeg",
     "../Resources/img/wing.jpeg",
     "../Resources/img/wolves.jpeg"
 ];
 
+function changeQuote(num, todos) {
 
+    let randomQuote = '';
+
+    if (num == 0) {
+        $("#questionsTitle").css("display", "none");
+        $("#quoteTitle").css("display", "block");
+         randomQuote = quotesArray[Math.floor(Math.random() * quotesArray.length)];
+        $("#quoteTitle").text(randomQuote);
+    } else {
+
+        if (todos == 0) {
+        $("#quoteTitle").text(`You have no unfinished todos`);    
+        } else if (todos == 1) {
+        $("#quoteTitle").text(`You have ${todos} unfinished todo below`);    
+        } else {
+        $("#quoteTitle").text(`You have ${todos} unfinished todos below`);
+        }
+
+        $("#questionsTitle").css("display", "block");
+        randomQuote = questionsArray[Math.floor(Math.random() * questionsArray.length)];
+        $("#questionsTitle").text(randomQuote);
+    }
+
+}
 
 function changeBackgroundImg() {
-
-    let getTodosArray = [1];
 
     let randImg = arrayOfBackgrounds[Math.floor(Math.random() * arrayOfBackgrounds.length)];
 
@@ -659,22 +693,6 @@ function changeBackgroundImg() {
         "-o-background-size": "cover",
         "opacity": 0.8
     });
-
-    let randomQuote = '';
-
-    if (getTodosArray.length == 0) {
-        $("#questionsTitle").css("display", "none");
-        $("#quoteTitle").css("display", "block");
-         randomQuote = quotesArray[Math.floor(Math.random() * quotesArray.length)];
-        $("#quoteTitle").text(randomQuote);
-      }
-       else {
-        $("#quoteTitle").css("display", "none");
-        $("#questionsTitle").css("display", "block");
-        randomQuote = questionsArray[Math.floor(Math.random() * questionsArray.length)];
-        $("#questionsTitle").text(randomQuote);
-    }
-
 
 }
 

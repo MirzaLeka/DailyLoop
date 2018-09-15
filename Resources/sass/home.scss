@@ -9,6 +9,15 @@ body{
     display: none;
 }
 
+#appName{
+    background: #222;
+    width: 100%;
+    font-family: headerFont;
+    font-size: 64px;
+    text-align: center;
+    color: #FFF;
+}
+
 
 /* Opening Div */ 
 
@@ -75,6 +84,9 @@ body{
         color: #FFF;
         font-size: 48px;
         cursor: pointer;
+        &:hover{
+            color: #EEE;
+        }
     }
 
 
@@ -130,7 +142,6 @@ body{
 #info{
     height: 75px;
     background: $navBackground;
-    display: none;
 }
 
 .infoHeading{
