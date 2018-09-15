@@ -29,6 +29,8 @@ function changeForm(num) {
         
         `;
 
+        extraValidation();
+
         // action="/home" method="get"
 
     } else {
@@ -52,6 +54,8 @@ function changeForm(num) {
         </form>
         
         `;
+
+        extraConfirmation();
 
     }
 
@@ -151,13 +155,6 @@ $(".signup-form").validate({
 
 function register() {
 
-    // var validator = $( "#signup-form" ).validate();
- 
-    // /*
-    //  * Just before SPA page's navigation away.
-    //  */
-    // validator.destroy();
-
     extraValidation();
 
     let username = $("input[name='signupUsername']").val();
@@ -203,6 +200,15 @@ function register() {
 function login() {
 
     extraConfirmation();
+
+    let email = $("input[name='signinEmail']").val();
+    let password = $("#signinPass").val();
+
+    if (email == "" || password == "") {
+        return;
+    }
+
+    window.location.href = "/home";
 
 }
 
@@ -281,10 +287,7 @@ function extraConfirmation() {
                 email: true
             },
             signinPassword: {
-                required: true,
-                strongPassword: true,
-                nowhitespace: true,
-                maxlength: 24
+                required: true
             },
             messages: {
                 signinEmail: {
