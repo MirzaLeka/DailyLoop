@@ -8,8 +8,9 @@ $(document).ready(function() {
         localStorage.setItem("scroll", $(window).scrollTop());
     });
 
-
-    getTodos()
+    startTime();
+    changeBackgroundImg();
+    getTodos();
 
 });
 
@@ -23,6 +24,12 @@ $.ajax({
  type: "GET",
  url: "/todos",
  success: function(data) {
+
+    if (data.todos.length == 0) {
+        $(".notYet").css("display", "none");
+    } else {
+        $(".notYet").css("display", "block");
+    }
 
 console.log(data);  
 
@@ -121,7 +128,7 @@ for (var i = 0; i <  data.todos.length; i++) {
 /* POST TODO */
 
 
- $("#text").keyup(function(event){
+ $("#inputTitle").keyup(function(event){
 if(event.keyCode == 13){
  submit();
 }
@@ -130,7 +137,9 @@ if(event.keyCode == 13){
 
 function submit() {
 
- var text = $("#text").val();
+ var text = $("#inputTitle").val();
+
+ console.log(text);
 
  text =  adjustString(text);
 
@@ -552,3 +561,129 @@ var mf = `<button id="cancelBtn" class="modalBtns" onclick="closeModal(47, ${isC
     $("#textareaError").hide();
 
    }
+
+
+/////////////////////////////////////////
+
+   /* Start Page Script */ 
+
+   function startTime() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+
+    if (h < 10) {
+        h = "0" + h;
+    }
+    
+    $("#clockTitle").html(h + ":" + m + ":" + s);
+
+    var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+    if (i < 10) {i = "0" + i}; 
+    return i;
+}
+
+const quotesArray = [
+    `"A journey of a thousand miles begins with a single step."
+    – Lao Tzu`,
+    `"The only impossible journey is the one you never begin."
+    – Tony Robbins`,
+    `"We are what we repeatedly do. Excellence, then, is not an act but a habit."
+    – Aristotle`,
+    `"Don’t judge each day by the harvest you reap, but by the seeds that you plant."
+    – Robert Louis Stevenson`,
+    `"Writing is an exploration. You start from nothing and learn as you go."
+    - E. L. Doctorow`
+];
+
+
+const questionsArray = [
+"What's next on your mind?",
+"What's your plan for today?",
+"What do you want to do next?",
+"What is your main focus today?"
+];
+
+
+const arrayOfBackgrounds = [
+    "../Resources/img/beachananas.jpeg",
+    "../Resources/img/beachshells.jpg",
+    "../Resources/img/bike.jpeg",
+    "../Resources/img/bottle.jpeg",
+    "../Resources/img/clouds.jpeg",
+    
+    "../Resources/img/ferrari.jpeg",
+    "../Resources/img/forestroad.jpg",
+    "../Resources/img/glasses.jpeg",
+    "../Resources/img/guitar.jpg",
+    
+    "../Resources/img/headphones.jpeg",
+    "../Resources/img/jetengine.jpg",
+    "../Resources/img/kitten.jpeg",
+    "../Resources/img/raspberries.jpeg",
+    "../Resources/img/road.jpeg",
+    
+    "../Resources/img/rope.jpeg",
+    "../Resources/img/sandals.jpeg",
+    "../Resources/img/searocks.jpeg",
+    
+    "../Resources/img/thunder.jpeg",
+    "../Resources/img/underwater.jpeg",
+    "../Resources/img/watch.jpeg",
+    "../Resources/img/wing.jpeg",
+    "../Resources/img/wolves.jpeg"
+];
+
+
+
+function changeBackgroundImg() {
+
+    let getTodosArray = [1];
+
+    let randImg = arrayOfBackgrounds[Math.floor(Math.random() * arrayOfBackgrounds.length)];
+
+    $("#openingDiv").css({
+        "background": `url('${randImg}')`,
+        "background-attachment": "fixed",
+        "overflow": "hidden",
+        "background-position": "center",
+        "background-repeat": "no-repeat",
+        "background-size": "cover",
+        "-webkit-background-size": "cover",
+        "-moz-background-size": "cover",
+        "-o-background-size": "cover",
+        "opacity": 0.8
+    });
+
+    let randomQuote = '';
+
+    if (getTodosArray.length == 0) {
+        $("#questionsTitle").css("display", "none");
+        $("#quoteTitle").css("display", "block");
+         randomQuote = quotesArray[Math.floor(Math.random() * quotesArray.length)];
+        $("#quoteTitle").text(randomQuote);
+      }
+       else {
+        $("#quoteTitle").css("display", "none");
+        $("#questionsTitle").css("display", "block");
+        randomQuote = questionsArray[Math.floor(Math.random() * questionsArray.length)];
+        $("#questionsTitle").text(randomQuote);
+    }
+
+
+}
+
+
+/* Scrolling Around */ 
+
+$("#chevronDown").click(function() {
+    $('html, body').animate({
+        scrollTop: $("#containerBg").offset().top
+    }, 1000);
+  });
+  

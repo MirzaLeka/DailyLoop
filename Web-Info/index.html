@@ -22,24 +22,41 @@
 </head>
 <body>
 
-    <div class="nav">
+    <div id="openingDiv">
+
+        <h1 id="clockTitle"></h1>
+        <h3 id="helloTitle">Hello &nbsp;World</h3>
+
+       <div id="inputTItleContainer">
+        <h4 id="questionsTitle"></h4>
+        <input id="inputTitle" type="text" autofocus/>
+       </div>
+
+       <h1 id="chevronDown" class="notYet"><i class="fa fa-chevron-down" aria-hidden="true"></i></h1>
+
+        <h4 id="quoteTitle"></h4>
+
+
+    </div>
+
+    <div class="nav notYet">
 
     </div> 
 
-    <br> <br>
 
-        <div class="container-fluid">
+
+        <div class="container-fluid notYet" style="margin-top: 60px;">
                 <div class="jumbotron">
                   <div class="row">
                     <div class="col-xs-12">
 
-                            <div class="container bg-3">    
+                            <div class="container bg-3" id="containerBg">    
                                     <div class="row">
 
                                  <div class="col-sm-12">
 
                                     <div id="formWrapper">
-                                        <input class="insertTodoForm" autofocus placeholder="  Insert Todo" type="text" id="text"/> 
+                                        <input class="insertTodoForm" placeholder="Insert Todo" type="text"/> 
                                         <button class="insertTodoBtn" onclick="submit()">Submit Todo</button>
                                     </div>
 

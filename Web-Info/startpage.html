@@ -17,7 +17,7 @@
 </head>
 <body>
 
-    <div id="mainDiv">
+    <div id="openingDiv">
 
         <h1 id="clockTitle"></h1>
         <h3 id="helloTitle">Hello &nbsp;World</h3>
@@ -42,7 +42,7 @@
 <style>
 
 
-    #mainDiv{        
+    #openingDiv{        
     display: flex;
     align-items: center;
     justify-content: center;
@@ -217,7 +217,7 @@ function changeBackgroundImg() {
 
     let randImg = arrayOfBackgrounds[Math.floor(Math.random() * arrayOfBackgrounds.length)];
 
-    $("#mainDiv").css({
+    $("#openingDiv").css({
         "background": `url('${randImg}')`,
         "background-attachment": "fixed",
         "overflow": "hidden",
