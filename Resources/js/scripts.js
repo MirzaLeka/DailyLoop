@@ -4,14 +4,14 @@ $(window).scroll(function() {
   
 
 $(document).ready(function() {
-    if (sessionStorage.cClicked != "undefined" && sessionStorage.scrollTop != "undefined") { 
+    // if (sessionStorage.cClicked != "undefined" && sessionStorage.scrollTop != "undefined") { 
 
-        if (sessionStorage.cClicked == 'true') { 
-        $(window).scrollTop(sessionStorage.scrollTop); 
-        sessionStorage.cClicked = false; 
-        } 
+    //     if (sessionStorage.cClicked == 'true') { 
+    //     $(window).scrollTop(sessionStorage.scrollTop); 
+    //     sessionStorage.cClicked = false; 
+    //     } 
         
-        } 
+    //     } 
 
     //  if (localStorage.getItem("scroll") != null) {
     //     $(window).scrollTop(localStorage.getItem("scroll"));

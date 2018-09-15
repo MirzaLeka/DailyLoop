@@ -211,15 +211,23 @@ function login() {
     $.ajax({
         type: "GET",
         url: "/users/" + email,
-        success: function() {
+        success: function(data) {
 
-            console.log("Okkkk");
+          console.log("Data is \n", data);
+
+          if (data.user == null) {
+              alert("User not found. Try to register first"); // go with some paragraph or something
+          } else {
+            window.location.href = "/home";
+          }
+
+
 
         }
 
     })
 
-    //window.location.href = "/home";
+    //
 
 }
 

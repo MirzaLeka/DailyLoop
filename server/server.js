@@ -501,9 +501,8 @@ app.get("/users/:email", (req, res) => {
   let email = req.params.email;
 
   User.findOne({email}).then((user) => {
-    res.send({user}); 
+     res.send({user}); 
     console.log(user);
-    res.redirect("/home");
   }, (e) => { 
     res.status(400).send(e);
   });
