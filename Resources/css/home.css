@@ -72,6 +72,15 @@ body {
   height: 30px;
   font-size: 25px; }
 
+#inputTitle::placeholder {
+  color: #FFF; }
+
+#inputTitle::-ms-input-placeholder {
+  color: #FFF; }
+
+#inputTitle::-ms-input-placeholder {
+  color: #FFF; }
+
 #questionsTitle, #quoteTitle {
   text-align: center;
   color: #FFF;

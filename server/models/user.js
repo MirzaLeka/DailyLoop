@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
+// CHANGE this to schema
+
 var User = mongoose.model('User', {
     username: {
         type: String,

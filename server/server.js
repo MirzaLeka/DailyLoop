@@ -113,20 +113,11 @@ app.post('/todos', (req, res) => {
 
 app.get('/todos', (req, res) => {
 
-  var todo = new Todo({});
-
-  // if todos is empty?
-
     Todo.find().sort({completedAtTimestamp: 1}).then((todos) => {
       res.send({todos}); 
-      // console.log("SSS:" + todo.align);
-      // console.log("DDD:" + todos.align);
-
-
     }, (e) => { 
       res.status(400).send(e);
     });
-
 
 });
 
@@ -501,6 +492,30 @@ user.save().then((user) => {
   }).catch((e) => {
   res.status(400).send(`Unable to save the user: ${e}`);
   });
+
+});
+
+app.get("/users/:email", (req, res) => {
+
+  // let email = req.body.email;
+  let email = req.params.email;
+
+  User.findOne({email}).then((user) => {
+    res.send({user}); 
+    console.log(user);
+    res.redirect("/home");
+  }, (e) => { 
+    res.status(400).send(e);
+  });
+
+  /*
+   User.findOne({ $or: [{email}, {username}] }).then((users) => {
+    res.send({users}); 
+  }, (e) => { 
+    res.status(400).send(e);
+  });
+  */
+
 
 });
 

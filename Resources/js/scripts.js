@@ -1,4 +1,17 @@
+$(window).scroll(function() {
+    sessionStorage.scrollTop = $(this).scrollTop();
+  });
+  
+
 $(document).ready(function() {
+    if (sessionStorage.cClicked != "undefined" && sessionStorage.scrollTop != "undefined") { 
+
+        if (sessionStorage.cClicked == 'true') { 
+        $(window).scrollTop(sessionStorage.scrollTop); 
+        sessionStorage.cClicked = false; 
+        } 
+        
+        } 
 
     //  if (localStorage.getItem("scroll") != null) {
     //     $(window).scrollTop(localStorage.getItem("scroll"));
@@ -30,6 +43,7 @@ $.ajax({
 
     if (data.todos.length == 0) {
         $(".notYet").css("display", "none");
+        $("#inputTitle").attr("placeholder", "Submit your first todo");
         changeQuote(0, 0);
 
     } else {
@@ -45,6 +59,7 @@ $.ajax({
         }
 
          $(".notYet").css("display", "block");
+         $("#inputTitle").attr("placeholder", "");
           changeQuote(1, (data.todos.length - completedTodos));
 
     }
@@ -620,7 +635,7 @@ const questionsArray = [
 "What's your plan for today?",
 "What do you want to do next?",
 "What is your main focus today?",
-"What's next on the list?"
+"What's next on your list?"
 ];
 
 

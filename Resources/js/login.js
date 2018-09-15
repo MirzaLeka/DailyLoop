@@ -208,7 +208,18 @@ function login() {
         return;
     }
 
-    window.location.href = "/home";
+    $.ajax({
+        type: "GET",
+        url: "/users/" + email,
+        success: function() {
+
+            console.log("Okkkk");
+
+        }
+
+    })
+
+    //window.location.href = "/home";
 
 }
 
