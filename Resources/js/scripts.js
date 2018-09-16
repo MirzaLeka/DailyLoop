@@ -1,6 +1,6 @@
-$(window).scroll(function() {
-    sessionStorage.scrollTop = $(this).scrollTop();
-  });
+// $(window).scroll(function() {
+//     sessionStorage.scrollTop = $(this).scrollTop();
+//   });
   
 
 $(document).ready(function() {
@@ -706,7 +706,7 @@ function changeBackgroundImg() {
         "-webkit-background-size": "cover",
         "-moz-background-size": "cover",
         "-o-background-size": "cover",
-        "opacity": 0.8
+        "opacity": 0.95
     });
 
 }
