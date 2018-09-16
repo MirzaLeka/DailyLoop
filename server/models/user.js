@@ -107,6 +107,33 @@ UserSchema.statics.findByToken = function (token) {
 
 };
 
+    /* Another model method */
+
+UserSchema.statics.findByCredentials = function (email, password) {
+    var User = this;
+
+    return User.findOne({email}).then((user) => {
+        if (!user) {
+            return Promise.reject(); // if there is no user no need to check does plain text PW matches the hashed one
+        }
+
+        return new Promise((resolve, reject) => { //bcrypt only supports callbacks, so we're creating new Promise so we cna continue using promises
+        
+            bcrypt.compare(password, user.password, (err, res) => {
+
+                if (res) {
+                    resolve(user);
+                } else {
+                    reject();
+                }
+
+            });
+        });
+    });
+
+};
+
+
 /* We'll hash password before we save doc to DB. That's why we're using pre keyword */
 
 UserSchema.pre('save', function(next) { // we need next, otherwise code will never execute and middleware will crash
