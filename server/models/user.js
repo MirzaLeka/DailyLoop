@@ -76,6 +76,36 @@ return user.save().then(() => {
 
 };
 
+/* Used for model methods, unlike previous which were used for instance methods */
+UserSchema.statics.findByToken = function (token) {
+    var User = this;
+
+    // instance methods get called with induvidual documents
+    // model methos get called with modelas this binding
+
+    var decoded;
+
+    try {
+        decoded = jwt.verify(token, "abc123"); // try and catch if jwt verification fails
+    } catch (e) {
+        // return new Promise((resolve, reject) => {
+        //     reject(); // if error we'll always reject so our success field will never fire
+        // });
+        return Promise.reject(); // same thing, simplified // text inside reject() parentheses will be our error e in server.js file /users/me
+    }
+
+    // find by token is now completed
+
+    // if verification succeeded
+
+    return User.findOne({
+        '_id': decoded._id,
+        'tokens.token' : token,
+        'tokens.access' : 'auth' 
+    });
+
+};
+
 var User = mongoose.model('User',UserSchema);
 
 module.exports = {User};

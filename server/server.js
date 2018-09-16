@@ -2,11 +2,12 @@ const _ = require('lodash');
 var express = require('express');
 var bodyParser = require('body-parser');
 const path = require('path');
+const {ObjectID} = require('mongodb');
 
 var {mongoose} = require('./db/mongoose');
 var Todo = require('./models/todo');
 var {User} = require('./models/user');
-const {ObjectID} = require('mongodb');
+var {authenticate} = require('./middleware/authenticate');
 
 var app = express();
 
@@ -496,6 +497,20 @@ user.save().then(() => {
   });
 
 });
+
+
+
+
+
+app.get('/users/me', authenticate, (req, res) => {
+
+  // will run if next() runs and authentication worked as expected
+  res.send(req.user);
+
+});
+
+
+
 
 app.get("/users/:email", (req, res) => {
 
