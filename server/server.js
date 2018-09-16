@@ -500,7 +500,7 @@ user.save().then(() => {
 
 
 
-
+  /* Profile Page */ 
 
 app.get('/users/me', authenticate, (req, res) => {
 
@@ -533,28 +533,28 @@ app.post('/users/login', (req, res) => {
 
 
 
-app.get("/users/:email", (req, res) => {
+// app.get("/users/:email", (req, res) => {
 
-  // let email = req.body.email;
-  let email = req.params.email;
+//   // let email = req.body.email;
+//   let email = req.params.email;
 
-  User.findOne({email}).then((user) => {
-     res.send({user}); 
-    console.log(user);
-  }, (e) => { 
-    res.status(400).send(e);
-  });
+//   User.findOne({email}).then((user) => {
+//      res.send({user}); 
+//     console.log(user);
+//   }, (e) => { 
+//     res.status(400).send(e);
+//   });
 
-  /*
-   User.findOne({ $or: [{email}, {username}] }).then((users) => {
-    res.send({users}); 
-  }, (e) => { 
-    res.status(400).send(e);
-  });
-  */
+//   /*
+//    User.findOne({ $or: [{email}, {username}] }).then((users) => {
+//     res.send({users}); 
+//   }, (e) => { 
+//     res.status(400).send(e);
+//   });
+//   */
 
 
-});
+// });
 
 
 /////////////////////////////////////

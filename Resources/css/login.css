@@ -91,4 +91,11 @@ body {
   .changeForm:hover {
     color: #CCC; }
 
+#loginFailed {
+  display: none;
+  color: red;
+  margin: 0;
+  padding: 0;
+  font-weight: 300; }
+
 /*# sourceMappingURL=login.css.map */

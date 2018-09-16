@@ -43,10 +43,11 @@ function changeForm(num) {
         
         <h2 class="formHeader">Sign In</h2>
     
-        <input class="loginInput" name="signinEmail" type="email" placeholder="Email" autofocus/>
+        <input class="loginInput" oninput="fixForm()" name="signinEmail" type="email" placeholder="Email" autofocus/>
 
-        <input class="loginInput" name="signinPassword" id="signinPass" type="password" placeholder="Password"/>
-    <br>
+        <input class="loginInput" oninput="fixForm()" name="signinPassword" id="signinPass" type="password" placeholder="Password"/>
+            <label id="loginFailed">Incorrect username or password</label>
+    <br id="breakTag">
         <input class="btn btn-primary formBtn" type="submit" id="loginBtn" value="CONTINUE"/>
 
         <p class="changeForm" onclick="changeForm(0)">Not a member?</p>
@@ -208,27 +209,47 @@ function login() {
         return;
     }
 
+    // url: "/users/" + email,
+
+    let data = {
+        "email" : email,
+        "password" : password
+    }
+
     $.ajax({
-        type: "GET",
-        url: "/users/" + email,
+        type: "POST",
+        url: "/users/login",
+        contentType : 'application/json',
+        dataType : 'json',
+        data : JSON.stringify(data),
         success: function(data) {
 
-          console.log("Data is \n", data);
+            if (data) {
+                window.location.href = "/home";
+            } 
 
-          if (data.user == null) {
-              alert("User not found. Try to register first"); // go with some paragraph or something
-          } else {
-            window.location.href = "/home";
-          }
+                // splinter1!
 
+        },
 
+    error: function (err) {
 
+        if (err) {
+            document.getElementById("loginFailed").style.display = "block";
+            $("#breakTag").css("display", "none");
         }
 
-    })
+    }
 
-    //
+    });
 
+}
+
+    /* Remove label and fix form */
+
+ function fixForm() {
+    $("#breakTag").css("display", "block");
+    document.getElementById("loginFailed").style.display = "none";
 }
 
 
