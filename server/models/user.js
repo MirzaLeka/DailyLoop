@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
+const bcrypt = require('bcryptjs');
 
 let UserSchema = new mongoose.Schema({
     username: {
@@ -105,6 +106,28 @@ UserSchema.statics.findByToken = function (token) {
     });
 
 };
+
+/* We'll hash password before we save doc to DB. That's why we're using pre keyword */
+
+UserSchema.pre('save', function(next) { // we need next, otherwise code will never execute and middleware will crash
+    var user = this; // equipping user, like in previous cases
+
+    if ( user.isModified('password') ) { // returns boolean and checks if password is modified it's up to bcrypt to salt it
+
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(user.password, salt, (err, hash) => {
+            user.password = hash; // we are setting user password value to a hashed value of the same password
+            next();
+        });
+    });
+
+    } else {
+        next();
+    }
+
+});
+
+
 
 var User = mongoose.model('User',UserSchema);
 
