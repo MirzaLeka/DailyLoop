@@ -322,6 +322,7 @@ function updateTodo(text, completed, id, refresh, modalFinished) {
 
 var data = {
     text,
+    description: "all todos need a desc",
     completed,
     someNew: modalFinished
 };
@@ -477,10 +478,28 @@ width: 100%; margin-top: 10px;">Update Todo</h3>
 $(".modal-header").html(mh);
 
 
-// Modal Body
+// Modal Body -- NAME
 
 mb = `<div class="modalPause">  
 <h5 class="pauseDesc">NAME</h5>
+<div class="container bg-3 text-center" style="width: 768px;">
+<div class="row">
+<div class="col-sm-3"> </div>
+<div class="col-sm-6">
+<input id="todoTitleInModal" autofocus style="width: 100%; background: #FFF; border: 2px solid #CCC; color: #000; margin-top: 4px; />
+<p id="todoTitleInModalError"></p>
+    </div>
+   
+<div class="col-sm-3"> </div>
+        </div>
+</div>  
+ </div>  `;
+
+
+// Modal Body -- DESCRIPTION
+
+mb += `<div class="modalPause">  
+<h5 class="pauseDesc">DESCRIPTION</h5>
 <div class="container bg-3 text-center" style="width: 768px;">
 <div class="row">
 <div class="col-sm-3"> </div>
@@ -498,7 +517,7 @@ mb = `<div class="modalPause">
 
  mb+= ` 
  <div class="modalPause">  
-<h5 class="pauseDesc" style="padding-left: 10px">DETAILS</h5>
+<h5 class="pauseDesc">DETAILS</h5>
 <div class="container bg-3 text-center" style="width: 768px; height: 85px; padding-bottom: 0px; margin-top: 10px;">
 <div class="row">
 <div class="col-sm-3"></div>

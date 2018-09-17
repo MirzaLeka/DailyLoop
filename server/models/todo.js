@@ -6,8 +6,16 @@ var Todo = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 1,
-        maxlength: 1000,
+        maxlength: 200,
         trim: true
+    },
+    description: {
+        type: String,
+        required: false,
+        minlength: 0,
+        maxlength: 2000,
+        trim: true,
+        default: null
     },
     completed: {
         type: Boolean, 

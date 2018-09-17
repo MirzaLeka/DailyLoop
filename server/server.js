@@ -406,7 +406,7 @@ app.patch('/todos/:id', (req, res) => {
   var id = req.params.id;
   
   // values we want to change are in array
-  var body = _.pick(req.body, ['text', 'completed', 'someNew']); //what user can edit. Make a Patch with text/compled/completedAt and write it in here. maybe the same for timestamp?
+  var body = _.pick(req.body, ['text', 'description', 'completed', 'someNew']); //what user can edit. Make a Patch with text/compled/completedAt and write it in here. maybe the same for timestamp?
   
   if (!ObjectID.isValid(id)) {
    return res.status(400).send('Id is not valid'); 
