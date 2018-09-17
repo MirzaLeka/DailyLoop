@@ -1,9 +1,9 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>2Do App | Page Not Found</title>
+    <title>2Do App | Not Authorized</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   
     <!-- Bootstrap CSS script -->
@@ -18,14 +18,20 @@
 </head>
 <body>
 
-    <h1>Page Not Found</h1>
+    <div>
+
+        <h2>You need to be signed in to access this page</h2>
+
+        <button class="btn btn-primary" onclick="window.location.href='/'">SIGN IN</button>
+
+    </div>
 
     
 </body>
 
 <style>
     body{
-        background: url('../resources/img/potato.jpeg') no-repeat center;
+        background: url('../resources/img/lostcat.jpeg') no-repeat center;
         overflow: hidden;
         background-size: cover;
         -webkit-background-size: cover;
@@ -36,14 +42,17 @@
         position: relative;
     }
 
-    h1{
+    div{
+        width: 250px;
         text-align: center;
-        font-size: 60px;
-        color: #FFF;
         position: absolute;
-        bottom: 20%;
-        margin: 0 auto;
-        width: 100%;
+        top: 40%;
+        left: 10%;
+    }
+
+    h2{
+        font-size: 32px;
+        color: #000;
     }
 
 

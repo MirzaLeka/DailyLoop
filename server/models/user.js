@@ -77,6 +77,19 @@ return user.save().then(() => {
 
 };
 
+/* Deleting token when user logs out */
+
+UserSchema.methods.removeToken = function (token) {
+    var user = this;
+
+  return user.update({
+        $pull: {
+            tokens: {token} // pull token that matche ours token
+        }
+    });
+
+};
+
 /* Used for model methods, unlike previous which were used for instance methods */
 UserSchema.statics.findByToken = function (token) {
     var User = this;

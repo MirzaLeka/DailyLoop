@@ -14,23 +14,44 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
+var userIsLoggedIn = false; // when you loggout this has to change to false
+
+// if you are logged in / route takes you to /home
+
 
 /* Home Page */
 
 app.get("/", function(req, res)
 {
-res.sendFile("login.html", {"root": __dirname + "/../Web-Info"}); 
+
+  res.sendFile("login.html", {"root": __dirname + "/../Web-Info"}); 
+
+  
+  // if (!userIsLoggedIn) {
+  //   res.sendFile("login.html", {"root": __dirname + "/../Web-Info"}); 
+  // } else {
+  //   res.sendFile("index.html", {"root": __dirname + '/../Web-Info'});
+  // }
+
+
+
     });
 
 app.get("/home", (req, res) => {
-res.sendFile("index.html", {"root": __dirname + '/../Web-Info'});
+
+  if (!userIsLoggedIn) {
+    res.sendFile("loginFailed.html", {"root": __dirname + '/../Web-Info'});
+  } else {
+    res.sendFile("index.html", {"root": __dirname + '/../Web-Info'});
+  }
+
     });
 
 /* Static files */
 
-app.use(express.static(__dirname + '/../Web-Info', { 
-  extensions: ['html', 'htm'] 
-  }));
+// app.use(express.static(__dirname + '/../Web-Info', { 
+//   extensions: ['html', 'htm'] 
+//   }));
   
 /* Resources */
 
@@ -492,6 +513,7 @@ user.save().then(() => {
   return user.generateAuthToken();
   }).then((token) => {
     res.header('x-auth', token).send(user);
+    userIsLoggedIn = true; // when you register
   }).catch((e) => {
   res.status(400).send(`Unable to save the user: ${e}`);
   });
@@ -505,7 +527,7 @@ user.save().then(() => {
 app.get('/users/me', authenticate, (req, res) => {
 
   // will run if next() runs and authentication worked as expected
-  res.send(req.user);
+  res.send(req.user); // maybe we can get status about user from here
 
 });
 
@@ -520,6 +542,7 @@ app.post('/users/login', (req, res) => {
 
         return user.generateAuthToken().then((token) => {
           res.header('x-auth', token).send(user);
+          userIsLoggedIn = true; // when you log in
         });
 
     }).catch((e) => {
@@ -528,6 +551,16 @@ app.post('/users/login', (req, res) => {
 
     });
 
+});
+
+
+app.delete("/users/me/token", authenticate, (req, res) => {
+  req.user.removeToken(req.token).then(() => {
+    res.status(200).send();
+    userIsLoggedIn = false;
+  }, () => {
+    res.status(400).send();
+  });
 });
 
 
