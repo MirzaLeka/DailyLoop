@@ -23,10 +23,16 @@ var userIsLoggedIn = false; // when you loggout this has to change to false
 
 app.get("/", function(req, res)
 {
-
+  // res.clearCookie("x-auth");
+  // res.clearCookie("mmmMMMmmm");
   res.sendFile("login.html", {"root": __dirname + "/../Web-Info"}); 
 
   
+/*
+     var myCookie = getCookie('x-auth');
+          console.log(myCookie);
+          */
+
   // if (!userIsLoggedIn) {
   //   res.sendFile("login.html", {"root": __dirname + "/../Web-Info"}); 
   // } else {
@@ -512,6 +518,11 @@ let user = new User(body);
 user.save().then(() => {
   return user.generateAuthToken();
   }).then((token) => {
+   
+    // res.cookie('x-auth',token);
+    // var myCookie = getCookie('x-auth');
+    // console.log(myCookie);
+
     res.header('x-auth', token).send(user);
     userIsLoggedIn = true; // when you register
   }).catch((e) => {
@@ -541,8 +552,13 @@ app.post('/users/login', (req, res) => {
     User.findByCredentials(body.email, body.password).then((user) => {
 
         return user.generateAuthToken().then((token) => {
+          // res.cookie('x-auth',token);
+     
           res.header('x-auth', token).send(user);
           userIsLoggedIn = true; // when you log in
+      //    res.cookie('x-auth',token); // if this line exist then you are logged in XD
+          // console.log("x-auth", token);
+
         });
 
     }).catch((e) => {

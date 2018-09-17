@@ -1,25 +1,5 @@
-// $(window).scroll(function() {
-//     sessionStorage.scrollTop = $(this).scrollTop();
-//   });
-  
 
 $(document).ready(function() {
-    // if (sessionStorage.cClicked != "undefined" && sessionStorage.scrollTop != "undefined") { 
-
-    //     if (sessionStorage.cClicked == 'true') { 
-    //     $(window).scrollTop(sessionStorage.scrollTop); 
-    //     sessionStorage.cClicked = false; 
-    //     } 
-        
-    //     } 
-
-    //  if (localStorage.getItem("scroll") != null) {
-    //     $(window).scrollTop(localStorage.getItem("scroll"));
-    // }
-
-    // $(window).on("scroll", function() {
-    //     localStorage.setItem("scroll", $(window).scrollTop());
-    // });
 
     /// GET SCROLL POSITION
     // SET TO THAT SCROLL POSITION
@@ -27,6 +7,16 @@ $(document).ready(function() {
     startTime();
     changeBackgroundImg();
     getTodos();
+
+    // if (localStorage.getItem("scroll") != null) {
+    //     $(window).scrollTop(localStorage.getItem("scroll"));
+    // }
+    //  $(window).on("scroll", function() {
+    //     localStorage.setItem("scroll", $(window).scrollTop());
+    // });
+
+//    $(document).scrollTop(1000);
+  
 
 });
 
@@ -304,6 +294,7 @@ function updateTodo(text, completed, id, refresh, modalFinished) {
     var errorCounter = 0;
 
     text = $("textarea").val();
+    text = text.replace(/"/g, "'"); // replacing all double quotes to single quotes to avoid double quotes error
 
     text = text.trim();
 
@@ -347,7 +338,7 @@ dataType: 'json',
 success: function (data) {
 
 $("#myModal").fadeOut();
-// location.reload();
+location.reload();
 
             }
         });
