@@ -9,7 +9,12 @@ var Todo = require('./models/todo');
 var {User} = require('./models/user');
 var {authenticate} = require('./middleware/authenticate');
 
+var cookieParser = require('cookie-parser'); // used for cookies obviously
+var cookie = require('cookie');
+var store = require('store') // used for local storage. check npmjs/store
+
 var app = express();
+// app.use(cookieParser()); // setting up cookie-parser
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -21,17 +26,11 @@ var userIsLoggedIn = false; // when you loggout this has to change to false
 
 /* Home Page */
 
-app.get("/", function(req, res)
-{
-  // res.clearCookie("x-auth");
-  // res.clearCookie("mmmMMMmmm");
+app.get("/", function(req, res) {
+    //  res.clearCookie("x-auth"); // DELETE COOKIE by name
+  
   res.sendFile("login.html", {"root": __dirname + "/../Web-Info"}); 
 
-  
-/*
-     var myCookie = getCookie('x-auth');
-          console.log(myCookie);
-          */
 
   // if (!userIsLoggedIn) {
   //   res.sendFile("login.html", {"root": __dirname + "/../Web-Info"}); 
@@ -68,8 +67,8 @@ app.use("/Resources", express.static(__dirname + '/../Resources'));
 
 /* Routing */
 
-var updatedAlign = '';
-var originalAlign = '';
+var updatedAlign = ''; // raptor
+var originalAlign = ''; // tomahawk
 
 
 /* Post todo */
@@ -518,10 +517,8 @@ let user = new User(body);
 user.save().then(() => {
   return user.generateAuthToken();
   }).then((token) => {
-   
-    // res.cookie('x-auth',token);
-    // var myCookie = getCookie('x-auth');
-    // console.log(myCookie);
+
+    // res.cookie('x-auth',token); SEND COOKIE WHEN YOU REGISTER
 
     res.header('x-auth', token).send(user);
     userIsLoggedIn = true; // when you register
@@ -530,7 +527,6 @@ user.save().then(() => {
   });
 
 });
-
 
 
   /* Profile Page */ 
@@ -552,12 +548,10 @@ app.post('/users/login', (req, res) => {
     User.findByCredentials(body.email, body.password).then((user) => {
 
         return user.generateAuthToken().then((token) => {
-          // res.cookie('x-auth',token);
+          //  res.cookie('x-auth',token); // SEND COOKIE WHEN YOU LOG IN
      
           res.header('x-auth', token).send(user);
           userIsLoggedIn = true; // when you log in
-      //    res.cookie('x-auth',token); // if this line exist then you are logged in XD
-          // console.log("x-auth", token);
 
         });
 
@@ -566,6 +560,8 @@ app.post('/users/login', (req, res) => {
         res.status(400).send();
 
     });
+
+    // console.log('Cookies: ', req.cookies); // console log Cookies using cookie-parser
 
 });
 
@@ -579,31 +575,6 @@ app.delete("/users/me/token", authenticate, (req, res) => {
   });
 });
 
-
-
-
-// app.get("/users/:email", (req, res) => {
-
-//   // let email = req.body.email;
-//   let email = req.params.email;
-
-//   User.findOne({email}).then((user) => {
-//      res.send({user}); 
-//     console.log(user);
-//   }, (e) => { 
-//     res.status(400).send(e);
-//   });
-
-//   /*
-//    User.findOne({ $or: [{email}, {username}] }).then((users) => {
-//     res.send({users}); 
-//   }, (e) => { 
-//     res.status(400).send(e);
-//   });
-//   */
-
-
-// });
 
 
 /////////////////////////////////////
