@@ -383,8 +383,13 @@ body{
 //   }
 
 #textareaError{
-    color: red;
     display: none;
+    @extend %error-css;
+}
+
+#todoTitleInModalError{
+    display: none;
+    @extend %error-css;
 }
 
   #cancelBtn{

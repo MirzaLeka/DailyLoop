@@ -10,11 +10,10 @@ textarea:active, input:active {
   outline: none !important; }
 
 .error {
-  margin-top: 2px;
   color: red;
   font-weight: 300; }
 
-.notYet {
-  display: none; }
+.error {
+  margin-top: 2px; }
 
 /*# sourceMappingURL=styles.css.map */

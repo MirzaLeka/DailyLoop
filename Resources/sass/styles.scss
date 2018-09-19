@@ -52,12 +52,12 @@ textarea:active, input:active{
  }
     
 
-.error{
-    margin-top: 2px;
+%error-css{
     color: red;
     font-weight: 300;
-}
+} 
 
-.notYet{
-    display: none;
+.error{
+    margin-top: 2px;
+    @extend %error-css;
 }

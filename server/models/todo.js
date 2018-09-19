@@ -15,7 +15,7 @@ var Todo = new mongoose.Schema({
         minlength: 0,
         maxlength: 2000,
         trim: true,
-        default: null
+        default: ''
     },
     completed: {
         type: Boolean, 

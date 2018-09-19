@@ -61,11 +61,13 @@ $.ajax({
 var list = '';
 var id = '';
 var text = '';
+var description = '';
 
 for (var i = 0; i < data.todos.length; i++) {
 
 id = data.todos[i]._id.toString();
 text = data.todos[i].text.toString();
+description = data.todos[i].description;
 
 let status = '';
 let finished = '';
@@ -101,7 +103,7 @@ list += `<div class="container todoContainer">
         </div>
     <div class="col-sm-3" style="height: 105px;"> 
     <div class="col-sm-4 todoBtnCol">
- <button class="btn todoBtn" title="Update Todo" onclick="openModal(\`` + text + `\`, ${data.todos[i].completed},\`` + id + `\`,\`` + data.todos[i].completedAt + `\`, ${i}, \`` + data.todos[i].createdAt + `\`)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+ <button class="btn todoBtn" title="Update Todo" onclick="openModal(\`` + text + `\`, \`` + description + `\`, ${data.todos[i].completed},\`` + id + `\`,\`` + data.todos[i].completedAt + `\`, ${i}, \`` + data.todos[i].createdAt + `\`)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
  </div>
  <div class="col-sm-4 todoBtnCol">
  
@@ -156,8 +158,6 @@ if(event.keyCode == 13){
 function submit() {
 
  var text = $("#inputTitle").val();
-
- console.log(text);
 
  text =  adjustString(text);
 
@@ -289,24 +289,34 @@ location.reload();
 
 /* UPDATE ONE TODO */
 
-function updateTodo(text, completed, id, refresh, modalFinished) {
+function updateTodo(text, description, completed, id, refresh, modalFinished) {
 
     var errorCounter = 0;
 
-    text = $("textarea").val();
+    text = $("#todoTitleInModal").val();
     text = text.replace(/"/g, "'"); // replacing all double quotes to single quotes to avoid double quotes error
+    text = text.trim(); 
 
-    text = text.trim();
+    description = $("textarea").val();
+    description = description.replace(/"/g, "'"); 
+    description = description.trim(); 
+
 
     if (text == '') {
-        $("#textareaError").show();
-        $("#textareaError").text("Todo must have at least one character");
+        $("#todoTitleInModalError").css("display", "block");
+        $("#todoTitleInModalError").text("Title must have at least one character");
         errorCounter++;
     }
 
-    else if (text.length > 1000) {
+    else if (text.length > 200) {
+        $("#todoTitleInModalError").show();
+        $("#todoTitleInModalError").text("Exceeded maximum number of characters (200)");
+        errorCounter++;
+    }
+
+    if (description.length > 2000) {
         $("#textareaError").show();
-        $("#textareaError").text("Exceeded maximum number of characters (1000)");
+        $("#textareaError").text("Exceeded maximum number of characters (2000)");
         errorCounter++;
     }
 
@@ -322,7 +332,7 @@ function updateTodo(text, completed, id, refresh, modalFinished) {
 
 var data = {
     text,
-    description: "all todos need a desc",
+    description,
     completed,
     someNew: modalFinished
 };
@@ -352,7 +362,7 @@ var data = {};
 
 var keepTheDate = '';
 
-function combineValues(text, isCompleted, id, refresh, modalFinished, completedAt) { 
+function combineValues(text, description, isCompleted, id, refresh, modalFinished, completedAt) { 
 
 
     // modalFinished the time you altered when you clicked on toggle button inside Modal
@@ -397,7 +407,7 @@ function combineValues(text, isCompleted, id, refresh, modalFinished, completedA
 
     console.log("keepTheDate is " + keepTheDate);
 
-    updateTodo(data.text, data.completed, id, refresh, keepTheDate);
+    updateTodo(data.text, description, data.completed, id, refresh, keepTheDate);
 
 }
 
@@ -407,7 +417,7 @@ var modalFinished = '';
 var toggleCounter = 0;
 var toggleValue = [];
 
-function completeInModal(text, isCompleted, id, refresh, completedAt, i) {
+function completeInModal(text, description, isCompleted, id, refresh, completedAt, i) {
 
     if (toggleCounter == 0) {
         toggleValue[i] = !isCompleted;
@@ -442,7 +452,7 @@ function completeInModal(text, isCompleted, id, refresh, completedAt, i) {
       
      toggleCounter++;
 
-     combineValues(text, toggleValue[i], id, refresh, modalFinished, completedAt);
+     combineValues(text, description, toggleValue[i], id, refresh, modalFinished, completedAt);
 
 }
 
@@ -451,7 +461,7 @@ function completeInModal(text, isCompleted, id, refresh, completedAt, i) {
 
 // Open Modal
 
-function openModal(text, isCompleted, id, completedAt, i, createdAt) {
+function openModal(text, description, isCompleted, id, completedAt, i, createdAt) {
     modal.style.display = "flex";
   
     modalFinished = completedAt;
@@ -486,7 +496,7 @@ mb = `<div class="modalPause">
 <div class="row">
 <div class="col-sm-3"> </div>
 <div class="col-sm-6">
-<input id="todoTitleInModal" autofocus style="width: 100%; background: #FFF; border: 2px solid #CCC; color: #000; margin-top: 4px; />
+<input id="todoTitleInModal" oninput="oninputTodoTitleInModal()" autofocus style="width: 100%; background: #FFF; border: 2px solid #CCC; color: #000; margin-top: 4px;" />
 <p id="todoTitleInModalError"></p>
     </div>
    
@@ -504,7 +514,7 @@ mb += `<div class="modalPause">
 <div class="row">
 <div class="col-sm-3"> </div>
 <div class="col-sm-6">
-<textarea id="textarea" oninput="oninputTextarea()" rows=5 style="width: 100%; background: #FFF; border: 2px solid #CCC; color: #000; margin-top: 4px; resize: none;"></textarea>
+<textarea id="textarea" placeholder="Optional" oninput="oninputTextarea()" rows=5 style="width: 100%; background: #FFF; border: 2px solid #CCC; color: #000; margin-top: 4px; resize: none;"></textarea>
 <p id="textareaError"></p>
     </div>
    
@@ -528,7 +538,7 @@ mb += `<div class="modalPause">
 <p id="modalStatus">${modalStatus}</p>
 </div>
 <div class="col-sm-2">
-<div class="outerModal" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`, ${i})" style="margin: 0 auto; text-align: center">
+<div class="outerModal" title="Complete Todo" id="toggleBtn" onclick="completeInModal(47, \`` + description + `\` , ${isCompleted},\`` + id + `\`, 'noRefresh', \`` + completedAt + `\`, ${i})" style="margin: 0 auto; text-align: center">
 <div class="switchModal"></div>
 </div>
     
@@ -570,13 +580,14 @@ if (isCompleted) {
 // modal footer
 
 var mf = `<button id="cancelBtn" class="modalBtns" onclick="closeModal(47, ${isCompleted},\`` + id + `\`, false)">Cancel</button>
-<button id="updateBtn" class="modalBtns" onclick="combineValues(\`` + text + `\`,${isCompleted},\`` + id + `\`, true, 4,\`` + completedAt + `\`)">Update</button>`; 
+<button id="updateBtn" class="modalBtns" onclick="combineValues(\`` + text + `\`, \`` + description + `\`,${isCompleted},\`` + id + `\`, true, 4,\`` + completedAt + `\`)">Update</button>`; 
 
     $(".modal-footer").html(mf);
 
     var textValue = text; // $(`.todoContainer:eq(${todo})`).find(`.title`).html();
 
-    $("textarea").text(textValue);
+    $("textarea").text(description);
+    $("#todoTitleInModal").val(textValue);
 
    }
 
@@ -588,7 +599,7 @@ var mf = `<button id="cancelBtn" class="modalBtns" onclick="closeModal(47, ${isC
        toggleCounter = 0;
     $("#myModal").fadeOut();
     // when you click cancel return to initial isComploted value (from DB), but don't refresh
-    combineValues(text, isCompleted, id, refresh);
+    combineValues(text, isCompleted, id, refresh); 
    }
 
    
@@ -597,6 +608,12 @@ var mf = `<button id="cancelBtn" class="modalBtns" onclick="closeModal(47, ${isC
    function oninputTextarea() {
 
     $("#textareaError").hide();
+
+   }
+
+   function oninputTodoTitleInModal() {
+
+    $("#todoTitleInModalError").hide();
 
    }
 

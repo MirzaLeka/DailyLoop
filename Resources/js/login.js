@@ -101,7 +101,7 @@ $(".signin-form").validate({
             required: true,
             strongPassword: true,
             nowhitespace: true,
-            maxlength: 24
+            maxlength: 32
         },
         messages: {
             signinEmail: {
@@ -132,7 +132,7 @@ $(".signup-form").validate({
             required: true,
             strongPassword: true,
             nowhitespace: true,
-            maxlength: 24
+            maxlength: 32
         },
         confirmPassword: {
             required: true,
@@ -297,7 +297,7 @@ function extraValidation() {
                  required: true,
                  strongPassword: true,
                  nowhitespace: true,
-                 maxlength: 24
+                 maxlength: 32
              },
              confirmPassword: {
                  required: true,

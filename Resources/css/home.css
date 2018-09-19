@@ -9,13 +9,12 @@ textarea:focus, input:focus, button:focus {
 textarea:active, input:active {
   outline: none !important; }
 
-.error {
-  margin-top: 2px;
+.error, #textareaError, #todoTitleInModalError {
   color: red;
   font-weight: 300; }
 
-.notYet {
-  display: none; }
+.error {
+  margin-top: 2px; }
 
 body {
   background: #343e4a; }
@@ -314,7 +313,9 @@ body {
     color: #6B6E73; }
 
 #textareaError {
-  color: red;
+  display: none; }
+
+#todoTitleInModalError {
   display: none; }
 
 #cancelBtn {
