@@ -305,13 +305,10 @@
 
     function search() {
 
-      let align =  $(".alignRadio:checked").parent(".radio").text(); 
-      align = align.trim(); 
-
     let text = $("input").val();
 
     if (text == '') {
-      return console.log("Enter text to complete the search");
+      text = ".";
     }
 
     // let completed =  $('#filterCompleted').find(":selected").text();
@@ -325,57 +322,15 @@
         url: `/todos/${text}/${display}/${limit}/${sort}/`,
         success: function (data) {
 
-          if (data.todos.length == 0) {
-            return console.log("No match found"); /////////////////////////////////////////////////////////////////////////////////
-          }
-
           console.log(data);
           var li = '';
           
             for (var i = 0; i < data.todos.length; i++) {
 
-          if (align == "List") {
+       
             li+= `<li>Text: ${data.todos[i].text}, Completed: ${data.todos[i].completed}</li>`;
-          }
-           else {
-             li+=`
-             <div class="col-sm-4">
-      
-              <div class="grid" style="border: 2px solid white; color: #FFF; height: 350px; position: relative;">
-                
-                  <img src="../Resources/img/tags/drive.jpg" class="img-responsive" style="width:100%; height: 250px;" alt="Image">
-
-                  
-      <div class="col-xs-12" >  
-        
-        <h3 style="color: white">${data.todos[i].text}</h3>
-        
-        </div>
-
-
-
-        <div>
-          
-          <div class="col-xs-6">${data.todos[i].completed}</div> <div class="col-xs-6">${data.todos[i].completedAt}</div>
-
-          </div>
-        
-        </div>
-                
-
-         <div class="outer" title="Complete Todo" style="position: absolute; top: 10%; right: 5%;">
- <div class="switch"></div>
- </div>
-  </div>    
-                
-                
-                </div>      
-      
-              </div>
-             `;
-              }
-
-          }
+       
+                   }
 
           $("#showList").html(li);
 
@@ -559,12 +514,7 @@ function limiting() {
       limit = $(this).parent(".radio").text();
       limit = limit.trim();  
 
-      patch();
-
-    if (text  != "") {
-     search();
-    }
-
+      search();
   });
 
 
@@ -583,11 +533,7 @@ function sorting() {
     sort = $(this).parent(".radio").text();
     sort = sort.trim();  
 
-    patch();
-
-    if (text  != "") {
     search();
-    }
 });
 
 
@@ -642,11 +588,7 @@ function displaying() {
 
     }
 
-    patch();
-
-     if (text  != "") {
-     search();
-    }
+    search();
 
     });
 

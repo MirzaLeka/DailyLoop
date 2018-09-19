@@ -318,9 +318,9 @@ if (sort == "Date completed ⇧") {
 
 
 
-var test =  req.params.text + "{1,}"
+var text =  req.params.text + "{1,}";
 
-var rec = new RegExp(test, "i");
+var rec = new RegExp(text, "i");
 
 
 
