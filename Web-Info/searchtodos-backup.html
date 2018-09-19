@@ -18,13 +18,16 @@
 
   <!-- Styles-->
   <link rel="stylesheet" type="text/css" href="../Resources/css/navbar.css"/>
-
+  <link rel="stylesheet" type="text/css" href="../Resources/css/home.css"/>
   
 </head>
 <body>
 
   
-
+    <div id="formWrapper">
+        <input class="searchTodosForm text" autofocus placeholder="Search Todos" type="text"/> 
+        <button class="searchTodosBtn" onclick="search()">Search</button>
+    </div>
 
 
       <br>       <br>       <br> 
@@ -33,19 +36,19 @@
 
   <div class="nav">
 
-<div class="container bg-3">
-  <div class="row">
-    <div class="col-xs-12">
-
-
-      <div id="formWrapper">
-          <input class="searchTodosForm text" autofocus placeholder="Search Todos" type="text"/> 
-          <button class="searchTodosBtn" onclick="search()"><i class="fa fa-search" aria-hidden="true"></i></button>
-      </div>
-
       <!-- <h2 style="width: 100%; margin: 0 auto; color: #FFF; text-align: center;">My Todo App</h2> -->
 
       <ul class="navbarUl">
+
+
+        <!-- Aligh documents-->
+
+        <li class="navbarLi" id="alignLi">Align &#9660
+            <ul class="innerUl" id="alignUl">
+    
+            </ul>
+          
+          </li>
 
 
           <!-- Display documents -->
@@ -93,10 +96,16 @@
     
     </li>
 
-  </div>
 
-</div>
-</div>
+        <!-- Themes results -->
+
+        <li class="navbarLi" id="themeLi">Theme &#9660
+          <ul class="innerUl" id="themeUl">
+
+        
+          </ul>
+        
+        </li>
 
 
       </ul>
@@ -159,10 +168,12 @@
         getAllTodos();
 
         options();
+        themes();
         limiting();
         sorting();
         displaying();
-    
+        aligning();
+
 
         
         // Fake GET request
@@ -529,6 +540,43 @@ function options() {
 }
 
 
+function themes() {
+
+    const themesArray = ["Default", "Cobalt", "Matrix", "Snowball", "Dirt", "Red tiger"];
+
+    let addTheme = '';
+    themesArray.forEach((theme, i) => {
+      addTheme += `
+    <label class="radio">
+      <input class="themeRadio"  name="theme" type="radio">
+      <span style="font-weight: 100; text-align: center;">${theme}</span>
+    </label>
+     `;
+    });
+
+    $("#themeUl").append(addTheme);
+
+    //$(".themeRadio:eq(0)").attr('checked', true);
+
+
+    /* Pick Theme */
+    
+    
+    $(".themeRadio").click(() => {
+
+      theme = $(this).parent(".radio").text();
+      theme = theme.trim();  
+
+
+
+      patch();
+
+
+
+    });
+
+
+}
 
 
 function limiting() {
@@ -653,7 +701,44 @@ function displaying() {
 }
 
 
+function aligning() {
 
+  let text = $("#text").val();
+
+  const alignArray = ["List", "Grid"];
+
+  let addAlign = '';
+  alignArray.forEach((ali, i) => {
+    addAlign += `
+    <label class="radio">
+              <input class="alignRadio" name="align" type="radio">
+              <span style="font-weight: 100; text-align: center;">${ali}</span>
+            </label>
+    `;
+  });
+
+  $("#alignUl").append(addAlign);
+
+        /* Align documents */
+
+  $(".alignRadio").click(function() {
+
+  align = $(this).parent(".radio").text();
+  align = align.trim();  
+
+  patch();
+
+     if (text  != "") {
+     search();
+    }
+
+    //getAllTodos();
+
+  //    search();
+    });
+
+
+}
 
   /* Fade in / out navbar inner lists */
    

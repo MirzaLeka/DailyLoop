@@ -111,7 +111,7 @@ body{
 
 /* Form */ 
 
-.insertTodoForm{
+.searchTodosForm{
     width: 85%;
     background: $navBackground;
     color: #FFF;
@@ -119,19 +119,19 @@ body{
     padding-left: 10px;
 }
 
-.insertTodoForm::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+.searchTodosForm::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: lighten($btnBackground, 5%);
 }
 
-.insertTodoForm:-ms-input-placeholder { /* Internet Explorer 10-11 */
+.searchTodosForm:-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: lighten($btnBackground, 5%);
 }
 
-.insertTodoForm::-ms-input-placeholder { /* Microsoft Edge */
+.searchTodosForm::-ms-input-placeholder { /* Microsoft Edge */
     color: lighten($btnBackground, 5%);
 }
 
-.insertTodoBtn{
+.searchTodosBtn{
     border-radius: none;
     border: none;
     width: 15%;
@@ -143,7 +143,7 @@ body{
     }
 }
 
-.insertTodoForm, .insertTodoBtn{
+.searchTodosForm, .searchTodosBtn{
     float: left;
     height: 40px;
 }

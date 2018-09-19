@@ -54,9 +54,9 @@ app.get("/home", (req, res) => {
 
 /* Static files */
 
-// app.use(express.static(__dirname + '/../Web-Info', { 
-//   extensions: ['html', 'htm'] 
-//   }));
+app.use(express.static(__dirname + '/../Web-Info', { 
+  extensions: ['html', 'htm'] 
+  }));
   
 /* Resources */
 

@@ -23,24 +23,21 @@ textarea:active, input:active {
   z-index: 5;
   background: #222;
   height: 50px;
-  width: 100%; }
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  align-items: center; }
 
 .navbarUl {
-  float: right;
-  height: 30px;
-  padding-left: 0px;
-  padding-right: 0px;
-  margin-top: 10px; }
-
-#formWrapper {
-  padding-top: 10px;
-  float: left;
-  width: 35%; }
+  width: 100%;
+  margin: 0 auto; }
 
 .nav .navbarUl {
   list-style: none; }
 
-.nav .navbarUl .navbarLi, #formWrapper {
+.nav .navbarUl .navbarLi {
   display: inline-block; }
 
 .navbarLi {
@@ -49,9 +46,7 @@ textarea:active, input:active {
   cursor: pointer;
   position: relative;
   font-weight: 600;
-  border-right: 2px solid #007BFF;
-  height: 30px;
-  padding-top: 5px; }
+  border-right: 2px solid #007BFF; }
   .navbarLi:hover {
     color: #DDD; }
   .navbarLi:last-child {
@@ -71,40 +66,6 @@ textarea:active, input:active {
   box-shadow: 0 8px 4px -4px #000;
   display: none;
   cursor: pointer; }
-
-/* Form */
-.searchTodosForm {
-  width: 85%;
-  background: #222;
-  color: #FFF;
-  border: 1.5px solid #007BFF;
-  padding-left: 10px; }
-
-.searchTodosForm::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #1a88ff; }
-
-.searchTodosForm:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: #1a88ff; }
-
-.searchTodosForm::-ms-input-placeholder {
-  /* Microsoft Edge */
-  color: #1a88ff; }
-
-.searchTodosBtn {
-  border-radius: none;
-  border: none;
-  width: 15%;
-  background: #007BFF;
-  color: #FFF; }
-  .searchTodosBtn:hover {
-    background: #006fe6;
-    color: #FFF; }
-
-.searchTodosForm, .searchTodosBtn {
-  float: left;
-  height: 30px; }
 
 /* >>> Filter Search <<< */
 .grid {
@@ -140,6 +101,7 @@ textarea:active, input:active {
   width: 140px; }
 
 #limitLi {
+  border-right: 2px solid #007BFF;
   width: 140px;
   cursor: pointer; }
 
@@ -199,4 +161,4 @@ textarea:active, input:active {
       opacity: 1;
       transform: scale(1, 1); }
 
-/*# sourceMappingURL=navbar.css.map */
+/*# sourceMappingURL=backup-navbar.css.map */

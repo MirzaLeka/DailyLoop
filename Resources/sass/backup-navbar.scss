@@ -11,27 +11,19 @@ $navbarLiWidth: 140px;
   background: $navBackground;
   height: 50px;
   width: 100%;
+  @include flex();
 }
 
 .navbarUl{
-    float: right;
-    height: 30px;
-    padding-left: 0px;
-    padding-right: 0px;
-    margin-top: 10px;
-}
-
-#formWrapper{
-  padding-top: 10px;
-  float: left;
-  width: 35%;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .nav .navbarUl {
    list-style: none;
 }
 
-.nav .navbarUl .navbarLi, #formWrapper {
+.nav .navbarUl .navbarLi {
    display: inline-block;
 }
 
@@ -44,8 +36,6 @@ $navbarLiWidth: 140px;
     position: relative;
     font-weight: 600;
     border-right: 2px solid $btnBackground;
-    height: 30px;
-    padding-top: 5px;
 
     &:hover{
         color: #DDD;
@@ -70,46 +60,6 @@ $navbarLiWidth: 140px;
     cursor: pointer;
 }
 
-
-
-/* Form */ 
-
-.searchTodosForm{
-  width: 85%;
-  background: $navBackground;
-  color: #FFF;
-  border: 1.5px solid $btnBackground;
-  padding-left: 10px;
-}
-
-.searchTodosForm::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: lighten($btnBackground, 5%);
-}
-
-.searchTodosForm:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: lighten($btnBackground, 5%);
-}
-
-.searchTodosForm::-ms-input-placeholder { /* Microsoft Edge */
-  color: lighten($btnBackground, 5%);
-}
-
-.searchTodosBtn{
-  border-radius: none;
-  border: none;
-  width: 15%;
-  background: $btnBackground;
-  color: #FFF;
-  &:hover{
-      background: darken($btnBackground, 5%);
-      color: #FFF;
-  }
-}
-
-.searchTodosForm, .searchTodosBtn{
-  float: left;
-  height: 30px;
-}
 
 
 /* >>> Filter Search <<< */ 
@@ -167,6 +117,7 @@ $navbarLiWidth: 140px;
   
   
   #limitLi{
+    border-right: 2px solid $btnBackground;
     width: $navbarLiWidth;
     cursor: pointer;
   }
