@@ -93,7 +93,7 @@ body{
     }
 
 
-    #chevronDown{
+    #chevronDown, #scrollBack{
         color: #FFF;
         font-size: 48px;
         cursor: pointer;
@@ -445,3 +445,11 @@ body{
     background: #EEE;  
 }
 
+#scrollBack{
+    display: none;
+    background: transparent;
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    z-index: 10;
+}

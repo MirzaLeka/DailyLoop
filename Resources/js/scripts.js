@@ -5,7 +5,36 @@
       let display = "Display all";
       let sort = 'Date created';
 
+
+      /* Scrolling back */
+
+      $(window).scroll(function() {
+        var hT = $('.todoContainer').offset().top,
+            hH = $('.todoContainer').outerHeight(),
+            wH = $(window).height(),
+            wS = $(this).scrollTop();
+         
+        if (wS > (hT+hH-wH)){
+          $("#scrollBack").fadeIn();
+        } else {
+           $("#scrollBack").fadeOut();
+        }
+     });
+
+
+     $("#scrollBack").click(function() {
+        $("html, body").animate({ scrollTop: 0 }, 1000);
+     });
+    
+
 $(document).ready(function() {
+
+    // $(window).scroll(function (event) {
+    //     var scroll = $(window).scrollTop();
+    //    console.log(scroll);
+    // });
+
+    
 
     /// GET SCROLL POSITION
     // SET TO THAT SCROLL POSITION
@@ -26,7 +55,7 @@ $(document).ready(function() {
     // });
 
 //    $(document).scrollTop(1000);
-  
+
 
 });
 
