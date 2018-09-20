@@ -1,4 +1,10 @@
 
+    /* Default values of navbarLi */
+
+      let limit = "No limit";
+      let display = "Display all";
+      let sort = 'Date created';
+
 $(document).ready(function() {
 
     /// GET SCROLL POSITION
@@ -7,6 +13,10 @@ $(document).ready(function() {
     startTime();
     changeBackgroundImg();
     getTodos();
+
+    limiting();
+    sorting();
+    displaying();
 
     // if (localStorage.getItem("scroll") != null) {
     //     $(window).scrollTop(localStorage.getItem("scroll"));
@@ -146,20 +156,11 @@ for (var i = 0; i <  data.todos.length; i++) {
 
 
 /* POST TODO */
-
-
- $("#inputTitle").keyup(function(event){
-if(event.keyCode == 13){
- submit();
-}
-});
  
 
 function submit() {
 
  var text = $("#inputTitle").val();
-
- text =  adjustString(text);
 
 var data = {
  "text": text
@@ -182,22 +183,6 @@ $.ajax({
 
 }
 
-// function search() {
-
-// var search = $("#search").val();
-
-// $.ajax({
-//  type: "GET",
-//  url: "/todos/5b609055aedeae23fcfa9ddd/",
-//  contentType : 'application/json',
-//  dataType : 'json',
-//  sucess: function(data) {
-//     var myData = JSON.parse(data.responseText);
-    
-//  }
-// });
-
-// }
 
 
 /* DELETE TODO   */
@@ -232,20 +217,6 @@ function deleteAllTodos() {
 window.location.reload();
 
 }
-
-/* ADJUST STRING */
-
-function adjustString(str) {
-
- str = str.trim();
-
- str = str.toLowerCase();
-
- str = str.charAt(0).toUpperCase() + str.substr(1,str.length).toLowerCase();
-
- return str;
-}
-
 
 
 /* COMPLETE TODO */
@@ -745,5 +716,244 @@ $("#chevronDown").click(function() {
     $('html, body').animate({
         scrollTop: $("#containerBg").offset().top
     }, 1000);
+});
+
+
+/* Navbar Li Inner Ul lists */ 
+
+
+function limiting() {
+  
+    const limitArray = ["No limit", 1, 3, 5, 10, 15, 20];
+  
+      let addLimit = '';
+      limitArray.forEach((lim, i) => {
+        addLimit += `
+      <label class="radio">
+      <input class="limitRadio"  name="limit" type="radio">
+      <span style="font-weight: 100; text-align: center;">${lim}</span>
+      </label>
+    `;
+      });
+  
+    $("#limitUl").append(addLimit);
+  
+    $(".limitRadio:eq(0)").attr('checked', true);
+  
+  
+        /* Limit search */
+  
+        $(".limitRadio").click(function() {
+  
+        limit = $(this).parent(".radio").text();
+        limit = limit.trim();  
+  
+        search();
+    });
+  
+  
+  
+  }
+  
+  
+  function sorting() {
+  
+        /* Sort documents */
+  
+        $(".sortRadio").click(function() {
+    
+      sort = $(this).parent(".radio").text();
+      sort = sort.trim();  
+  
+      search();
   });
   
+  
+  }
+  
+  function displaying() {
+    
+    const displayArray = ["All", "Completed", "Not completed"];
+  
+      let addDisplay = '';
+      displayArray.forEach((dis, i) => {
+      addDisplay += `
+      <label class="radio">
+                <input class="displayRadio" name="display" type="radio">
+                <span style="font-weight: 100; text-align: center;">${dis}</span>
+              </label>
+      `;
+    });
+  
+    $("#displayUl").append(addDisplay);
+  
+    $(".displayRadio:eq(0)").attr('checked', true);
+  
+      
+          /* Display documents */
+  
+        $(".displayRadio").click(function() {
+  
+      display = $(this).parent(".radio").text();
+      display = display.trim();  
+  
+      if (display == "Not completed") {
+        $(".sortCompleted").attr("disabled",true);
+        $(`.labelCompleted`).css({ "cursor": "default" });
+        $(".labelCompleted").hover(  function () {
+          $(this).css("background", "#222");
+        });
+  
+      } else {
+        $(".sortCompleted").attr("disabled",false);
+        $(`.labelCompleted`).css({ "cursor": "pointer" });
+  
+        $(".labelCompleted").on('mouseenter',  function () {
+          $(this).css("background", "#007BFF");
+        });
+  
+        $(".labelCompleted").on('mouseleave',  function () {
+          $(this).css("background", "#222");
+        });
+  
+      }
+  
+      search();
+  
+      });
+  
+  }
+  
+
+    /* Fade in / out navbar inner lists */
+   
+$(".navbarLi").on('mouseenter', function() {
+    $(this).find(".innerUl").fadeIn();
+    });
+    
+    $(".navbarLi").on('mouseleave', function() {
+    $(this).find(".innerUl").fadeOut();
+    });
+    
+
+
+/* Search Todos */
+
+
+function search() {
+
+    let text = $(".searchTodosForm").val();
+
+    if (text == '') {
+      text = ".";
+    }
+
+
+      $.ajax({
+        type: "GET",
+        url: `/todos/${text}/${display}/${limit}/${sort}/`,
+        success: function (data) {
+
+            var list = '';
+            var id = '';
+            var text = '';
+            var description = '';
+            
+            for (var i = 0; i < data.todos.length; i++) {
+            
+            id = data.todos[i]._id.toString();
+            text = data.todos[i].text.toString();
+            description = data.todos[i].description;
+            
+            let status = '';
+            let finished = '';
+            
+            var shortenTitle = data.todos[i].text;
+            
+            if (data.todos[i].text.length > 50) {
+                shortenTitle = data.todos[i].text.substr(0,50) + "...";
+            }
+            
+            if (data.todos[i].completed) {
+             status = "Completed";
+             finished = "Completed At: " + data.todos[i].completedAt.substr(12,8);
+            }
+            else {
+             status = "Not completed";
+            }
+            
+            list += `<div class="container todoContainer">
+                
+                 <div class="row">
+                  <div class="col-sm-9">
+            <div class="row">
+            <div class="col-sm-12">
+            <h3 class="title">${shortenTitle}</h3>
+                </div>
+            </div>
+             <div class="row">
+                  
+             <div class="col-sm-6"><p class="status">${status}</p></div>
+             <div class="col-sm-6"><p class="finished">${finished}</p> </div>
+              </div>
+                    </div>
+                <div class="col-sm-3" style="height: 105px;"> 
+                <div class="col-sm-4 todoBtnCol">
+             <button class="btn todoBtn" title="Update Todo" onclick="openModal(\`` + text + `\`, \`` + description + `\`, ${data.todos[i].completed},\`` + id + `\`,\`` + data.todos[i].completedAt + `\`, ${i}, \`` + data.todos[i].createdAt + `\`)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+             </div>
+             <div class="col-sm-4 todoBtnCol">
+             
+             <div class="outer" title="Complete Todo" onclick='completeTodo(${data.todos[i].completed},\`` + id + `\`, ${i})'>
+             <div class="switch"></div>
+             </div>
+              </div>        
+            <div class="col-sm-4 todoBtnCol">
+               <button class="btn todoBtn" title="Remove Todo" id="removeTodoBtn" onclick="deleteTodo(\`` + id + `\`)"><i class="fa fa-times" aria-hidden="true"></i></button>
+                     </div>
+                </div>
+                     
+                  </div>
+             </div>`;
+             
+            }
+            $(".todoContainer").remove();
+            $("#listOfTodos").append(list);
+            
+            /* once text is added we can toggle the class with counter from another for loop */
+            for (var i = 0; i <  data.todos.length; i++) {
+            
+                if (data.todos[i].completed) {
+                    $(`.switch:eq(${i})`).addClass("move");
+                    $(`.title:eq(${i})`).css({ "text-decoration": "line-through" });
+            
+                 }
+                 else {
+                     $(`.switch:eq(${i})`).removeClass("move");
+                 }
+                 
+            }
+            
+        }
+      });
+
+
+    }
+
+
+    /* ENTER KEY */
+
+    // Posting todos
+
+ $("#inputTitle").keyup(function(event){
+    if(event.keyCode == 13){
+     submit();
+    }
+    });
+
+    // Searching todos
+
+    $(".searchTodosForm").keyup(function(event){
+        if(event.keyCode == 13){
+         search();
+        }
+        });

@@ -13,6 +13,9 @@ var cookieParser = require('cookie-parser'); // used for cookies obviously
 var cookie = require('cookie');
 var store = require('store') // used for local storage. check npmjs/store
 
+const jsdom = require("jsdom"); // using jsdom in npm
+const { JSDOM } = jsdom;
+
 var app = express();
 // app.use(cookieParser()); // setting up cookie-parser
 
@@ -44,11 +47,13 @@ app.get("/", function(req, res) {
 
 app.get("/home", (req, res) => {
 
-  if (!userIsLoggedIn) {
-    res.sendFile("loginFailed.html", {"root": __dirname + '/../Web-Info'});
-  } else {
-    res.sendFile("index.html", {"root": __dirname + '/../Web-Info'});
-  }
+  res.sendFile("index.html", {"root": __dirname + '/../Web-Info'});
+
+  // if (!userIsLoggedIn) {
+  //   res.sendFile("loginFailed.html", {"root": __dirname + '/../Web-Info'});
+  // } else {
+  //   res.sendFile("index.html", {"root": __dirname + '/../Web-Info'});
+  // }
 
     });
 
@@ -548,6 +553,10 @@ app.post('/users/login', (req, res) => {
     User.findByCredentials(body.email, body.password).then((user) => {
 
         return user.generateAuthToken().then((token) => {
+ 
+
+      //    res.json({"x-auth": token}); // using local storage
+
           //  res.cookie('x-auth',token); // SEND COOKIE WHEN YOU LOG IN
      
           res.header('x-auth', token).send(user);

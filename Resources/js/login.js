@@ -225,6 +225,9 @@ function login() {
         success: function(data) {
 
             if (data) {
+                // console.log(data);
+
+                localStorage.setItem(Object.keys(data), Object.values(data));
                 window.location.href = "/home";
             } 
 
