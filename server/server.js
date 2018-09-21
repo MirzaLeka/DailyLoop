@@ -24,36 +24,24 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 var userIsLoggedIn = false; // when you loggout this has to change to false
 
-// if you are logged in / route takes you to /home
 
 
 /* Home Page */
 
 app.get("/", function(req, res) {
-    //  res.clearCookie("x-auth"); // DELETE COOKIE by name
   
   res.sendFile("login.html", {"root": __dirname + "/../Web-Info"}); 
-
-
-  // if (!userIsLoggedIn) {
-  //   res.sendFile("login.html", {"root": __dirname + "/../Web-Info"}); 
-  // } else {
-  //   res.sendFile("index.html", {"root": __dirname + '/../Web-Info'});
-  // }
-
 
 
     });
 
 app.get("/home", (req, res) => {
 
-  res.sendFile("index.html", {"root": __dirname + '/../Web-Info'});
-
-  // if (!userIsLoggedIn) {
-  //   res.sendFile("loginFailed.html", {"root": __dirname + '/../Web-Info'});
-  // } else {
-  //   res.sendFile("index.html", {"root": __dirname + '/../Web-Info'});
-  // }
+  if (!userIsLoggedIn) {
+    res.sendFile("loginFailed.html", {"root": __dirname + '/../Web-Info'});
+  } else {
+    res.sendFile("index.html", {"root": __dirname + '/../Web-Info'});
+  }
 
     });
 
@@ -70,11 +58,6 @@ app.use("/Resources", express.static(__dirname + '/../Resources'));
 
 
 
-/* Routing */
-
-var updatedAlign = ''; // raptor
-var originalAlign = ''; // tomahawk
-
 
 /* Post todo */
 
@@ -84,51 +67,12 @@ app.post('/todos', (req, res) => {
   var str = d.toString();
   str = str.substr(4,20);
 
-// UNTIL I'M COMPLETELY SURE WHAT I'M DOING
-
-//   Todo.count(function (err, count) {
-//     if (!err && count === 0) {
-//               // console.log("All good!");
-//     } else {
-//       // console.log("Even better");
-//       // console.log("Todo before push: ");
-
-//       Todo.find().sort({completedAtTimestamp: 1}).then((todos) => {
-//       //  console.log(todos[0].align);
-
-//       originalAlign = todos[0].align;
-  
-//       }, (e) => { 
-//         console.log(e);
-//       });
-
-// //      console.log(Todo.find({text: "Igi"})); TO DO AND TEST
-//     }
-// });
-
-// DRUGI KORAK
-// ako je bio update bit ce ovaj Drugi uslov
-// ako nije ili ako si tek upalio app onda vazi PRVI uslov (if) i ovo odozgo
-
-  if (updatedAlign.length == 0) { // OVO CE TREBATI kad on napravi update i ako je napravio update ici ce da je tomahawk ono iz elsa
-   originalAlign = "List"; // a ako nije bio update onda ce uzeti predhodnu odozgo, tj uzet ce onu koja je pod alignom u baz
-  } else {
-    originalAlign = updatedAlign;
-  }
-
-  // tj bit ce ako je prazna stavi list
-  // ako nije prazna onda vidi sta je u bazi pod align (todos[0].align) i stavi da tomahawk bude to
-  // a ako apdejtas onda promjeni tomahawk na to sto si dobio (raptor)
 
   var todo = new Todo({
     text: req.body.text,
     createdAt: str,
     createdAtTimestamp: d.getTime(),
     lastUpdated: d.getTime(),
-    align: originalAlign
-    // display: req.body.display,
-    // sort: req.body.sort,
-    // limit: req.body.limit
   });
 
   todo.save().then((doc) => {
@@ -145,7 +89,7 @@ app.post('/todos', (req, res) => {
 
 app.get('/todos', (req, res) => {
 
-    Todo.find().sort({createdAtTimestamp: 1}).then((todos) => {
+    Todo.find().sort({z: 1}).then((todos) => {
       res.send({todos}); 
     }, (e) => { 
       res.status(400).send(e);
@@ -153,22 +97,6 @@ app.get('/todos', (req, res) => {
 
 });
 
-
-/* Get all todos + align */
-
-app.get('/todos/:align', (req, res) => {
-
-  let align = req.params.align;
-  console.log("Value of align is " + align);
-
-  Todo.find({align}).sort({createdAtTimestamp: 1}).then((todos) => {
-    res.send({todos}); 
-  }, (e) => { 
-    res.status(400).send(e);
-  });
-
-
-});
 
 
 
@@ -450,30 +378,6 @@ app.patch('/todos/:id', (req, res) => {
   });
 
 
-  /* Update align for all todos */
-
-  app.patch("/todos", (req, res) => {
-
-    let body = _.pick(req.body, ['align', 'theme']);
-
-    updatedAlign = body.align; // I'll take value of align that comes from AJAX and is Patched via body object
-
-    Todo.updateMany(
-    Todo.align, {$set: body}, {new: true},
-    Todo.theme, {$set: body}, {new: true} 
-    ).then((todos) => {
-  
-      if (!todos) {
-      return res.status(404).send();
-      }
-      res.send({todos});
-      
-      }).catch((e) => {
-      res.status(400).send();
-      });
-
-  });
-
 
 /* Delete one todo by id */
 
@@ -523,7 +427,6 @@ user.save().then(() => {
   return user.generateAuthToken();
   }).then((token) => {
 
-    // res.cookie('x-auth',token); SEND COOKIE WHEN YOU REGISTER
 
     res.header('x-auth', token).send(user);
     userIsLoggedIn = true; // when you register
@@ -538,8 +441,8 @@ user.save().then(() => {
 
 app.get('/users/me', authenticate, (req, res) => {
 
-  // will run if next() runs and authentication worked as expected
-  res.send(req.user); // maybe we can get status about user from here
+  
+  res.send(req.user);
 
 });
 
@@ -554,10 +457,6 @@ app.post('/users/login', (req, res) => {
 
         return user.generateAuthToken().then((token) => {
  
-
-      //    res.json({"x-auth": token}); // using local storage
-
-          //  res.cookie('x-auth',token); // SEND COOKIE WHEN YOU LOG IN
      
           res.header('x-auth', token).send(user);
           userIsLoggedIn = true; // when you log in
@@ -570,7 +469,6 @@ app.post('/users/login', (req, res) => {
 
     });
 
-    // console.log('Cookies: ', req.cookies); // console log Cookies using cookie-parser
 
 });
 

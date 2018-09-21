@@ -1,4 +1,4 @@
-var mongoose = require('mongoose'); // we are not importing mongose js fie. we are just requiring regular mongoose library.
+var mongoose = require('mongoose'); 
 
 
 var Todo = new mongoose.Schema({
@@ -42,29 +42,6 @@ var Todo = new mongoose.Schema({
     someNew: {
         type: String,
         default: null
-    },
-    align: {
-       type: String
-    },
-    // display: {
-    //     type: String,
-    //     default: "All"
-    // },
-    // sort: {
-    //     type: String,
-    //     default: "Date created"
-    // },
-    // limit: {
-    //     type: String,
-    //     default: "No limit"
-    // },
-    selectedTag: {
-        type: Number,
-        default: 0
-    },
-    theme: {
-        type: String,
-        default: "Default"
     }
 }); 
 

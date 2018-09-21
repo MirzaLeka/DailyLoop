@@ -106,6 +106,7 @@ body{
     #submitTodoError{
         display: none;
         @extend %error-css;
+        text-align: center;
     }
 
 

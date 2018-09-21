@@ -88,9 +88,6 @@ $.ajax({
     }
 
 
-    
-    console.log(data);  
-
 var list = '';
 var id = '';
 var text = '';
@@ -200,7 +197,6 @@ function submit() {
 
 var data = {
  "text": text
-// "someNew": 141
 }
 
 $.ajax({
@@ -273,13 +269,8 @@ function completeTodo(isCompleted, someId, i) {
      $(`.switch:eq(${i})`).addClass("move");
  }
 
-//  var d = new Date();
-//  var str = d.toString();
-//  str = str.substr(4,20);
-
 var data = {
  completed: isCompleted
-//  someNew: str
 };
 
 
@@ -307,7 +298,7 @@ function updateTodo(text, description, completed, id, refresh, modalFinished) {
     var errorCounter = 0;
 
     text = $("#todoTitleInModal").val();
-    text = text.replace(/"/g, "'"); // replacing all double quotes to single quotes to avoid double quotes error
+    text = text.replace(/"/g, "'"); 
     text = text.trim(); 
 
     description = $("textarea").val();
@@ -332,16 +323,6 @@ function updateTodo(text, description, completed, id, refresh, modalFinished) {
         $("#textareaError").text("Exceeded maximum number of characters (2000)");
         errorCounter++;
     }
-
-    // var d = new Date();
-    // var completedAt = d.toString();
-    // completedAt = completedAt.substr(4,20);
-
-//////////////
-
-    // var d = new Date();
-    // var str = d.toString();
-    // str = str.substr(4,20);
 
 var data = {
     text,
@@ -378,17 +359,11 @@ var keepTheDate = '';
 function combineValues(text, description, isCompleted, id, refresh, modalFinished, completedAt) { 
 
 
-    // modalFinished the time you altered when you clicked on toggle button inside Modal
-    // completedAt is the time that came from the DB if todo was completed
-
-    // MAYBE THE ORDER OF OPERATIONS MATTERS (completed btn vs form input)
-
-
     if (typeof(modalFinished) === 'string') {
         keepTheDate = modalFinished;
         
      }  else {
-         keepTheDate = completedAt; /// THIS LINE
+         keepTheDate = completedAt; 
      }
 
     if (typeof(text) === 'string') {
@@ -418,8 +393,6 @@ function combineValues(text, description, isCompleted, id, refresh, modalFinishe
 
     }
 
-    console.log("keepTheDate is " + keepTheDate);
-
     updateTodo(data.text, description, data.completed, id, refresh, keepTheDate);
 
 }
@@ -438,9 +411,6 @@ function completeInModal(text, description, isCompleted, id, refresh, completedA
       else {
         toggleValue[i] = !toggleValue[i];
       }
-
-      // if it's not completed (and clicked on update) it will not show time from completedAt var (because it's not complete)
-      // so i'm using modalFinished var to create new Date & time
 
       var d = new Date();
       var str = d.toString();
@@ -597,7 +567,7 @@ var mf = `<button id="cancelBtn" class="modalBtns" onclick="closeModal(47, ${isC
 
     $(".modal-footer").html(mf);
 
-    var textValue = text; // $(`.todoContainer:eq(${todo})`).find(`.title`).html();
+    var textValue = text; 
 
     $("textarea").text(description);
     $("#todoTitleInModal").val(textValue);
@@ -611,7 +581,7 @@ var mf = `<button id="cancelBtn" class="modalBtns" onclick="closeModal(47, ${isC
    function closeModal(text, isCompleted, id, refresh) {
        toggleCounter = 0;
     $("#myModal").fadeOut();
-    // when you click cancel return to initial isComploted value (from DB), but don't refresh
+  
     combineValues(text, isCompleted, id, refresh); 
    }
 
@@ -630,8 +600,6 @@ var mf = `<button id="cancelBtn" class="modalBtns" onclick="closeModal(47, ${isC
 
    }
 
-
-/////////////////////////////////////////
 
    /* Start Page Script */ 
 
