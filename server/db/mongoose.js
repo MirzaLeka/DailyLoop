@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise; 
-mongoose.connect('mongodb://<Spy4er>:<Bu11$Eye44>@ds111113.mlab.com:11113/todoapp'); 
+mongoose.connect('mongodb://<test>:<test123>@ds111113.mlab.com:11113/todoapp'); 
 
 // 'mongodb://localhost:27017/TodoApp'
 
