@@ -1,13 +1,16 @@
 {
   "name": "nodeTodoApp",
   "version": "1.0.0",
-  "description": "",
+  "description": "2Do App",
   "main": "index.js",
   "scripts": {
     "start": "gulp",
     "test": "mocha server/**/*.test.js",
     "test-watch": "nodemon --exec \"npm test\""
   },
+  "engines": {
+    "node": "10.0.0"
+    },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -52,5 +55,13 @@
     "imagemin-pngquant": "^5.1.0",
     "nodemon": "^1.17.5",
     "pipe": "^1.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MirzaLeka/nodeTodoApp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MirzaLeka/nodeTodoApp/issues"
+  },
+  "homepage": "https://github.com/MirzaLeka/nodeTodoApp#readme"
 }

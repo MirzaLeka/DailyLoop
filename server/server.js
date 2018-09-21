@@ -20,7 +20,9 @@ var app = express();
 // app.use(cookieParser()); // setting up cookie-parser
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const port = process.env.PORT || 3000;
 
 var userIsLoggedIn = false; // when you loggout this has to change to false
 
@@ -510,8 +512,8 @@ router.use(function(req, res){
 
 /* Port */
 
-app.listen(3000, () => {
-  console.log('Started on port 3000');
+app.listen(port, () => {
+  console.log('Started on port ' + port);
 });
 
 module.exports = {app};
