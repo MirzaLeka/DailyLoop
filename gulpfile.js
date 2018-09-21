@@ -19,7 +19,7 @@ const STYLES_PATH = 'Resources/css/**/*.css';
 const SCRIPTS_PATH = 'Resources/js/**/*.js'; 
 const DEST_PATH = 'Resources/dist';
 const HTML_PATH = 'Web-Info/**/*.html';
-const IMG_PATH = 'Resources/originalImg/**/*';
+const IMG_PATH = 'Resources/readMeImg/**/*';
 const IMG_DEST = 'Resources/img/**/*';
 
 // HTML
