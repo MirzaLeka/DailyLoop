@@ -1,12 +1,21 @@
-### **NodeJS Todo App**
+### **2DoApp**
 
-![bandicam 2018-08-13 16-26-51-463](https://user-images.githubusercontent.com/23176181/44038235-a3c2f8d8-9f16-11e8-8dd8-3e7843e6b9d9.jpg)
+![](Resources/img/readMeImg/home.jpg)
 
+*Info*:
+
+Goal of this project for me was getting familiar working with mongo databases, preforming CRUD operations, JWT and authentication,
+but I'm having so much fun, that I decided to go extra mile and build effective Todo application. 
+
+Users can create new todos. They can update them, add description, tag the completed ones, delete todos and if they have too
+many todos, they can always search for the ones they want, choose which one to display, sort todos and even limit the results.
+
+![](Resources/img/readMeImg/todos.jpg)
 
 *Current functionalities*:
 * Posting todos to database
 * Deleting todos
-* Updating todos, title of todo and completed attribute
+* Updating todos, title of todo, description and completed attribute
 * Receiving todos from database and presenting them on website
 * Search for todos and filter search
 
@@ -18,7 +27,18 @@
 - Jquery            - AJAX
 - NodeJS            - ExpressJS
 - MongoDB           - Mongoose ORM
+- BcryptJS          - Jquery Validate
+- Regex             - GulpJS
 ``` 
+
+*Upcoming features*:
+
+* Proper JWT user authentication
+* Improved responsive design
+* Solving all known issues
+* More awesome features
+
+![](Resources/img/readMeImg/update.jpg)
 
 *Quick start*:
 ``` bash
@@ -33,7 +53,4 @@ npm start
 - You will have to setup mongoDB database
 ```
 
-
-Goal of this project for me is getting familiar working with mongo databases, preforming CRUD operations and building
-effective Todo application.
 Project is still in development and will be hosted on Heroku.
