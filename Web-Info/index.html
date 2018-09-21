@@ -24,7 +24,7 @@
 
   <!-- <a style="position: fixed; top: 5%; right: 5%; font-size: 24px; color: red; z-index: 5;" href="/"><i class="fa fa-user" aria-hidden="true"></i> Sign Out </a> -->
 
-  <div id="scrollBack"> <i class="fa fa-chevron-up" aria-hidden="true"></i> </div>
+  <h1 id="scrollBack"> <i class="fa fa-chevron-up" aria-hidden="true"></i> </h1>
 
     <div id="openingDiv">
 
@@ -33,10 +33,13 @@
 
        <div id="inputTItleContainer">
         <h4 id="questionsTitle"></h4>
-        <input id="inputTitle" type="text" autofocus/>
+        <input id="inputTitle" oninput="clearSubmitTodoError()" type="text" autofocus/>
+
+       <h3 id="submitTodoError">Please insert text to submit todo</h3>
+
        </div>
 
-       <h1 id="chevronDown" class="notYet"><i class="fa fa-chevron-down" aria-hidden="true"></i></h1>
+       <h1 id="scrollDown" class="notYet"><i class="fa fa-chevron-down" aria-hidden="true"></i></h1>
 
         <h4 id="quoteTitle"></h4>
 

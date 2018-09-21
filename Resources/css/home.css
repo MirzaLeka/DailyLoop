@@ -9,7 +9,7 @@ textarea:focus, input:focus, button:focus {
 textarea:active, input:active {
   outline: none !important; }
 
-.error, #textareaError, #todoTitleInModalError {
+.error, #submitTodoError, #textareaError, #todoTitleInModalError {
   color: red;
   font-weight: 300; }
 
@@ -89,12 +89,15 @@ body {
   position: absolute;
   bottom: 5%; }
 
-#chevronDown, #scrollBack {
+#scrollDown, #scrollBack {
   color: #FFF;
   font-size: 48px;
   cursor: pointer; }
-  #chevronDown:hover, #scrollBack:hover {
+  #scrollDown:hover, #scrollBack:hover {
     color: #EEE; }
+
+#submitTodoError {
+  display: none; }
 
 .container-fluid, .jumbotron {
   background: transparent; }

@@ -145,7 +145,7 @@ app.post('/todos', (req, res) => {
 
 app.get('/todos', (req, res) => {
 
-    Todo.find().sort({completedAtTimestamp: 1}).then((todos) => {
+    Todo.find().sort({createdAtTimestamp: 1}).then((todos) => {
       res.send({todos}); 
     }, (e) => { 
       res.status(400).send(e);
@@ -161,7 +161,7 @@ app.get('/todos/:align', (req, res) => {
   let align = req.params.align;
   console.log("Value of align is " + align);
 
-  Todo.find({align}).sort({completedAtTimestamp: 1}).then((todos) => {
+  Todo.find({align}).sort({createdAtTimestamp: 1}).then((todos) => {
     res.send({todos}); 
   }, (e) => { 
     res.status(400).send(e);

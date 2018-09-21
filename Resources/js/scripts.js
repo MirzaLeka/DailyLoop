@@ -25,20 +25,22 @@
      $("#scrollBack").click(function() {
         $("html, body").animate({ scrollTop: 0 }, 1000);
      });
+
+     /* Scrolling using session storage */
+
+     var scrollPosition = '';
     
 
 $(document).ready(function() {
 
-    // $(window).scroll(function (event) {
-    //     var scroll = $(window).scrollTop();
-    //    console.log(scroll);
-    // });
+     scrollPosition = sessionStorage.getItem('scrollPosition');
 
-    
-
-    /// GET SCROLL POSITION
-    // SET TO THAT SCROLL POSITION
-
+     if (scrollPosition != null) {
+        $('html, body').animate({
+            scrollTop: scrollPosition
+        }, 100);
+     }
+  
     startTime();
     changeBackgroundImg();
     getTodos();
@@ -47,16 +49,7 @@ $(document).ready(function() {
     sorting();
     displaying();
 
-    // if (localStorage.getItem("scroll") != null) {
-    //     $(window).scrollTop(localStorage.getItem("scroll"));
-    // }
-    //  $(window).on("scroll", function() {
-    //     localStorage.setItem("scroll", $(window).scrollTop());
-    // });
-
-//    $(document).scrollTop(1000);
-
-
+  
 });
 
 
@@ -71,6 +64,7 @@ $.ajax({
  success: function(data) {
 
     if (data.todos.length == 0) {
+        sessionStorage.removeItem("scrollPosition");
         $(".notYet").css("display", "none");
         $("#inputTitle").attr("placeholder", "Submit your first todo");
         changeQuote(0, 0);
@@ -177,6 +171,15 @@ for (var i = 0; i <  data.todos.length; i++) {
 }
 
 
+
+    /* Scroll using session storage */ 
+
+    $(".outer, .todoBtn").click(function() {
+        let currentScrollPosition =  $(window).scrollTop();
+  
+        sessionStorage.setItem('scrollPosition', currentScrollPosition);
+    });
+
  }
 
 });
@@ -190,6 +193,10 @@ for (var i = 0; i <  data.todos.length; i++) {
 function submit() {
 
  var text = $("#inputTitle").val();
+
+ if (text == '') {
+     return $("#submitTodoError").show();
+ }
 
 var data = {
  "text": text
@@ -210,6 +217,10 @@ $.ajax({
 });
 
 
+}
+
+function clearSubmitTodoError() {
+    $("#submitTodoError").hide();
 }
 
 
@@ -233,6 +244,8 @@ function deleteTodo(id) {
 /* DELETE ALL TODOS */
 
 function deleteAllTodos() {
+
+ sessionStorage.removeItem("scrollPosition");
 
  $.ajax({
  url: '/todos',
@@ -741,7 +754,7 @@ function changeBackgroundImg() {
 
 /* Scrolling Around */ 
 
-$("#chevronDown").click(function() {
+$("#scrollDown").click(function() {
     $('html, body').animate({
         scrollTop: $("#containerBg").offset().top
     }, 1000);

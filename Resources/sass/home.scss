@@ -93,7 +93,7 @@ body{
     }
 
 
-    #chevronDown, #scrollBack{
+    #scrollDown, #scrollBack{
         color: #FFF;
         font-size: 48px;
         cursor: pointer;
@@ -102,6 +102,11 @@ body{
         }
     }
 
+
+    #submitTodoError{
+        display: none;
+        @extend %error-css;
+    }
 
 
 .container-fluid, .jumbotron{
