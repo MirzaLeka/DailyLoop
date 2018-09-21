@@ -32,21 +32,17 @@ var userIsLoggedIn = false; // when you loggout this has to change to false
 
 app.get("/", function(req, res) {
   
-  // res.sendFile("login.html", {"root": __dirname + "/../Resources/dist"}); 
-
-  res.sendFile("index.html", {"root": __dirname + '/../Resources/dist'});
+  res.sendFile("login.html", {"root": __dirname + "/../Resources/dist"}); 
 
     });
 
 app.get("/home", (req, res) => {
 
-  res.sendFile("index.html", {"root": __dirname + '/../Resources/dist'});
-
-  // if (!userIsLoggedIn) {
-  //   res.sendFile("loginFailed.html", {"root": __dirname + '/../Resources/dist'});
-  // } else {
-  //   res.sendFile("index.html", {"root": __dirname + '/../Resources/dist'});
-  // }
+  if (!userIsLoggedIn) {
+    res.sendFile("loginFailed.html", {"root": __dirname + '/../Resources/dist'});
+  } else {
+    res.sendFile("index.html", {"root": __dirname + '/../Resources/dist'});
+  }
 
     });
 

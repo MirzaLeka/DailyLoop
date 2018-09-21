@@ -1,9 +1,7 @@
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise; 
-mongoose.connect('mongodb://<test>:<test123>@ds111113.mlab.com:11113/todoapp'); 
-
-// 'mongodb://localhost:27017/TodoApp'
+mongoose.connect(process.env.MONGODB_URI  || 'mongodb://localhost:27017/TodoApp'); 
 
 module.exports = {mongoose};
 // instead of configuring server and mongoose in file, we made a separate file for mongoose that we'll include in server.js file
