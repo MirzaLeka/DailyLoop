@@ -30,7 +30,7 @@ var userIsLoggedIn = false; // when you loggout this has to change to false
 
 app.get("/", function(req, res) {
   
-  res.sendFile("login.html", {"root": __dirname + "/../Web-Info"}); 
+  res.sendFile("login.html", {"root": __dirname + "/../Resources/dist"}); 
 
 
     });
@@ -38,16 +38,16 @@ app.get("/", function(req, res) {
 app.get("/home", (req, res) => {
 
   if (!userIsLoggedIn) {
-    res.sendFile("loginFailed.html", {"root": __dirname + '/../Web-Info'});
+    res.sendFile("loginFailed.html", {"root": __dirname + '/../Resources/dist'});
   } else {
-    res.sendFile("index.html", {"root": __dirname + '/../Web-Info'});
+    res.sendFile("index.html", {"root": __dirname + '/../Resources/dist'});
   }
 
     });
 
 /* Static files */
 
-app.use(express.static(__dirname + '/../Web-Info', { 
+app.use(express.static(__dirname + '/../Resources/dist', { 
   extensions: ['html', 'htm'] 
   }));
   
