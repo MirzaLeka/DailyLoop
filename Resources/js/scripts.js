@@ -192,7 +192,14 @@ function submit() {
  var text = $("#inputTitle").val();
 
  if (text == '') {
-     return $("#submitTodoError").show();
+    $("#submitTodoError").show();
+    $("#submitTodoError").text("Please insert text to submit todo.");
+    return;
+ } 
+  if (text.length > 200) {
+    $("#submitTodoError").show();
+    $("#submitTodoError").text("Please keep todo title no longer than 200 characters.");
+    return;
  }
 
 var data = {

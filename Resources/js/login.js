@@ -75,9 +75,8 @@ $.validator.addMethod( "nowhitespace", function( value, element ) {
 $.validator.addMethod('strongUsername', function(value, element) {
     return this.optional(element) 
       || value.length >= 6
-      && /\d/.test(value)
       && /[a-z]/i.test(value);
-  }, 'Username must be at least 6 characters long and contain at least one number and one character.')
+  }, 'Username must be at least 6 characters long and contain at least one letter.')
 
 
 $.validator.addMethod('strongPassword', function(value, element) {
@@ -86,7 +85,7 @@ $.validator.addMethod('strongPassword', function(value, element) {
       && /\d/.test(value)
       && /[a-z]/i.test(value)
       && /[$-/:-?{-~!"^_`\[\]]/.test(value);
-  }, 'Password must be at least 8 characters long and contain at least one number, one character and one symbol.')
+  }, 'Password must be at least 8 characters long and contain at least one number, one letter and one symbol.')
 
 
 /* Sign In form validation */
@@ -265,9 +264,8 @@ function extraValidation() {
      $.validator.addMethod('strongUsername', function(value, element) {
          return this.optional(element) 
            || value.length >= 6
-           && /\d/.test(value)
            && /[a-z]/i.test(value);
-       }, 'Username must be at least 6 characters long and contain at least one number and one character.')
+       }, 'Username must be at least 6 characters long and contain at least one letter.')
      
      
      $.validator.addMethod('strongPassword', function(value, element) {
@@ -276,7 +274,7 @@ function extraValidation() {
            && /\d/.test(value)
            && /[a-z]/i.test(value)
            && /[$-/:-?{-~!"^_`\[\]]/.test(value);
-       }, 'Password must be at least 8 characters long and contain at least one number, one character and one symbol.')
+       }, 'Password must be at least 8 characters long and contain at least one number, one letter and one symbol.')
      
      
      $(".signup-form").validate({

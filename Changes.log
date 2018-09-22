@@ -1,0 +1,10 @@
+2Do App BETA
+
+v 1.0.1 | 22.09.2018.
+
++ User validation update
+Username no longer requires numbers.
+
++ Submit todo update
+You can't submit todo with title longer than 200 characters.
+------------------------------------------------------------

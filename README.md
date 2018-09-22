@@ -1,8 +1,8 @@
-### **2DoApp**
+## **2DoApp**
 
 ![](Resources/img/readMeImg/home.jpg)
 
-*Info*:
+#### *App info*:
 
 Goal of this project for me was getting familiar working with mongo databases, preforming CRUD operations, JWT and authentication,
 but I'm having so much fun, that I decided to go extra mile and build effective Todo application. 
@@ -12,14 +12,16 @@ many todos, they can always search for the ones they want, choose which one to d
 
 ![](Resources/img/readMeImg/todos.jpg)
 
-*Current functionalities*:
+#### *Current functionalities*:
+
 * Posting todos to database
 * Deleting todos
 * Updating todos, title of todo, description and completed attribute
 * Receiving todos from database and presenting them on website
 * Search for todos and filter search
 
-*Current tech stack*:
+#### *Current tech stack*:
+
 ``` bash
 - HTML              - Bootstrap
 - CSS               - Sass
@@ -31,7 +33,7 @@ many todos, they can always search for the ones they want, choose which one to d
 - Regex             - GulpJS
 ``` 
 
-*Upcoming features*:
+#### *Upcoming features*:
 
 * Proper JWT user authentication
 * Improved responsive design
@@ -40,7 +42,8 @@ many todos, they can always search for the ones they want, choose which one to d
 
 ![](Resources/img/readMeImg/update.jpg)
 
-*Quick start*:
+#### *Quick start*:
+
 ``` bash
 # install dependencies
 npm i
