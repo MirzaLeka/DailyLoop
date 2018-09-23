@@ -655,30 +655,30 @@ const questionsArray = [
 
 
 const arrayOfBackgrounds = [
-    "../Resources/img/beachananas.jpeg",
-    "../Resources/img/bike.jpeg",
-    "../Resources/img/bottle.jpeg",
-    "../Resources/img/clouds.jpeg",
+    "../Resources/img/cover/beachananas.jpeg",
+    "../Resources/img/cover/bike.jpeg",
+    "../Resources/img/cover/bottle.jpeg",
+    "../Resources/img/cover/clouds.jpeg",
     
-    "../Resources/img/ferrari.jpeg",
-    "../Resources/img/forestroad.jpg",
-    "../Resources/img/glasses.jpeg",
-    "../Resources/img/guitar.jpg",
+    "../Resources/img/cover/ferrari.jpeg",
+    "../Resources/img/cover/forestroad.jpg",
+    "../Resources/img/cover/glasses.jpeg",
+    "../Resources/img/cover/guitar.jpg",
     
-    "../Resources/img/headphones.jpeg",
-    "../Resources/img/jetengine.jpg",
-    "../Resources/img/kitten.jpeg",
-    "../Resources/img/raspberries.jpeg",
-    "../Resources/img/road.jpeg",
+    "../Resources/img/cover/headphones.jpeg",
+    "../Resources/img/cover/jetengine.jpg",
+    "../Resources/img/cover/kitten.jpeg",
+    "../Resources/img/cover/raspberries.jpeg",
     
-    "../Resources/img/rope.jpeg",
-    "../Resources/img/sandals.jpeg",
-    "../Resources/img/searocks.jpeg",
+    "../Resources/img/cover/road.jpeg",
+    "../Resources/img/cover/rope.jpeg",
+    "../Resources/img/cover/sandals.jpeg",
+    "../Resources/img/cover/searocks.jpeg",
     
-    "../Resources/img/thunder.jpeg",
-    "../Resources/img/underwater.jpeg",
-    "../Resources/img/wing.jpeg",
-    "../Resources/img/wolves.jpeg"
+    "../Resources/img/cover/thunder.jpeg",
+    "../Resources/img/cover/underwater.jpeg",
+    "../Resources/img/cover/wing.jpeg",
+    "../Resources/img/cover/wolves.jpeg"
 ];
 
 function changeQuote(num, todos) {
