@@ -459,7 +459,6 @@ app.post('/users/login', (req, res) => {
 
         return user.generateAuthToken().then((token) => {
  
-     
           res.header('x-auth', token).send(user);
           userIsLoggedIn = true; // when you log in
 

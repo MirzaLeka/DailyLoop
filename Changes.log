@@ -2,15 +2,25 @@
 
 v 1.0.1 | 22.09.2018.
 
-+ User validation update
++ User validation update.
 Username no longer requires numbers.
 
-+ Submit todo update
++ Submit todo update.
 You can't submit todo with title longer than 200 characters.
 ------------------------------------------------------------
 
 v 1.0.2 | 24.09.2018.
 
-+ User register update
++ User register update.
 If you try to register with username or email that already exists in DB, page will sned you alert message.
+------------------------------------------------------------
+
+v 1.1.0 | 24.09.2018.
+
++ Created css files for error page and login failed page.
+
++ Gulp dist folder is now avaiable, so when server starts it no longer requires to minify first and then starts server.
+Files are already minifhed and that means that "npm start" only triggers the start server script.
+
++ If you entered wrong route and error page loaded, you now have button which once clicked takes you on the previous page.
 ------------------------------------------------------------

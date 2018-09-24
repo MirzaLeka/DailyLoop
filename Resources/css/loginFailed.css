@@ -1,0 +1,43 @@
+/* Variables */
+/* Mixins */
+@font-face {
+  font-family: headerFont;
+  src: url(../fonts/headerfont.otf); }
+textarea:focus, input:focus, button:focus {
+  outline: none !important; }
+
+textarea:active, input:active {
+  outline: none !important; }
+
+.error {
+  color: red;
+  font-weight: 300; }
+
+.error {
+  margin-top: 2px; }
+
+body {
+  background: url("../img/routes/lostcat.jpeg") no-repeat center;
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  height: 100vh;
+  width: 100%;
+  position: relative; }
+
+div {
+  width: 250px;
+  text-align: center;
+  position: absolute;
+  top: 40%;
+  left: 10%; }
+
+h2 {
+  font-size: 32px;
+  color: #000; }
+
+/*# sourceMappingURL=loginFailed.css.map */

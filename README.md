@@ -33,6 +33,11 @@ many todos, they can always search for the ones they want, choose which one to d
 - Regex             - GulpJS
 ``` 
 
+Frontend is done from scratch. No templates, no plugins, no third party snippets. 
+Also design is custom made. I looked at other todo apps and tried to create something new, yet familar.
+
+All pictures on website are royalty free images downloaded from [Pexels](https://www.pexels.com).
+
 #### *Upcoming features*:
 
 * Proper JWT user authentication

@@ -1,0 +1,24 @@
+
+@import "styles.scss";
+
+body{
+    background: url('../img/routes/potato.jpeg') no-repeat center;
+    @include background();
+}
+
+h1{
+    text-align: center;
+    font-size: 60px;
+    color: #FFF;
+    position: absolute;
+    bottom: 20%;
+    margin: 0 auto;
+    width: 100%;
+}
+
+button{
+    position: absolute;
+    bottom: 15%;
+    left: 46%;
+}
+
