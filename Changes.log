@@ -8,3 +8,9 @@ Username no longer requires numbers.
 + Submit todo update
 You can't submit todo with title longer than 200 characters.
 ------------------------------------------------------------
+
+v 1.0.2 | 24.09.2018.
+
++ User register update
+If you try to register with username or email that already exists in DB, page will sned you alert message.
+------------------------------------------------------------

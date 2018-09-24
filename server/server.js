@@ -432,7 +432,8 @@ user.save().then(() => {
     res.header('x-auth', token).send(user);
     userIsLoggedIn = true; // when you register
   }).catch((e) => {
-  res.status(400).send(`Unable to save the user: ${e}`);
+  res.status(400).send(e); // if email or username is already used
+
   });
 
 });
@@ -466,7 +467,7 @@ app.post('/users/login', (req, res) => {
 
     }).catch((e) => {
 
-        res.status(400).send();
+        res.status(400).send(); // will go off if user logging in doesn't exist in DB
 
     });
 

@@ -180,7 +180,7 @@ function register() {
         type: "POST",
         url: "/users",
         contentType : 'application/json',
-        dataType : 'json',
+        dataType: "json",
         data : JSON.stringify(data),
         success: function(data) {
 
@@ -188,7 +188,15 @@ function register() {
         },
 
         error: function(err) {
-            console.log(err);
+
+           var errType =  err.responseJSON.errmsg.substr(60, 199);
+
+           if (errType.startsWith("u")) {
+            alert("Username is already in use");
+           } else {
+            alert("Email is already in use");
+           }
+            
         }
     });
 
