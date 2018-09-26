@@ -61,4 +61,4 @@ npm start
 - You will have to setup mongoDB database
 ```
 
-Project is still in development, but you can see a preview hosted on [Heroku](https://tdoapp.herokuapp.com/).
+Project is still in development, but you can see a preview hosted on [Heroku](https://todo4pp.herokuapp.com/).
