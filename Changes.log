@@ -24,3 +24,9 @@ Files are already minifhed and that means that "npm start" only triggers the sta
 
 + If you entered wrong route and error page loaded, you now have button which once clicked takes you on the previous page.
 ------------------------------------------------------------
+
+v 1.1.1 | 26.09.2018.
+
++ Updating app name and domain.
+
+------------------------------------------------------------

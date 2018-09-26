@@ -33,10 +33,13 @@ many todos, they can always search for the ones they want, choose which one to d
 - Regex             - GulpJS
 ``` 
 
-Frontend is done from scratch. No templates, no plugins, no third party snippets. 
-Also design is custom made. I looked at other todo apps and tried to create something new, yet familar.
+**Frontend** is done from scratch. No templates, no plugins, no third party snippets. 
+**Design** is also custom made. I looked at other todo apps and tried to create something new, yet familar.
 
 All pictures on website are royalty free images downloaded from [Pexels](https://www.pexels.com).
+
+Most of the **Backend** is done while following *Andrew Mead's* [Node.js](https://www.udemy.com/the-complete-nodejs-developer-course-2/) Udemy course. 
+As I studied, I sometimes went off the course path, read the docs on my own and created features like saerch bar, search filter any many more that are yet to be revealed.
 
 #### *Upcoming features*:
 

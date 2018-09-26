@@ -636,12 +636,21 @@ const quotesArray = [
     – Lao Tzu`,
     `"The only impossible journey is the one you never begin."
     – Tony Robbins`,
+
     `"We are what we repeatedly do. Excellence, then, is not an act but a habit."
     – Aristotle`,
     `"Don’t judge each day by the harvest you reap, but by the seeds that you plant."
     – Robert Louis Stevenson`,
+
     `"Writing is an exploration. You start from nothing and learn as you go."
-    - E. L. Doctorow`
+    - E. L. Doctorow`,
+    `"Adapt what is useful, reject what is useless, and add what is specifically your own."
+    - Bruce Lee`,
+    
+    `"If you fail to plan, you are planning to fail."
+    - Benjamin Franklin`,
+    `"Never memorize something that you can look up."
+    - Albert Einstein`
 ];
 
 
