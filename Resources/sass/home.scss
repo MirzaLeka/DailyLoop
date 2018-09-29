@@ -111,7 +111,7 @@ body{
     }
 
 
-.container-fluid, .jumbotron{
+    .container-fluid, .jumbotron{
     background: transparent;
 }
 
@@ -189,7 +189,7 @@ body{
 /* Todos */
 
 .darkSelect{
-    background: darken($todoBackground, 20%) !important;
+    background: darken($todoBackground, 8%) !important;
 }
 
 .todoContainer{

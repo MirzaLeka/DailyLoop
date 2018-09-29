@@ -675,26 +675,41 @@ const questionsArray = [
 
 
 const arrayOfBackgrounds = [
+
+    "../Resources/img/cover/cloudscity.jpeg", // just in case date gets to 0 someday :|
+    
+    "../Resources/img/cover/apple.jpeg",
     "../Resources/img/cover/beachananas.jpeg",
+    "../Resources/img/cover/beachcity.jpeg",
     "../Resources/img/cover/bike.jpeg",
+    "../Resources/img/cover/bulb.jpeg",
+    
+    "../Resources/img/cover/boat.jpeg",
     "../Resources/img/cover/bottle.jpeg",
+    "../Resources/img/cover/cherries.jpeg",
+    "../Resources/img/cover/chess.jpeg",
     "../Resources/img/cover/clouds.jpeg",
     
     "../Resources/img/cover/ferrari.jpeg",
     "../Resources/img/cover/forestroad.jpg",
     "../Resources/img/cover/glasses.jpeg",
     "../Resources/img/cover/guitar.jpg",
-    
     "../Resources/img/cover/headphones.jpeg",
+
+    "../Resources/img/cover/highway.jpeg",
+    "../Resources/img/cover/home.jpeg",
     "../Resources/img/cover/jetengine.jpg",
     "../Resources/img/cover/kitten.jpeg",
-    "../Resources/img/cover/raspberries.jpeg",
-    
+    "../Resources/img/cover/logs.jpeg",
+
+    "../Resources/img/cover/match.jpeg",
+    "../Resources/img/cover/parkedinwild.jpeg",
     "../Resources/img/cover/road.jpeg",
     "../Resources/img/cover/rope.jpeg",
     "../Resources/img/cover/sandals.jpeg",
+
     "../Resources/img/cover/searocks.jpeg",
-    
+    "../Resources/img/cover/skynight.jpeg",
     "../Resources/img/cover/thunder.jpeg",
     "../Resources/img/cover/underwater.jpeg",
     "../Resources/img/cover/wing.jpeg",
@@ -729,28 +744,25 @@ function changeQuote(num, todos) {
 
 function changeBackgroundImg() {
 
-    let randImg = arrayOfBackgrounds[Math.floor(Math.random() * arrayOfBackgrounds.length)];
+    // let randImg = arrayOfBackgrounds[Math.floor(Math.random() * arrayOfBackgrounds.length)];
 
-    $("#openingDiv").css({
-        "background": `url('${randImg}')`,
-        "background-attachment": "fixed",
-        "overflow": "hidden",
-        "background-position": "center",
-        "background-repeat": "no-repeat",
-        "background-size": "cover",
-        "-webkit-background-size": "cover",
-        "-moz-background-size": "cover",
-        "-o-background-size": "cover",
-        "opacity": 0.95
-    });
+    let today = new Date().getDate();
 
-/* //////////////////////////////////////////////////////////////////////////
-   $('#openingDiv').fadeTo('fast', 0.3, function()
-    {
-        $(this).css('background-image', 'url(' + arrayOfBackgrounds[new Date().getDay()] + ')');
-    }).fadeTo('fast', 1);
-    */
+    $('#openingDiv').fadeTo(500, 0.5, function()   {
+   
+        $(this).css({
+            "background": `url('${arrayOfBackgrounds[today]}')`,
+            "background-attachment": "fixed",
+            "overflow": "hidden",
+            "background-position": "center",
+            "background-repeat": "no-repeat",
+            "background-size": "cover",
+            "-webkit-background-size": "cover",
+            "-moz-background-size": "cover",
+            "-o-background-size": "cover"
+        });
 
+    }).fadeTo(500, 1);
 
 }
 
