@@ -9,12 +9,12 @@
       /* Scrolling back */
 
       $(window).scroll(function() {
-        var hT = $('.todoContainer').offset().top,
-            hH = $('.todoContainer').outerHeight(),
+        var hT = $('#info').offset().top + 50, // since .todoContainer can be removed
+            hH = $('#info').outerHeight(), // I'm using #info + 50px scolled down
             wH = $(window).height(),
             wS = $(this).scrollTop();
          
-        if (wS > (hT+hH-wH)){
+        if (wS >= (hT+hH-wH)){
           $("#scrollBack").fadeIn();
         } else {
            $("#scrollBack").fadeOut();
@@ -28,10 +28,15 @@
 
      /* Scrolling using session storage */
 
-     var scrollPosition = '';
+     let scrollPosition = '';
+
+     let addDarkSelect;
+
+     let idsArr = [];
+
     
 
-$(document).ready(function() {
+    $(document).ready(function() {
 
      scrollPosition = sessionStorage.getItem('scrollPosition');
 
@@ -116,7 +121,7 @@ else {
  status = "Not completed";
 }
 
-list += `<div class="container todoContainer">
+list += `<div class="container todoContainer" onclick="addIdToArray(\`` + data.todos[i]._id + `\`)">
     
      <div class="row">
       <div class="col-sm-9">
@@ -166,6 +171,17 @@ for (var i = 0; i <  data.todos.length; i++) {
      }
      
 }
+
+
+            // GET DARKSELECT CLASS
+
+      addDarkSelect =  $(".todoContainer");
+      
+      addDarkSelect.on("click", function() {
+        $(this).toggleClass("darkSelect");
+      })
+
+        
 
 
 
@@ -645,12 +661,7 @@ const quotesArray = [
     `"Writing is an exploration. You start from nothing and learn as you go."
     - E. L. Doctorow`,
     `"Adapt what is useful, reject what is useless, and add what is specifically your own."
-    - Bruce Lee`,
-    
-    `"If you fail to plan, you are planning to fail."
-    - Benjamin Franklin`,
-    `"Never memorize something that you can look up."
-    - Albert Einstein`
+    - Bruce Lee`
 ];
 
 
@@ -732,6 +743,14 @@ function changeBackgroundImg() {
         "-o-background-size": "cover",
         "opacity": 0.95
     });
+
+/* //////////////////////////////////////////////////////////////////////////
+   $('#openingDiv').fadeTo('fast', 0.3, function()
+    {
+        $(this).css('background-image', 'url(' + arrayOfBackgrounds[new Date().getDay()] + ')');
+    }).fadeTo('fast', 1);
+    */
+
 
 }
 
@@ -868,6 +887,9 @@ $(".navbarLi").on('mouseenter', function() {
 
 function search() {
 
+    // for now 
+    idsArr = []; 
+
     let text = $(".searchTodosForm").val();
 
     if (text == '') {
@@ -908,7 +930,7 @@ function search() {
              status = "Not completed";
             }
             
-            list += `<div class="container todoContainer">
+            list += `<div class="container todoContainer" onclick="addIdToArray(\`` + data.todos[i]._id + `\`)">
                 
                  <div class="row">
                   <div class="col-sm-9">
@@ -942,8 +964,17 @@ function search() {
              </div>`;
              
             }
+
+            // When you search you remove all previous todos and replace with the new ones that fit the search
             $(".todoContainer").remove();
             $("#listOfTodos").append(list);
+
+
+            addDarkSelect = $(".todoContainer");
+
+            addDarkSelect.on("click", function() {
+                $(this).toggleClass("darkSelect");
+              })
             
             /* once text is added we can toggle the class with counter from another for loop */
             for (var i = 0; i <  data.todos.length; i++) {
@@ -983,3 +1014,47 @@ function search() {
          search();
         }
         });
+
+
+
+        /* DELETE KEY */ 
+
+        let addIdToArray = (id) => {
+            
+            if ( idsArr.includes(id) ) {
+                idsArr.splice(idsArr.findIndex(index => index == id)); // if element is in array, find index & remove element  
+            } else {
+                idsArr.push(id);    // else push it to array
+            }
+    
+           console.log(idsArr);
+    
+        }
+
+
+        function KeyPressCheck(event){
+
+            if (event.keyCode == 44) {
+
+                if ( addDarkSelect.hasClass("darkSelect") ) {
+
+                   // add scroll position here as well
+                   // unless todos array is empty
+
+                   $.ajax({
+                    url: '/todos/' + idsArr,
+                    type: 'DELETE',
+                    success: function() {
+                    location.reload();
+                           }
+                       });
+
+                    // after this refresh to avoid scroll error
+
+                } 
+                
+
+            }
+
+         }
+

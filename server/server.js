@@ -386,21 +386,58 @@ app.delete("/todos/:id", (req, res) => {
 
   var id = req.params.id;
 
-  if (!ObjectID.isValid(id)) {
-    return res.status(400).send("Invalid id");
-  }
-  
-  Todo.findByIdAndRemove(id).then((todo) => {
+  // if it's > 30 then there are multiple ids inside id array
+  if (id.length > 30) {
+    // i'm getting string and I want to split it into an array
+    id = id.split(",");
+  } 
 
-    if (!todo) {
-      return res.status(404).send("Todo not found");
+  if ( Array.isArray(id) ) {
+
+    for (let i = 0; i < id.length; i++) {
+
+      if (!ObjectID.isValid(id[i])) {
+        return res.status(400).send("Invalid id");
+      }
+
+      Todo.findByIdAndRemove(id[i]).then((todo) => {
+
+        if (!todo) {
+          return res.status(404).send("Todo not found");
+        }
+    
+        res.send({todo});
+    
+      }).catch((e) => {
+        res.status(400).send();
+      });
+    
+
     }
 
-    res.send({todo});
+  } else {
 
-  }).catch((e) => {
-    res.status(400).send("Bad request");
-  });
+    if (!ObjectID.isValid(id)) {
+      return res.status(400).send("Invalid id");
+    }
+
+    Todo.findByIdAndRemove(id).then((todo) => {
+
+      if (!todo) {
+        return res.status(404).send("Todo not found");
+      }
+  
+      res.send({todo});
+  
+    }).catch((e) => {
+      res.status(400).send("Bad request");
+    });
+  
+
+  }
+
+
+  
 
 });
 
