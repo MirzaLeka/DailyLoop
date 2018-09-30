@@ -377,17 +377,43 @@ location.reload();
 
 var data = {};
 
-var keepTheDate = '';
+var keepTheDate = null;
+var newDate = '';
 
 function combineValues(text, description, isCompleted, id, refresh, modalFinished, completedAt) { 
 
+    console.log("Modal finished is: " + modalFinished)
 
-    if (typeof(modalFinished) === 'string') {
-        keepTheDate = modalFinished;
+    // if (modalFinished != null) {
+    //     completedAt = modalFinished;
+    //     console.log("(4) " + keepTheDate);
+    // }
+
+    // if (typeof(modalFinished) != 'string' && keepTheDate != null) {
+    //     keepTheDate = modalFinished;
         
-     }  else {
-         keepTheDate = completedAt; 
+    //  }  else {
+    //      keepTheDate = completedAt; 
+    //  }
+
+     //////////////////////
+
+     if (typeof(modalFinished) != 'string' && keepTheDate != null) {
+        keepTheDate = keepTheDate;
+        console.log("AAAA");
      }
+         else  if (typeof(modalFinished) === 'string') {
+         keepTheDate == modalFinished;
+         console.log("BBBB");
+     }  else {
+         keepTheDate = completedAt;
+         console.log("CCCC");
+     }
+
+     //////////////////////
+
+
+     console.log("(1) " + keepTheDate);
 
     if (typeof(text) === 'string') {
         data.text = text;
@@ -402,9 +428,11 @@ function combineValues(text, description, isCompleted, id, refresh, modalFinishe
         }
      
         refresh = true;
+    console.log("(2) " + keepTheDate);
+
     }
 
-   else if (typeof(text) === "number") {
+    if (typeof(text) === "number") {
         data.completed = isCompleted;
         refresh = false;
 
@@ -414,9 +442,12 @@ function combineValues(text, description, isCompleted, id, refresh, modalFinishe
             keepTheDate = null;
         }
 
+        console.log("(3) " + keepTheDate);
     }
 
-    updateTodo(data.text, description, data.completed, id, refresh, keepTheDate);
+    // completedAt = modalFinished;
+    // console.log("Completed At: " + completedAt)
+    // updateTodo(data.text, description, data.completed, id, refresh, keepTheDate);
 
 }
 
@@ -684,7 +715,7 @@ const arrayOfBackgrounds = [
     "../Resources/img/cover/bike.jpeg",
     "../Resources/img/cover/bulb.jpeg",
     
-    "../Resources/img/cover/boat.jpeg",
+    "../Resources/img/cover/boat.jpg",
     "../Resources/img/cover/bottle.jpeg",
     "../Resources/img/cover/cherries.jpeg",
     "../Resources/img/cover/chess.jpeg",
@@ -702,7 +733,7 @@ const arrayOfBackgrounds = [
     "../Resources/img/cover/kitten.jpeg",
     "../Resources/img/cover/logs.jpeg",
 
-    "../Resources/img/cover/match.jpeg",
+    "../Resources/img/cover/match.jpg",
     "../Resources/img/cover/parkedinwild.jpeg",
     "../Resources/img/cover/road.jpeg",
     "../Resources/img/cover/rope.jpeg",
