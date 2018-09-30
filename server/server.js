@@ -339,7 +339,7 @@ app.patch('/todos/:id', (req, res) => {
   var id = req.params.id;
   
   // values we want to change are in array
-  var body = _.pick(req.body, ['text', 'description', 'completed', 'someNew']); //what user can edit. Make a Patch with text/compled/completedAt and write it in here. maybe the same for timestamp?
+  var body = _.pick(req.body, ['text', 'description', 'completed', 'completedAt']); //what user can edit. Make a Patch with text/compled/completedAt and write it in here. maybe the same for timestamp?
   
   if (!ObjectID.isValid(id)) {
    return res.status(400).send('Id is not valid'); 
@@ -351,16 +351,10 @@ app.patch('/todos/:id', (req, res) => {
   // if completed is boolean and is completed then give date of completion to completeAt (remove null)
   if (_.isBoolean(body.completed) && body.completed) {
 
-    var d = new Date();
-    var str = d.toString();
-    str = str.substr(4,20);
-    
-    body.completedAt = str; 
-    body.completedAtTimestamp = d.getTime();
+    body.completedAtTimestamp = new Date().getTime();
 
   } else {
     body.completed = false;
-    body.completedAt = null;
     body.completedAtTimestamp = null;
   }
   

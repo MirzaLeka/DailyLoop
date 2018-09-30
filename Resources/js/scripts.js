@@ -284,16 +284,27 @@ window.location.reload();
 
 function completeTodo(isCompleted, someId, i) {
 
+   let completedAt = '';
+
  if (isCompleted) {
      isCompleted = false;
      $(`.switch:eq(${i})`).removeClass("move");
+     completedAt = null;
+
  } else {
      isCompleted = true;
      $(`.switch:eq(${i})`).addClass("move");
+
+     var d = new Date();
+     var str = d.toString();
+     str = str.substr(4,20);
+     completedAt = str;
+
  }
 
 var data = {
- completed: isCompleted
+ completed: isCompleted,
+ completedAt
 };
 
 
@@ -316,7 +327,7 @@ location.reload();
 
 /* UPDATE ONE TODO */
 
-function updateTodo(text, description, completed, id, refresh, modalFinished) {
+function updateTodo(text, description, completed, id, refresh, keepTheDate) {
 
     var errorCounter = 0;
 
@@ -351,7 +362,7 @@ var data = {
     text,
     description,
     completed,
-    someNew: modalFinished
+    completedAt: keepTheDate
 };
 
 if (refresh && errorCounter == 0) {
@@ -382,38 +393,17 @@ var newDate = '';
 
 function combineValues(text, description, isCompleted, id, refresh, modalFinished, completedAt) { 
 
-    console.log("Modal finished is: " + modalFinished)
-
-    // if (modalFinished != null) {
-    //     completedAt = modalFinished;
-    //     console.log("(4) " + keepTheDate);
-    // }
-
-    // if (typeof(modalFinished) != 'string' && keepTheDate != null) {
-    //     keepTheDate = modalFinished;
-        
-    //  }  else {
-    //      keepTheDate = completedAt; 
-    //  }
-
-     //////////////////////
-
+   
      if (typeof(modalFinished) != 'string' && keepTheDate != null) {
         keepTheDate = keepTheDate;
-        console.log("AAAA");
+        
      }
          else  if (typeof(modalFinished) === 'string') {
          keepTheDate == modalFinished;
-         console.log("BBBB");
+         
      }  else {
          keepTheDate = completedAt;
-         console.log("CCCC");
      }
-
-     //////////////////////
-
-
-     console.log("(1) " + keepTheDate);
 
     if (typeof(text) === 'string') {
         data.text = text;
@@ -428,7 +418,6 @@ function combineValues(text, description, isCompleted, id, refresh, modalFinishe
         }
      
         refresh = true;
-    console.log("(2) " + keepTheDate);
 
     }
 
@@ -441,13 +430,9 @@ function combineValues(text, description, isCompleted, id, refresh, modalFinishe
         } else {
             keepTheDate = null;
         }
-
-        console.log("(3) " + keepTheDate);
     }
 
-    // completedAt = modalFinished;
-    // console.log("Completed At: " + completedAt)
-    // updateTodo(data.text, description, data.completed, id, refresh, keepTheDate);
+     updateTodo(data.text, description, data.completed, id, refresh, keepTheDate);
 
 }
 

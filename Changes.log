@@ -49,3 +49,11 @@ v 1.4.0 | 30.09.2018.
 + Added fade image when page refreshes.
 
 ------------------------------------------------------------
+
+v 1.4.1 | 30.09.2018.
+
++ Fixed wrong time display after todo is completed. 
+
++ Removed someNew from todo model.
+
+------------------------------------------------------------
