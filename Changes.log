@@ -1,4 +1,4 @@
-Todo 4pp BETA
+Todo 4pp Closed BETA
 
 v 1.0.1 | 22.09.2018.
 
@@ -55,5 +55,16 @@ v 1.4.1 | 30.09.2018.
 + Fixed wrong time display after todo is completed. 
 
 + Removed someNew from todo model.
+
+------------------------------------------------------------
+
+v 1.4.2 | 30.09.2018.
+
++ Fixed delete Todo while editing in.
+Once modal opens todo highlight will be disappear.
+
++ Scroll position will be removed from session storage once you submit todo.
+
+* New scroll position will be set once you delete multiple todos.
 
 ------------------------------------------------------------

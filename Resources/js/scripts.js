@@ -181,16 +181,19 @@ for (var i = 0; i <  data.todos.length; i++) {
         $(this).toggleClass("darkSelect");
       })
 
-        
-
-
 
     /* Scroll using session storage */ 
 
-    $(".outer, .todoBtn").click(function() {
+    $(".outer, .todoBtn").click(function(e) {
         let currentScrollPosition =  $(window).scrollTop();
-  
         sessionStorage.setItem('scrollPosition', currentScrollPosition);
+
+        // Prevent darkSelect
+        e.stopPropagation(); 
+        $(".todoContainer").removeClass("darkSelect");
+        idsArr = []; 
+       
+
     });
 
  }
@@ -221,6 +224,8 @@ function submit() {
 var data = {
  "text": text
 }
+
+sessionStorage.removeItem("scrollPosition");
 
 $.ajax({
  type: "POST",
@@ -1002,7 +1007,20 @@ function search() {
 
             addDarkSelect.on("click", function() {
                 $(this).toggleClass("darkSelect");
-              })
+              });
+
+                  /* Scroll using session storage */ 
+
+                $(".outer, .todoBtn").click(function(e) {
+                    let currentScrollPosition =  $(window).scrollTop();
+                    sessionStorage.setItem('scrollPosition', currentScrollPosition);
+
+                    // Prevent darkSelect
+                    e.stopPropagation(); 
+                    $(".todoContainer").removeClass("darkSelect");
+                    idsArr = []; 
+
+                });
             
             /* once text is added we can toggle the class with counter from another for loop */
             for (var i = 0; i <  data.todos.length; i++) {
@@ -1045,7 +1063,7 @@ function search() {
 
 
 
-        /* DELETE KEY */ 
+        /* SELECT TODOS */ 
 
         let addIdToArray = (id) => {
             
@@ -1055,10 +1073,9 @@ function search() {
                 idsArr.push(id);    // else push it to array
             }
     
-           console.log(idsArr);
-    
         }
 
+        /* DELETE KEY */
 
         function KeyPressCheck(event){
 
@@ -1066,8 +1083,8 @@ function search() {
 
                 if ( addDarkSelect.hasClass("darkSelect") ) {
 
-                   // add scroll position here as well
-                   // unless todos array is empty
+                    let currentScrollPosition =  $(window).scrollTop();
+                    sessionStorage.setItem('scrollPosition', currentScrollPosition);
 
                    $.ajax({
                     url: '/todos/' + idsArr,
@@ -1077,7 +1094,7 @@ function search() {
                            }
                        });
 
-                    // after this refresh to avoid scroll error
+                    
 
                 } 
                 
