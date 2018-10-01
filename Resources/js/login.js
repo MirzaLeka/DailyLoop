@@ -189,17 +189,14 @@ function register() {
 
         error: function(err) {
 
-           var errType =  err.responseJSON.errmsg.substr(60, 199);
+           const errType =  err.responseJSON.errmsg;
 
-           console.log(errType + "\n");
-           console.log(err.responseJSON.errmsg);
+            if (errType.includes("username")) {
+                console.log("Username is already in use");
+            } else {
+                console.log("Email is already in use");
+            }
 
-        //    if (errType.startsWith("u")) {
-        //     alert("Username is already in use");
-        //    } else {
-        //     alert("Email is already in use");
-        //    }
-            
         }
     });
 
