@@ -191,11 +191,14 @@ function register() {
 
            var errType =  err.responseJSON.errmsg.substr(60, 199);
 
-           if (errType.startsWith("u")) {
-            alert("Username is already in use");
-           } else {
-            alert("Email is already in use");
-           }
+           console.log(errType + "\n");
+           console.log(err.responseJSON.errmsg);
+
+        //    if (errType.startsWith("u")) {
+        //     alert("Username is already in use");
+        //    } else {
+        //     alert("Email is already in use");
+        //    }
             
         }
     });
