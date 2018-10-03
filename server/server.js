@@ -17,28 +17,37 @@ const jsdom = require("jsdom"); // using jsdom in npm
 const { JSDOM } = jsdom;
 
 var app = express();
-// app.use(cookieParser()); // setting up cookie-parser
+app.use(cookieParser()); // setting up cookie-parser
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 3000;
 
-var userIsLoggedIn = false; // when you loggout this has to change to false
+let userCookie = null;
 
 
 
 /* Home Page */
 
 app.get("/", function(req, res) {
-  
-  res.sendFile("login.html", {"root": __dirname + "/../Resources/dist"}); 
+
+  userCookie = req.cookies;
+
+  if ( userCookie == null ||  _.isEmpty( userCookie ) ) {
+    res.sendFile("login.html", {"root": __dirname + "/../Resources/dist"}); 
+  } else { 
+    res.sendFile("index.html", {"root": __dirname + '/../Resources/dist'});  
+  }
+
 
     });
 
 app.get("/home", (req, res) => {
 
-  if (!userIsLoggedIn) {
+  userCookie = req.cookies;
+
+  if ( userCookie == null ||  _.isEmpty( userCookie ) ) {
     res.sendFile("loginFailed.html", {"root": __dirname + '/../Resources/dist'});
   } else {
     res.sendFile("index.html", {"root": __dirname + '/../Resources/dist'});
@@ -377,6 +386,10 @@ app.patch('/todos/:id', (req, res) => {
 /* Delete one todo by id */
 
 app.delete("/todos/:id", (req, res) => {
+  
+  // console.log("DELETE: ", req.cookies);
+
+  // res.clearCookie("myToken"); DELETE TOKEN
 
   var id = req.params.id;
 
@@ -459,9 +472,14 @@ user.save().then(() => {
   return user.generateAuthToken();
   }).then((token) => {
 
+    res.cookie('myToken', token, {
+      expires: new Date(Date.now() + 30000000)
+    });
+
+    userCookie = req.cookies;
 
     res.header('x-auth', token).send(user);
-    userIsLoggedIn = true; // when you register
+
   }).catch((e) => {
   res.status(400).send(e); // if email or username is already used
 
@@ -489,9 +507,14 @@ app.post('/users/login', (req, res) => {
     User.findByCredentials(body.email, body.password).then((user) => {
 
         return user.generateAuthToken().then((token) => {
- 
+
+          res.cookie('myToken', token, {
+            expires: new Date(Date.now() + 30000000)
+          });
+
+          userCookie = req.cookies;
+
           res.header('x-auth', token).send(user);
-          userIsLoggedIn = true; // when you log in
 
         });
 
@@ -508,7 +531,6 @@ app.post('/users/login', (req, res) => {
 app.delete("/users/me/token", authenticate, (req, res) => {
   req.user.removeToken(req.token).then(() => {
     res.status(200).send();
-    userIsLoggedIn = false;
   }, () => {
     res.status(400).send();
   });

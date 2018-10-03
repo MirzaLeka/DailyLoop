@@ -192,9 +192,9 @@ function register() {
            const errType =  err.responseJSON.errmsg;
 
             if (errType.includes("username")) {
-                console.log("Username is already in use");
+                alert("Username is already in use.");
             } else {
-                console.log("Email is already in use");
+                alert("Email is already in use.");
             }
 
         }
