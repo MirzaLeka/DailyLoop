@@ -389,7 +389,7 @@ app.delete("/todos/:id", (req, res) => {
   
   // console.log("DELETE: ", req.cookies);
 
-  // res.clearCookie("myToken"); DELETE TOKEN
+  // res.clearCookie("x-auth"); DELETE TOKEN
 
   var id = req.params.id;
 
@@ -472,7 +472,7 @@ user.save().then(() => {
   return user.generateAuthToken();
   }).then((token) => {
 
-    res.cookie('myToken', token, {
+    res.cookie('x-auth', token, {
       expires: new Date(Date.now() + 30000000)
     });
 
@@ -508,7 +508,7 @@ app.post('/users/login', (req, res) => {
 
         return user.generateAuthToken().then((token) => {
 
-          res.cookie('myToken', token, {
+          res.cookie('x-auth', token, {
             expires: new Date(Date.now() + 30000000)
           });
 
@@ -530,6 +530,7 @@ app.post('/users/login', (req, res) => {
 
 app.delete("/users/me/token", authenticate, (req, res) => {
   req.user.removeToken(req.token).then(() => {
+    res.clearCookie("x-auth"); 
     res.status(200).send();
   }, () => {
     res.status(400).send();

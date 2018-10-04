@@ -42,8 +42,7 @@ body {
   color: #FFF;
   font-size: 72px;
   font-family: headerFont;
-  position: absolute;
-  top: 8.5%; }
+  position: absolute; }
 
 /* Form */
 #form {

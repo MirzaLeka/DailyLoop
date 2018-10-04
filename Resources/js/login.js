@@ -324,6 +324,21 @@ function extraValidation() {
 
 function extraConfirmation() {
 
+    
+    $.validator.addMethod( "nowhitespace", function( value, element ) {
+        return this.optional( element )
+         || /^\S+$/i.test( value );
+     }, "No white space please.");   
+     
+     $.validator.addMethod('strongPassword', function(value, element) {
+         return this.optional(element) 
+           || value.length >= 8
+           && /\d/.test(value)
+           && /[a-z]/i.test(value)
+           && /[$-/:-?{-~!"^_`\[\]]/.test(value);
+       }, 'Password must be at least 8 characters long and contain at least one number, one letter and one symbol.')
+     
+
     $(".signin-form").validate({
         rules: {
             signinEmail: {
@@ -331,7 +346,9 @@ function extraConfirmation() {
                 email: true
             },
             signinPassword: {
-                required: true
+                required: true,
+                nowhitespace: true,
+                strongPassword: true
             },
             messages: {
                 signinEmail: {
