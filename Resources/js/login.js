@@ -13,11 +13,11 @@ function changeForm(num) {
 
         <h2 class="formHeader">Sign Up</h2>
 
-        <input oninput="checkUsername()" class="loginInput" name="signupUsername" type="text" placeholder="Username" autofocus/>
-        <label class="checkLabel userExists">Username is already is use</label>
+        <input oninput="checkIfExists(0)" class="loginInput" name="signupUsername" type="text" placeholder="Username" autofocus/>
+        <label class="checkLabel userExists"></label>
 
-        <input oninput="checkEmail()" class="loginInput" name="signupEmail" type="text" placeholder="Email"/>   
-        <label class="checkLabel emailExists">Email is already is use</label>  
+        <input oninput="checkIfExists(1)" class="loginInput" name="signupEmail" type="text" placeholder="Email"/>   
+        <label class="checkLabel userExists"></label>  
 
         <input class="loginInput" name="signupPassword" id="pass" type="password" placeholder="Password"/>
 
@@ -194,9 +194,11 @@ function register() {
            const errType =  err.responseJSON.errmsg;
 
             if (errType.includes("username")) {
-                $(".userExists").css("display", "block");
+                $(`.userExists:eq(${0})`).css("display", "block");
+                $(`.userExists:eq(${0})`).text("Username is already in use.");
             } else {
-                $(".emailExists").css("display", "block");
+                $(`.userExists:eq(${1})`).css("display", "block");
+                $(`.userExists:eq(${1})`).text("Email is already in use.");
             }
 
         }
@@ -259,12 +261,8 @@ function login() {
     document.getElementById("loginFailed").style.display = "none";
 }
 
-function checkUsername() {
-    $(".userExists").css("display", "none");
-}
-
-function checkEmail() {
-    $(".emailExists").css("display", "none");
+function checkIfExists(num) {
+        $(`.userExists:eq(${num})`).css("display", "none");        
 }
 
 
@@ -358,7 +356,8 @@ function extraConfirmation() {
             signinPassword: {
                 required: true,
                 nowhitespace: true,
-                strongPassword: true
+                strongPassword: true,
+                maxlength: 32
             },
             messages: {
                 signinEmail: {

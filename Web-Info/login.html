@@ -30,11 +30,11 @@
 
                 <h2 class="formHeader">Sign Up</h2>
     
-                <input oninput="checkUsername()" class="loginInput" name="signupUsername" type="text" placeholder="Username" autofocus/>
-            <label class="checkLabel userExists">Username is already is use</label>
+                <input oninput="checkIfExists(0)" class="loginInput" name="signupUsername" type="text" placeholder="Username" autofocus/>
+            <label class="checkLabel userExists"></label>
                 
-            <input oninput="checkEmail()" class="loginInput" name="signupEmail" type="text" placeholder="Email"/>   
-                <label class="checkLabel emailExists">Email is already is use</label>
+            <input oninput="checkIfExists(1)" class="loginInput" name="signupEmail" type="text" placeholder="Email"/>   
+                <label class="checkLabel userExists"></label>
 
                 <input class="loginInput" name="signupPassword" id="pass" type="password" placeholder="Password"/>
 

@@ -90,7 +90,7 @@ body {
   .changeForm:hover {
     color: #CCC; }
 
-#loginFailed, .userExists, .emailExists {
+#loginFailed, .userExists {
   display: none; }
 
 .checkLabel {
