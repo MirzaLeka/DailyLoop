@@ -669,20 +669,35 @@ function checkTime(i) {
 }
 
 const quotesArray = [
-    `"A journey of a thousand miles begins with a single step."
+    `“A journey of a thousand miles begins with a single step.”
     – Lao Tzu`,
-    `"The only impossible journey is the one you never begin."
+    `“The only impossible journey is the one you never begin.”
     – Tony Robbins`,
 
-    `"We are what we repeatedly do. Excellence, then, is not an act but a habit."
+    `“We are what we repeatedly do. Excellence, then, is not an act but a habit.”
     – Aristotle`,
-    `"Don’t judge each day by the harvest you reap, but by the seeds that you plant."
+    `“Don’t judge each day by the harvest you reap, but by the seeds that you plant.”
     – Robert Louis Stevenson`,
 
-    `"Writing is an exploration. You start from nothing and learn as you go."
-    - E. L. Doctorow`,
-    `"Adapt what is useful, reject what is useless, and add what is specifically your own."
-    - Bruce Lee`
+    `“Writing is an exploration. You start from nothing and learn as you go.”
+    – E. L. Doctorow`,
+    `“Adapt what is useful, reject what is useless, and add what is specifically your own.”
+    – Bruce Lee`,
+
+    `“Start where you are. Use what you have. Do what you can.” 
+    – Arthur Ashe`,
+    `“Good, better, best. Never let it rest. 'Til your good is better and your better is best.” 
+    – St. Jerome`,
+
+    `“If you can dream it, you can do it.” 
+    – Walt Disney`,
+    `“Setting goals is the first step in turning the invisible into the visible.” 
+    – Tony Robbins`,
+
+    `“A creative man is motivated by the desire to achieve, not by the desire to beat others.” 
+    – Ayn Rand`,
+    `“He who does not live in the way of his beliefs starts to believe in the way he lives.”
+    – Umar ibn Al-Khattab`,
 ];
 
 

@@ -81,4 +81,6 @@ v 1.6.0 | 05.10.2018.
 + Updated user register/login error messages.
 Message no longer appears as an alert, but rather below the input tag.
 
++ Added new home page quotes.
+
 ------------------------------------------------------------
