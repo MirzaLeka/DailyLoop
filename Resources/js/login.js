@@ -13,10 +13,12 @@ function changeForm(num) {
 
         <h2 class="formHeader">Sign Up</h2>
 
-        <input class="loginInput" name="signupUsername" type="text" placeholder="Username" autofocus/>
-    
-        <input class="loginInput" name="signupEmail" type="text" placeholder="Email"/>   
-    
+        <input oninput="checkUsername()" class="loginInput" name="signupUsername" type="text" placeholder="Username" autofocus/>
+        <label class="checkLabel userExists">Username is already is use</label>
+
+        <input oninput="checkEmail()" class="loginInput" name="signupEmail" type="text" placeholder="Email"/>   
+        <label class="checkLabel emailExists">Email is already is use</label>  
+
         <input class="loginInput" name="signupPassword" id="pass" type="password" placeholder="Password"/>
 
         <input class="loginInput" name="confirmPassword" id="confirmPass" type="password" placeholder="Confirm Password"/>
@@ -46,7 +48,7 @@ function changeForm(num) {
         <input class="loginInput" oninput="fixForm()" name="signinEmail" type="email" placeholder="Email" autofocus/>
 
         <input class="loginInput" oninput="fixForm()" name="signinPassword" id="signinPass" type="password" placeholder="Password"/>
-            <label id="loginFailed">Incorrect username or password</label>
+            <label id="loginFailed" class="checkLabel">Incorrect username or password</label>
     <br id="breakTag">
         <input class="btn btn-primary formBtn" type="submit" id="loginBtn" value="CONTINUE"/>
 
@@ -192,9 +194,9 @@ function register() {
            const errType =  err.responseJSON.errmsg;
 
             if (errType.includes("username")) {
-                alert("Username is already in use.");
+                $(".userExists").css("display", "block");
             } else {
-                alert("Email is already in use.");
+                $(".emailExists").css("display", "block");
             }
 
         }
@@ -256,6 +258,15 @@ function login() {
     $("#breakTag").css("display", "block");
     document.getElementById("loginFailed").style.display = "none";
 }
+
+function checkUsername() {
+    $(".userExists").css("display", "none");
+}
+
+function checkEmail() {
+    $(".emailExists").css("display", "none");
+}
+
 
 
 /* Extra stuff */
@@ -323,8 +334,7 @@ function extraValidation() {
 
 
 function extraConfirmation() {
-
-    
+ 
     $.validator.addMethod( "nowhitespace", function( value, element ) {
         return this.optional( element )
          || /^\S+$/i.test( value );
