@@ -7,8 +7,8 @@
 Goal of this project for me was getting familiar working with mongo databases, preforming CRUD operations, JWT and authentication,
 but I'm having so much fun, that I decided to go extra mile and build effective Todo application. 
 
-Users can create new todos. They can update them, add description, tag the completed ones, delete todos and if they have too
-many todos, they can always search for the ones they want, choose which one to display, sort todos and even limit the results.
+Users can create new todos. They can update them, add description, tag the completed ones, delete a single todo, selected todos
+or all of them at once and if they have too many todos, they can always search for the ones they want, choose which todos to display, sort todos and even limit the results.
 
 ![](Resources/img/readMeImg/todos.jpg)
 
