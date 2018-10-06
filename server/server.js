@@ -16,16 +16,22 @@ var store = require('store') // used for local storage. check npmjs/store
 const jsdom = require("jsdom"); // using jsdom in npm
 const { JSDOM } = jsdom;
 
+const passport = require('passport'); // third party auth
+const cors = require('cors');
+
 var app = express();
 app.use(cookieParser()); // setting up cookie-parser
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+/////////////////////////////////////////////////////////
+
+// CONFIG //
+
 const port = process.env.PORT || 3000;
 
 let userCookie = null;
-
 
 
 /* Home Page */
@@ -37,7 +43,7 @@ app.get("/", function(req, res) {
   if ( userCookie == null ||  _.isEmpty( userCookie ) ) {
     res.sendFile("login.html", {"root": __dirname + "/../Resources/dist"}); 
   } else { 
-    res.sendFile("index.html", {"root": __dirname + '/../Resources/dist'});  
+    res.redirect(301, '/home'); 
   }
 
 
@@ -66,8 +72,9 @@ app.use(express.static(__dirname + '/../Resources/dist', {
 app.use("/Resources", express.static(__dirname + '/../Resources')); 
 
 
+/////////////////////////////////////////////////////////////////////////////
 
-
+// TODOS CONTROLLER //
 
 /* Post todo */
 
@@ -458,9 +465,12 @@ app.delete("/todos", (req, res) => {
 });
 
 
+
+
+
 //////////////////////////////////////
 
-/* Users Controller */
+// USER CONTROLLER //
 
 app.post('/users', (req, res) => {
 
@@ -491,7 +501,6 @@ user.save().then(() => {
   /* Profile Page */ 
 
 app.get('/users/me', authenticate, (req, res) => {
-
   
   res.send(req.user);
 
