@@ -46,6 +46,7 @@
         }, 100);
      }
   
+    getUser(); 
     startTime();
     changeBackgroundImg();
     getTodos();
@@ -1118,3 +1119,33 @@ function search() {
 
          }
 
+/////////////////////////////////////////////////////////////////
+
+    function getUser() {
+
+            // GET COOKIE
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) {
+        return parts.pop().split(";").shift();;
+    } 
+    
+    
+    let token = parts[0].substr(9,999).toString();
+    token = token.trim();
+    
+    
+    $.ajax({
+        type: "GET",
+        url : "/users/me",
+        headers: {
+             "x-auth" : token
+        },
+        success: function (data) {
+            document.querySelector("#helloTitle").textContent = "Hello " + data.username;
+        }
+    
+    });
+    
+    
+    }

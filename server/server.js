@@ -16,48 +16,37 @@ var store = require('store') // used for local storage. check npmjs/store
 const jsdom = require("jsdom"); // using jsdom in npm
 const { JSDOM } = jsdom;
 
-const passport = require('passport'); // third party auth
-const cors = require('cors');
-
 var app = express();
 app.use(cookieParser()); // setting up cookie-parser
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-/////////////////////////////////////////////////////////
-
-// CONFIG //
-
 const port = process.env.PORT || 3000;
 
 let userCookie = null;
+
+///////////////////////////////////////////////////////////////////////////
+
+// Routes Config // 
 
 
 /* Home Page */
 
 app.get("/", function(req, res) {
 
-  userCookie = req.cookies;
+  res.clearCookie("x-auth"); // for now you log out when you go login page
 
-  if ( userCookie == null ||  _.isEmpty( userCookie ) ) {
-    res.sendFile("login.html", {"root": __dirname + "/../Resources/dist"}); 
-  } else { 
-    res.redirect(301, '/home'); 
-  }
+  res.sendFile("login.html", {"root": __dirname + "/../Resources/dist"}); 
 
 
     });
 
 app.get("/home", (req, res) => {
 
-  userCookie = req.cookies;
+  res.sendFile("index.html", {"root": __dirname + '/../Resources/dist'});
 
-  if ( userCookie == null ||  _.isEmpty( userCookie ) ) {
-    res.sendFile("loginFailed.html", {"root": __dirname + '/../Resources/dist'});
-  } else {
-    res.sendFile("index.html", {"root": __dirname + '/../Resources/dist'});
-  }
+
 
     });
 
@@ -72,9 +61,11 @@ app.use(express.static(__dirname + '/../Resources/dist', {
 app.use("/Resources", express.static(__dirname + '/../Resources')); 
 
 
-/////////////////////////////////////////////////////////////////////////////
 
-// TODOS CONTROLLER //
+///////////////////////////////////////////////////////////////////////////
+
+// Todos Controller //
+
 
 /* Post todo */
 
@@ -220,7 +211,6 @@ if ( typeof(isCompleted) === 'boolean' ) {
        }
     
     
-  
     }
   
 
@@ -465,12 +455,12 @@ app.delete("/todos", (req, res) => {
 });
 
 
+///////////////////////////////////////////////////////////////////////////
+
+// User Controller //
 
 
-
-//////////////////////////////////////
-
-// USER CONTROLLER //
+/* Reguster new user */
 
 app.post('/users', (req, res) => {
 
@@ -501,6 +491,7 @@ user.save().then(() => {
   /* Profile Page */ 
 
 app.get('/users/me', authenticate, (req, res) => {
+
   
   res.send(req.user);
 
@@ -548,9 +539,9 @@ app.delete("/users/me/token", authenticate, (req, res) => {
 
 
 
-/////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
-/* Render Error Page */
+// Render Error Page //
 
 const router = express.Router();
 
@@ -571,8 +562,9 @@ router.use(function(req, res){
 
  app.use(router);
 
+///////////////////////////////////////////////////////////////////////////
 
-/* Port */
+// Port // 
 
 app.listen(port, () => {
   console.log('Started on port ' + port);
