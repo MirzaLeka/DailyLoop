@@ -85,10 +85,17 @@
 
 function getTodos() {
 
+    let cookie = getCookie();
+
+    let token = cookie[0].substr(9,999).toString();
+    token = token.trim();
 
 $.ajax({
  type: "GET",
  url: "/todos",
+ headers: {
+     'x-auth': token
+ },
  success: function(data) {
 
     if (data.todos.length == 0) {
@@ -228,7 +235,6 @@ for (var i = 0; i <  data.todos.length; i++) {
 
 /* POST TODO */
  
-
 function submit() {
 
  var text = $("#inputTitle").val();
@@ -250,14 +256,21 @@ var data = {
 
 sessionStorage.removeItem("scrollPosition");
 
+    let cookie = getCookie();
+        
+    let token = cookie[0].substr(9,999).toString();
+    token = token.trim();
+
 $.ajax({
  type: "POST",
  url: "/todos",
  contentType : 'application/json',
  dataType : 'json',
  data : JSON.stringify(data),
+ headers: {
+    'x-auth' : token
+ },
  success: function(data) {
- 
   location.reload(); 
  }
 

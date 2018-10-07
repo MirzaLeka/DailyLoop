@@ -38,6 +38,10 @@ var Todo = new mongoose.Schema({
     },
     lastUpdated: {
         type: Number
+    },
+    _creator: {
+        required: true,
+        type: mongoose.Schema.Types.ObjectId // type objectId
     }
 }); 
 

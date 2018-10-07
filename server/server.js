@@ -21,6 +21,8 @@ const port = process.env.PORT || 3000;
 
 let userCookie = null;
 
+// console.log("DELETE: ", req.cookies);
+
 ///////////////////////////////////////////////////////////////////////////
 
 // Routes Config // 
@@ -64,7 +66,7 @@ app.use("/Resources", express.static(__dirname + '/../Resources'));
 
 /* Post todo */
 
-app.post('/todos', (req, res) => {
+app.post('/todos', authenticate, (req, res) => {
 
   var d = new Date();
   var str = d.toString();
@@ -76,6 +78,7 @@ app.post('/todos', (req, res) => {
     createdAt: str,
     createdAtTimestamp: d.getTime(),
     lastUpdated: d.getTime(),
+    _creator: req.user._id // set creator to be id of user & then in get show todos where id of user matches the one we just saved in creator
   });
 
   todo.save().then((doc) => {
@@ -90,9 +93,11 @@ app.post('/todos', (req, res) => {
 
 /* Get all todos */
 
-app.get('/todos', (req, res) => {
+app.get('/todos', authenticate, (req, res) => {
 
-    Todo.find().sort({z: 1}).then((todos) => {
+    Todo.find({
+      _creator: req.user._id
+    }).sort({z: 1}).then((todos) => {
       res.send({todos}); 
     }, (e) => { 
       res.status(400).send(e);
@@ -378,10 +383,6 @@ app.patch('/todos/:id', (req, res) => {
 /* Delete one todo by id */
 
 app.delete("/todos/:id", (req, res) => {
-  
-  // console.log("DELETE: ", req.cookies);
-
-  // res.clearCookie("x-auth"); DELETE TOKEN
 
   var id = req.params.id;
 
@@ -531,7 +532,7 @@ app.delete("/users/me/token", authenticate, (req, res) => {
   }, () => {
     res.status(400).send();
   });
-  
+
 });
 
 
