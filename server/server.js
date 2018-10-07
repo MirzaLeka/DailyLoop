@@ -9,12 +9,7 @@ var Todo = require('./models/todo');
 var {User} = require('./models/user');
 var {authenticate} = require('./middleware/authenticate');
 
-var cookieParser = require('cookie-parser'); // used for cookies obviously
-var cookie = require('cookie');
-var store = require('store') // used for local storage. check npmjs/store
-
-const jsdom = require("jsdom"); // using jsdom in npm
-const { JSDOM } = jsdom;
+var cookieParser = require('cookie-parser'); 
 
 var app = express();
 app.use(cookieParser()); // setting up cookie-parser
@@ -35,7 +30,7 @@ let userCookie = null;
 
 app.get("/", function(req, res) {
 
-  res.clearCookie("x-auth"); // for now you log out when you go login page
+  // res.clearCookie("x-auth"); // for now you log out when you go login page
 
   res.sendFile("login.html", {"root": __dirname + "/../Resources/dist"}); 
 
@@ -529,12 +524,14 @@ app.post('/users/login', (req, res) => {
 
 
 app.delete("/users/me/token", authenticate, (req, res) => {
+
   req.user.removeToken(req.token).then(() => {
     res.clearCookie("x-auth"); 
     res.status(200).send();
   }, () => {
     res.status(400).send();
   });
+  
 });
 
 

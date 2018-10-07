@@ -16,8 +16,30 @@
          
         if (wS >= (hT+hH-wH)){
           $("#scrollBack").fadeIn();
+          $("#logoutHeader").css("color", "#007BFF");
+
+          $("#logoutHeader").on('mouseenter',  function () {
+            $(this).css("color", "#0064d1");
+          });
+    
+          $("#logoutHeader").on('mouseleave',  function () {
+            $(this).css("color", "#007BFF");
+          });
+    
+
+
         } else {
            $("#scrollBack").fadeOut();
+           $("#logoutHeader").css("color", "#444");
+
+           $("#logoutHeader").on('mouseenter',  function () {
+            $(this).css("color", "#000");
+          });
+    
+          $("#logoutHeader").on('mouseleave',  function () {
+            $(this).css("color", "#444");
+          });
+    
         }
      });
 
@@ -1121,19 +1143,24 @@ function search() {
 
 /////////////////////////////////////////////////////////////////
 
-    function getUser() {
+    function getCookie()  {
 
-            // GET COOKIE
     var value = "; " + document.cookie;
     var parts = value.split("; " + name + "=");
     if (parts.length == 2) {
-        return parts.pop().split(";").shift();;
-    } 
-    
-    
-    let token = parts[0].substr(9,999).toString();
-    token = token.trim();
-    
+        return parts.pop().split(";").shift();
+        } 
+    return parts;
+
+    }
+
+
+    function getUser() {
+
+        let cookie = getCookie();
+        
+        let token = cookie[0].substr(9,999).toString();
+        token = token.trim();
     
     $.ajax({
         type: "GET",
@@ -1149,3 +1176,24 @@ function search() {
     
     
     }
+
+
+    // Log out user
+
+    let logout = () => {
+
+        let cookie = getCookie();
+
+        let token = cookie[0].substr(9,999).toString();
+        token = token.trim();
+
+        $.ajax({
+        url: '/users/me/token',
+        type: 'DELETE',
+        headers: {
+            "x-auth" : token
+       },
+        success: function() { window.location.href = "/"; }   
+            });
+              
+       }
