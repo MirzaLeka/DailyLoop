@@ -289,9 +289,17 @@ function clearSubmitTodoError() {
 
 function deleteTodo(id) {
 
+    let cookie = getCookie();
+
+    let token = cookie[0].substr(9,999).toString();
+    token = token.trim();
+
  $.ajax({
  url: '/todos/' + id,
  type: 'DELETE',
+ headers: {
+    "x-auth" : token
+ },
  success: function() {
  location.reload();
         }
@@ -307,9 +315,17 @@ function deleteAllTodos() {
 
  sessionStorage.removeItem("scrollPosition");
 
+ let cookie = getCookie();
+
+ let token = cookie[0].substr(9,999).toString();
+ token = token.trim();
+
  $.ajax({
  url: '/todos',
  type: 'DELETE',
+ headers: {
+     "x-auth" : token
+ },
  success: function() {
  }
 
@@ -348,6 +364,11 @@ var data = {
  completedAt
 };
 
+let cookie = getCookie();
+
+let token = cookie[0].substr(9,999).toString();
+token = token.trim();
+
 
 $.ajax({
 url: "/todos/" + someId,
@@ -356,6 +377,9 @@ type: 'PATCH',
 contentType: 'application/json',
 processData: false,
 dataType: 'json',
+headers: {
+    'x-auth' : token
+},
 success: function (data) {
 location.reload();
 }
@@ -406,6 +430,11 @@ var data = {
     completedAt: keepTheDate
 };
 
+let cookie = getCookie();
+
+let token = cookie[0].substr(9,999).toString();
+token = token.trim();
+
 if (refresh && errorCounter == 0) {
 
 $.ajax({
@@ -415,6 +444,9 @@ type: 'PATCH',
 contentType: 'application/json',
 processData: false,
 dataType: 'json',
+headers: {
+    'x-auth' : token
+},
 success: function (data) {
 
 $("#myModal").fadeOut();
@@ -971,6 +1003,11 @@ $(".navbarLi").on('mouseenter', function() {
 
 function search() {
 
+    let cookie = getCookie();
+
+    let token = cookie[0].substr(9,999).toString();
+    token = token.trim();
+
     // for now 
     idsArr = []; 
 
@@ -984,9 +1021,12 @@ function search() {
       $.ajax({
         type: "GET",
         url: `/todos/${text}/${display}/${limit}/${sort}/`,
+        headers: {
+            "x-auth" : token
+        },
         success: function (data) {
 
-            var list = '';
+            var list = ''; // align list, I think
             var id = '';
             var text = '';
             var description = '';
@@ -1137,9 +1177,17 @@ function search() {
                     let currentScrollPosition =  $(window).scrollTop();
                     sessionStorage.setItem('scrollPosition', currentScrollPosition);
 
+                    let cookie = getCookie();
+
+                    let token = cookie[0].substr(9,999).toString();
+                    token = token.trim();
+
                    $.ajax({
                     url: '/todos/' + idsArr,
                     type: 'DELETE',
+                    headers: {
+                        'x-auth' : token
+                    },
                     success: function() {
                     location.reload();
                            }

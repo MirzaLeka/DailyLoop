@@ -110,7 +110,7 @@ app.get('/todos', authenticate, (req, res) => {
 
 /* Get todos after patch */ 
 
-app.get("/todos/:display/:limit/:sort", (req, res) => {
+app.get("/todos/:display/:limit/:sort", authenticate, (req, res) => {
 
   var getCompleted = req.params.display;
   var limit = req.params.limit;
@@ -151,7 +151,7 @@ if ( typeof(isCompleted) === 'boolean' ) {
 
   if (sort == "Date created") {
   
-    Todo.find({completed: isCompleted}).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
+    Todo.find({completed: isCompleted, _creator: req.user._id}).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
       res.send({todos}); 
     }, (e) => { 
       res.status(400).send(e);
@@ -159,7 +159,7 @@ if ( typeof(isCompleted) === 'boolean' ) {
   
   } else if (sort == "Last updated") {
     
-    Todo.find({completed: isCompleted}).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
+    Todo.find({completed: isCompleted, _creator: req.user._id}).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
       res.send({todos}); 
     }, (e) => { 
       res.status(400).send(e);
@@ -169,7 +169,7 @@ if ( typeof(isCompleted) === 'boolean' ) {
   
   else {
   
-    Todo.find({completed: isCompleted}).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
+    Todo.find({completed: isCompleted, _creator: req.user._id}).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
       res.send({todos}); 
     }, (e) => { 
       res.status(400).send(e);
@@ -184,7 +184,7 @@ if ( typeof(isCompleted) === 'boolean' ) {
   
     if (sort == "Date created") {
     
-    Todo.find({}).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
+    Todo.find({_creator: req.user._id}).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
         res.send({todos}); 
       }, (e) => { 
         res.status(400).send(e);
@@ -192,7 +192,7 @@ if ( typeof(isCompleted) === 'boolean' ) {
     
     } else if (sort == "Last updated") {
     
-      Todo.find({}).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
+      Todo.find({_creator: req.user._id}).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
         res.send({todos}); 
       }, (e) => { 
         res.status(400).send(e);
@@ -202,7 +202,7 @@ if ( typeof(isCompleted) === 'boolean' ) {
     
     else {
     
-      Todo.find({}).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
+      Todo.find({_creator: req.user._id}).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
         res.send({todos}); 
       }, (e) => { 
         res.status(400).send(e);
@@ -220,7 +220,7 @@ if ( typeof(isCompleted) === 'boolean' ) {
 
 /* Get todos by text */
 
-app.get("/todos/:text/:completed/:limit/:sort", (req, res) => {
+app.get("/todos/:text/:completed/:limit/:sort", authenticate, (req, res) => {
 
 var getCompleted = req.params.completed;
 var limit = req.params.limit;
@@ -260,7 +260,7 @@ if (sort == "Date completed ⇧") {
 
 var text =  req.params.text + "{1,}";
 
-var rec = new RegExp(text, "i");
+var searchedText = new RegExp(text, "i");
 
 
 
@@ -268,7 +268,7 @@ if ( typeof(isCompleted) === 'boolean' ) {
 
 if (sort == "Date created") {
 
-  Todo.find( { text: rec, completed: isCompleted } ).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
+  Todo.find( { text: searchedText, completed: isCompleted, _creator: req.user._id } ).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
     res.send({todos}); 
   }, (e) => { 
     res.status(400).send(e);
@@ -276,7 +276,7 @@ if (sort == "Date created") {
 
 } else if (sort == "Last updated") {
   
-  Todo.find( { text: rec, completed: isCompleted } ).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
+  Todo.find( { text: searchedText, completed: isCompleted, _creator: req.user._id } ).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
     res.send({todos}); 
   }, (e) => { 
     res.status(400).send(e);
@@ -286,7 +286,7 @@ if (sort == "Date created") {
 
 else {
 
-  Todo.find( { text: rec, completed: isCompleted } ).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
+  Todo.find( { text: searchedText, completed: isCompleted, _creator: req.user._id } ).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
     res.send({todos}); 
   }, (e) => { 
     res.status(400).send(e);
@@ -301,7 +301,7 @@ else {
 
   if (sort == "Date created") {
   
-  Todo.find( { text: rec } ).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
+  Todo.find( { text: searchedText, _creator: req.user._id } ).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
       res.send({todos}); 
     }, (e) => { 
       res.status(400).send(e);
@@ -309,7 +309,7 @@ else {
   
   } else if (sort == "Last updated") {
   
-    Todo.find( { text: rec }  ).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
+    Todo.find( { text: searchedText, _creator: req.user._id }  ).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
       res.send({todos}); 
     }, (e) => { 
       res.status(400).send(e);
@@ -319,7 +319,7 @@ else {
   
   else {
   
-    Todo.find( { text: rec }  ).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
+    Todo.find( { text: searchedText, _creator: req.user._id }  ).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
       res.send({todos}); 
     }, (e) => { 
       res.status(400).send(e);
@@ -340,7 +340,7 @@ else {
 
 /* Patch todo by id */
 
-app.patch('/todos/:id', (req, res) => {
+app.patch('/todos/:id', authenticate, (req, res) => {
 
   var id = req.params.id;
   
@@ -365,7 +365,7 @@ app.patch('/todos/:id', (req, res) => {
   }
   
   // set body and return new (changed) value
-  Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).then((todo) => {
+  Todo.findOneAndUpdate({_creator: req.user._id, _id: id}, {$set: body}, {new: true}).then((todo) => {
   
   if (!todo) {
   return res.status(404).send();
@@ -382,7 +382,7 @@ app.patch('/todos/:id', (req, res) => {
 
 /* Delete one todo by id */
 
-app.delete("/todos/:id", (req, res) => {
+app.delete("/todos/:id", authenticate, (req, res) => {
 
   var id = req.params.id;
 
@@ -400,7 +400,10 @@ app.delete("/todos/:id", (req, res) => {
         return res.status(400).send("Invalid id");
       }
 
-      Todo.findByIdAndRemove(id[i]).then((todo) => {
+      Todo.findOneAndRemove({
+        _creator: req.user._id, // remove todo where creator id is correct
+        _id: id[i] // and where id of i matches todo id
+      }).then((todo) => {
 
         if (!todo) {
           return res.status(404).send("Todo not found");
@@ -421,7 +424,10 @@ app.delete("/todos/:id", (req, res) => {
       return res.status(400).send("Invalid id");
     }
 
-    Todo.findByIdAndRemove(id).then((todo) => {
+    Todo.findOneAndRemove({
+      _id: id,
+      _creator: req.user._id
+    }).then((todo) => {
 
       if (!todo) {
         return res.status(404).send("Todo not found");
@@ -444,9 +450,9 @@ app.delete("/todos/:id", (req, res) => {
 
 /* Delete all todos */
 
-app.delete("/todos", (req, res) => {
+app.delete("/todos", authenticate, (req, res) => {
 
-  Todo.remove({}).then((result) => {});
+  Todo.remove({_creator: req.user._id}).then((result) => {});
 
 });
 
