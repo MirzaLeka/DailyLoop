@@ -32,16 +32,28 @@ let userCookie = null;
 
 app.get("/", function(req, res) {
 
-  // res.clearCookie("x-auth"); // for now you log out when you go login page
+  userCookie = req.cookies;
 
-  res.sendFile("login.html", {"root": __dirname + "/../Resources/dist"}); 
+  if ( userCookie == null ||  _.isEmpty( userCookie ) ) {
+    res.sendFile("login.html", {"root": __dirname + "/../Resources/dist"}); 
+  } else { 
+    res.redirect(301, '/home'); 
+  }
 
 
     });
 
-app.get("/home", (req, res) => {
+  app.get("/home", (req, res) => {
 
-  res.sendFile("index.html", {"root": __dirname + '/../Resources/dist'});
+   userCookie = req.cookies;
+
+  if ( userCookie == null) {
+    res.sendFile("loginFailed.html", {"root": __dirname + '/../Resources/dist'});
+  } else if ( _.isEmpty( userCookie )  ) {
+    res.redirect(301, '/'); 
+  } else {
+    res.sendFile("index.html", {"root": __dirname + '/../Resources/dist'});
+  }
 
 
 
@@ -475,7 +487,7 @@ user.save().then(() => {
   }).then((token) => {
 
     res.cookie('x-auth', token, {
-      expires: new Date(Date.now() + 30000000)
+      expires: new Date(Date.now() + 253402300000000)
     });
 
     userCookie = req.cookies;
@@ -511,7 +523,7 @@ app.post('/users/login', (req, res) => {
         return user.generateAuthToken().then((token) => {
 
           res.cookie('x-auth', token, {
-            expires: new Date(Date.now() + 30000000)
+            expires: new Date(Date.now() + 253402300000000)
           });
 
           userCookie = req.cookies;
