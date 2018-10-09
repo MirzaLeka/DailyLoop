@@ -39,7 +39,19 @@ let UserSchema = new mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+    todosCreated: {
+        type: Number,
+        default: 0
+    },
+    todosCompleted: {
+        type: Number,
+        default: 0
+    },
+    rank: {
+        type: Number,
+        default: 0
+    }
 
 
 });
@@ -53,7 +65,7 @@ UserSchema.methods.toJSON = function() {
 
     /* We'll use lodash pick to pick what we want send back */
 
-    return _.pick(userObject, ['_id', 'username', 'email']);
+    return _.pick(userObject, ['_id', 'username', 'email', 'rank', 'todosCreated', 'todosCompleted']);
 
 }
 

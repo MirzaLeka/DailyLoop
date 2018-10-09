@@ -55,8 +55,6 @@ app.get("/", function(req, res) {
     res.sendFile("index.html", {"root": __dirname + '/../Resources/dist'});
   }
 
-
-
     });
 
 /* Static files */
@@ -84,7 +82,6 @@ app.post('/todos', authenticate, (req, res) => {
   var str = d.toString();
   str = str.substr(4,20);
 
-
   var todo = new Todo({
     text: req.body.text,
     createdAt: str,
@@ -93,12 +90,25 @@ app.post('/todos', authenticate, (req, res) => {
     _creator: req.user._id // set creator to be id of user & then in get show todos where id of user matches the one we just saved in creator
   });
 
+      /* Updating created todos per user */
+
+        var user = new User();
+
+        User.findOne({_id: req.user._id}).then((theUser) => { // we get that user whoose id that matches req.user._id 
+           User.findByIdAndUpdate(req.user._id, {$set: {todosCreated: ++theUser.todosCreated}}, {new: true}).then((err, doc) => {});
+      }, (e) => { 
+        console.log(e);
+      });
+    
+
   todo.save().then((doc) => {
     
     res.send(doc);
   }, (e) => {
     res.status(400).send(e);
   });
+
+
 });
 
 
