@@ -50,7 +50,7 @@ let UserSchema = new mongoose.Schema({
     },
     rank: {
         type: String,
-        default: null
+        default: "Unranked"
     }
 
 

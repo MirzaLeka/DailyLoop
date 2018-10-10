@@ -415,7 +415,7 @@ app.patch('/todos/:id', authenticate, (req, res) => {
       } else if (todosCompleted >= 200) {
           rank = 'Master';
       } else {
-          rank = 0;
+          rank = 'Unranked';
       }
 
        User.findByIdAndUpdate(req.user._id, {$set: {todosCompleted, rank}}, {new: true}).then((err, doc) => {});

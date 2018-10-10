@@ -4,7 +4,7 @@
 
 #### *App info*:
 
-Goal of this project for me was getting familiar working with mongo databases, preforming CRUD operations, JWT and authentication,
+Goal of this project for me was getting familiar working with mongo databases, preforming CRUD operations and JWT authentication,
 but I'm having so much fun, that I decided to go extra mile and build effective Todo application. 
 
 Users can create new todos. They can update them, add description, tag the completed ones, delete a single todo, selected todos
@@ -14,6 +14,8 @@ or all of them at once and if they have too many todos, they can always search f
 
 #### *Current functionalities*:
 
+* User authentication 
+* Hashing passwords
 * Posting todos to database
 * Deleting todos
 * Updating todos, title of todo, description and completed attribute
@@ -23,14 +25,20 @@ or all of them at once and if they have too many todos, they can always search f
 #### *Current tech stack*:
 
 ``` bash
-- HTML              - Bootstrap
-- CSS               - Sass
-- Javascript        - EcmaScript
-- Jquery            - AJAX
-- NodeJS            - ExpressJS
-- MongoDB           - Mongoose ORM
-- BcryptJS          - Jquery Validate
-- Regex             - GulpJS
+# Frontend:
+- HTML                  - CSS                  - Bootstrap
+- Sass                  - Javascript           - EcmaScript6
+- Jquery                - Jquery Validate      - AJAX
+# Backend: 
+- NodeJS                - ExpressJS
+- JWT                   - BcryptJS 
+# Database:
+- MongoDB               - Mongoose ORM
+# Utilities:
+- Npm                   - Regex
+# Other modules:         
+- GulpJS                - Lodash
+- Body-Parser           - Cookie-Parser
 ``` 
 
 **Frontend** is done from scratch. No templates, no plugins, no third party snippets. 
@@ -43,7 +51,7 @@ As I studied, I sometimes went off the course path, read the docs on my own and 
 
 #### *Upcoming features*:
 
-* Proper JWT user authentication
+* Statistics
 * Improved responsive design
 * Solving all known issues
 * More awesome features
