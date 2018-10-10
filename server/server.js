@@ -371,20 +371,59 @@ app.patch('/todos/:id', authenticate, (req, res) => {
   
   if (!ObjectID.isValid(id)) {
    return res.status(400).send('Id is not valid'); 
-  }
+  } 
 
   // Last updated will change whenever you update, no matters if you todo is completed or isn't
     body.lastUpdated = new Date().getTime();
   
   // if completed is boolean and is completed then give date of completion to completeAt (remove null)
+
+  let increment = 0;
+
   if (_.isBoolean(body.completed) && body.completed) {
 
     body.completedAtTimestamp = new Date().getTime();
+    increment++;
 
   } else {
     body.completed = false;
     body.completedAtTimestamp = null;
+    increment--;
   }
+
+   
+    var user = new User();
+
+    /* Updating todosCompleted for user */
+    User.findOne({_id: req.user._id}).then((theUser) => { 
+
+      let todosCompleted = theUser.todosCompleted + increment;
+      let rank = 0;
+
+      if (todosCompleted >= 1 && todosCompleted < 5) {
+          rank = 'Beginner';
+      } else if (todosCompleted >= 5 && todosCompleted < 10) {
+          rank = 'Amateur';
+      } else if (todosCompleted >= 10 && todosCompleted < 20) {
+          rank = 'Junior';
+      } else if (todosCompleted >= 20 && todosCompleted < 50) {
+          rank = 'Nerd';
+      } else if (todosCompleted >= 50 && todosCompleted < 100) {
+          rank = 'Professional';
+      } else if (todosCompleted >= 100 && todosCompleted < 200) {
+          rank = 'Senior';
+      } else if (todosCompleted >= 200) {
+          rank = 'Master';
+      } else {
+          rank = 0;
+      }
+
+       User.findByIdAndUpdate(req.user._id, {$set: {todosCompleted, rank}}, {new: true}).then((err, doc) => {});
+        
+   }, (e) => { 
+     console.log(e);
+     });
+
   
   // set body and return new (changed) value
   Todo.findOneAndUpdate({_creator: req.user._id, _id: id}, {$set: body}, {new: true}).then((todo) => {

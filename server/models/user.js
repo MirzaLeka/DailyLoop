@@ -49,8 +49,8 @@ let UserSchema = new mongoose.Schema({
         default: 0
     },
     rank: {
-        type: Number,
-        default: 0
+        type: String,
+        default: null
     }
 
 
