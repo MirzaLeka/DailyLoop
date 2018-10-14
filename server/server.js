@@ -1,3 +1,5 @@
+require ('./config/config');
+
 const _ = require('lodash');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -17,7 +19,7 @@ app.use(cookieParser()); // setting up cookie-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 let userCookie = null;
 

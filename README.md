@@ -34,8 +34,6 @@ or all of them at once and if they have too many todos, they can always search f
 - JWT                   - BcryptJS 
 # Database:
 - MongoDB               - Mongoose ORM
-# Utilities:
-- Npm                   - Regex
 # Other modules:         
 - GulpJS                - Lodash
 - Body-Parser           - Cookie-Parser

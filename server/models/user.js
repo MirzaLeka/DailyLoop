@@ -75,7 +75,7 @@ var user = this; // same idenfifier as user in other files
 /* Creating new token */
 
 var access = 'auth';
-var token = jwt.sign({_id: user._id.toHexString(), access}, "abc123").toString(); // access : access inside {}
+var token = jwt.sign({_id: user._id.toHexString(), access}, process.env.JWT_SECRET).toString(); // access : access inside {}
 
 /* We push new object into tokens array with params defined above */
 
@@ -112,7 +112,7 @@ UserSchema.statics.findByToken = function (token) {
     var decoded;
 
     try {
-        decoded = jwt.verify(token, "abc123"); // try and catch if jwt verification fails
+        decoded = jwt.verify(token, process.env.JWT_SECRET); // try and catch if jwt verification fails
     } catch (e) {
         // return new Promise((resolve, reject) => {
         //     reject(); // if error we'll always reject so our success field will never fire
