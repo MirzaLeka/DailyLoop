@@ -1,0 +1,56 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  background: #e4e4e4;
+  margin: 20px 0; }
+  body .h1 {
+    font-size: 2em; }
+  body .h2 {
+    font-size: 1.5em; }
+  body .h3 {
+    font-size: 1.17em; }
+  body .h4 {
+    font-size: 1em; }
+
+.editor-toolbar {
+  background: #fff;
+  border: 1px solid #cecece;
+  margin: 0;
+  padding: 0; }
+  .editor-toolbar a {
+    display: inline-block;
+    padding: 8px 12px;
+    color: #000; }
+    .editor-toolbar a:hover {
+      background: #e4e4e4; }
+  .editor-toolbar .active {
+    background: #e4e4e4; }
+  .editor-toolbar .dropdown {
+    display: inline-block; }
+    .editor-toolbar .dropdown .btn-default {
+      border: none; }
+      .editor-toolbar .dropdown .btn-default:focus, .editor-toolbar .dropdown .btn-default:hover {
+        background: none; }
+    .editor-toolbar .dropdown a {
+      margin: 0; }
+
+#editor {
+  resize: none !important;
+  overflow: auto;
+  line-height: 1.5;
+  background: #fff;
+  border: 1px solid #cecece;
+  border-top: none;
+  min-height: 150px;
+  box-shadow: none;
+  padding: 8px 16px;
+  margin: 0 0 10px 0;
+  font-size: 14px; }
+  #editor:focus {
+    outline: none; }
+
+unselectable {
+  -webkit-user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none; }
+
+/*# sourceMappingURL=editor.css.map */

@@ -1,0 +1,84 @@
+$grey: #e4e4e4;
+$white: #fff;
+$border: #cecece;
+
+body {
+  font-family:"Open Sans", sans-serif;   
+  background: $grey;
+  margin: 20px 0;
+  
+  .h1 {
+    font-size: 2em;
+  }
+  .h2 {
+    font-size: 1.5em;
+  }
+  .h3 {
+    font-size: 1.17em;
+  }
+  .h4 {
+    font-size: 1em;
+  }
+}
+
+.editor-toolbar {
+  background: $white;
+  border: 1px solid $border; 
+  margin: 0;
+  padding: 0; 
+  
+  a {
+    display: inline-block;
+    padding: 8px 12px;
+    color: #000;
+    
+    &:hover {
+      background: $grey;
+    }
+  }
+  
+  .active {
+    background: $grey;
+  }
+  
+  .dropdown {
+    display: inline-block;
+    .btn-default {
+      border: none;
+      
+      &:focus, &:hover {
+        background: none;
+      }
+    }
+    
+    a {
+      margin: 0;
+    }
+  }
+  
+}
+
+#editor {
+  resize: none !important;
+	overflow: auto;
+	line-height: 1.5;
+  background: $white;
+	border: 1px solid $border;
+  border-top: none;
+	min-height: 150px;
+	box-shadow: none;
+	padding: 8px 16px;
+	margin: 0 0 10px 0;  
+	font-size: 14px;	
+  
+  &:focus{
+   outline: none; 
+  }
+}
+
+// IE fix for toolbar buttons
+unselectable {
+  -webkit-user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+}

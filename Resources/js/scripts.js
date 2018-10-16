@@ -177,7 +177,7 @@ list += `<div class="container todoContainer" onclick="addIdToArray(\`` + data.t
  </div>
   </div>        
 <div class="col-sm-4 todoBtnCol">
-   <button class="btn todoBtn" title="Remove Todo" id="removeTodoBtn" onclick="deleteTodo(\`` + id + `\`)"><i class="fa fa-times" aria-hidden="true"></i></button>
+   <button class="btn todoBtn" title="Remove Todo" id="removeTodoBtn" onclick="deleteTodo(\`` + id + `\`, ${i}, ${data.todos.length})"><i class="fa fa-times" aria-hidden="true"></i></button>
          </div>
     </div>
          
@@ -271,7 +271,14 @@ $.ajax({
     'x-auth' : token
  },
  success: function(data) {
-  location.reload(); 
+  
+    document.getElementById("inputTitle").value = ''; // remove input value when you submit
+
+    // location.reload();
+
+    $(".todoContainer").remove();
+    getTodos();
+
  }
 
 });
@@ -287,7 +294,16 @@ function clearSubmitTodoError() {
 
 /* DELETE TODO   */
 
-function deleteTodo(id) {
+var toggleCounterThree = 0;
+var newLength;
+
+function deleteTodo(id, counter, length) {
+
+    if (toggleCounterThree == 0) {
+        newLength = length;
+    } else {
+        newLength = newLength;
+    }
 
     let cookie = getCookie();
 
@@ -301,9 +317,20 @@ function deleteTodo(id) {
     "x-auth" : token
  },
  success: function() {
- location.reload();
+//  location.reload();
+$(".todoContainer").eq(counter).hide();
+newLength--;
+console.log(newLength);
+
+if (newLength == 0) {
+    backToNormal();
+    toggleCounterThree = 0;
+    }
+
         }
     });
+
+    toggleCounterThree++;
 
 }
 
@@ -327,13 +354,14 @@ function deleteAllTodos() {
      "x-auth" : token
  },
  success: function() {
+
  }
 
 
 });
 
-window.location.reload();
-
+// window.location.reload();
+backToNormal();
 }
 
 
@@ -344,11 +372,13 @@ function completeTodo(isCompleted, someId, i) {
    let completedAt = '';
 
  if (isCompleted) {
+     console.log("IF")
      isCompleted = false;
      $(`.switch:eq(${i})`).removeClass("move");
      completedAt = null;
 
  } else {
+    console.log("else")
      isCompleted = true;
      $(`.switch:eq(${i})`).addClass("move");
 
@@ -382,6 +412,8 @@ headers: {
 },
 success: function (data) {
 location.reload();
+// $(".todoContainer").eq(i).fadeOut();
+// getTodos();
 }
 
 
@@ -1080,7 +1112,7 @@ function search() {
              </div>
               </div>        
             <div class="col-sm-4 todoBtnCol">
-               <button class="btn todoBtn" title="Remove Todo" id="removeTodoBtn" onclick="deleteTodo(\`` + id + `\`)"><i class="fa fa-times" aria-hidden="true"></i></button>
+               <button class="btn todoBtn" title="Remove Todo" id="removeTodoBtn" onclick="deleteTodo(\`` + id + `\`, ${i}, ${data.todos.length})"><i class="fa fa-times" aria-hidden="true"></i></button>
                      </div>
                 </div>
                      
@@ -1257,4 +1289,17 @@ function search() {
         success: function() { window.location.href = "/"; }   
             });
               
+       }
+
+
+       // Turn everything back to normal, like when you reload the brwoser
+
+       let backToNormal = () => {
+
+        $("html, body").animate({scrollTop: 0}, 1000);
+        changeQuote(0,1);
+        $("#inputTitle").attr("placeholder", "Submit your first todo");
+        $("#submitTodoError").hide();
+        $(".notYet").fadeOut(1000);
+
        }
