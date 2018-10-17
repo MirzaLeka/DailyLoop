@@ -55,7 +55,6 @@
      let addDarkSelect;
 
      let idsArr = [];
-
     
 
     $(document).ready(function() {
@@ -208,8 +207,8 @@ for (var i = 0; i <  data.todos.length; i++) {
       addDarkSelect =  $(".todoContainer");
       
       addDarkSelect.on("click", function() {
-        $(this).toggleClass("darkSelect");
-      })
+        $(this).toggleClass("darkSelect"); 
+      });
 
 
     /* Scroll using session storage */ 
@@ -1214,20 +1213,47 @@ function search() {
                     let token = cookie[0].substr(9,999).toString();
                     token = token.trim();
 
+             
+                    var DSLength = $(".darkSelect").length;
+
+                    console.log("Elements with todosContainer class: " + (addDarkSelect.length-DSLength));
+
+                    console.log("DSLength" + DSLength);
+
+                    console.log("addDS LEngth: " + addDarkSelect.length);
+            
+
+                    $(".darkSelect").remove();
+
+                    // addDarkSelect.removeClass("darkSelect");
+                           
+                    if (addDarkSelect.length-DSLength == 0) {
+                        backToNormal();
+                    }
+
                    $.ajax({
                     url: '/todos/' + idsArr,
                     type: 'DELETE',
                     headers: {
                         'x-auth' : token
                     },
-                    success: function() {
-                    location.reload();
-                           }
+                    success: function() {     },
+
+                    error: function(err) {
+
+                        console.log(err);
+
+                    } 
+
                        });
 
+                       // it's important to reset it, otherwise total number will never reach zero
+                       addDarkSelect.length = addDarkSelect.length-DSLength; 
                     
 
                 } 
+
+                idsArr = [];
                 
 
             }
