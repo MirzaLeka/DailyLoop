@@ -12,6 +12,7 @@ var {User} = require('./models/user');
 var {authenticate} = require('./middleware/authenticate');
 
 var cookieParser = require('cookie-parser'); 
+var nodemailer = require('nodemailer');
 
 var app = express();
 app.use(cookieParser()); // setting up cookie-parser
@@ -20,6 +21,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const port = process.env.PORT;
+const emailService = process.env.EMAIL_SERVICE;
+const emailUser = process.env.EMAIL_USER;
+const emailPass = process.env.EMAIL_PASS;
 
 let userCookie = null;
 
@@ -543,6 +547,8 @@ user.save().then(() => {
 
     userCookie = req.cookies;
 
+    sendEmail(req.body.email);
+
     res.header('x-auth', token).send(user);
 
   }).catch((e) => {
@@ -604,6 +610,37 @@ app.delete("/users/me/token", authenticate, (req, res) => {
 
 });
 
+
+function sendEmail(email) {
+
+  var transporter = nodemailer.createTransport({
+    service: emailService,
+    auth: {
+      user: emailUser,
+      pass: emailPass
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+  });
+  
+  var mailOptions = {
+    from: emailUser,
+    to: email,
+    subject: 'Welcome to Todo 4pp!',
+    html: "<p>You successfully registered to <a href='https://todo4pp.herokuapp.com' target='_blank'>Todo 4pp</a>. Enjoy using our services.</p>"
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } 
+    // else {
+    //   console.log('Email sent: ' + info.response);
+    // }
+  });
+
+}
 
 
 ///////////////////////////////////////////////////////////////////////////
