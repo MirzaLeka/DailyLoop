@@ -1,60 +1,39 @@
 ### Todo 4pp Closed BETA
+Updates are sorted from latest to oldest and marked using semantic versioning.
 
-##### v 1.0.1 | 22.09.2018.
+##### v 2.0.0 | 09.12.2018.
 
-* User validation update.
-Username no longer requires numbers.
+* Added proper user authentcation. Changed RestAPIs.
 
-* Submit todo update.
-You can't submit todo with title longer than 200 characters.
-------------------------------------------------------------
+* Added email notification when new user is registered.
 
-##### v 1.0.2 | 24.09.2018.
+* Added real-time posting todos.
 
-* User register update.
-If you try to register with username or email that already exists in DB, page will sned you alert message.
-------------------------------------------------------------
-
-##### v 1.1.0 | 24.09.2018.
-
-* Created css files for error page and login failed page.
-
-* Gulp dist folder is now avaiable, so when server starts it no longer requires to minify first and then starts server.
-Files are already minifhed and that means that "npm start" only triggers the start server script.
-
-* If you entered wrong route and error page loaded, you now have button which once clicked takes you on the previous page.
-------------------------------------------------------------
-
-##### v 1.2.0 | 26.09.2018.
-
-* Updating app name and domain.
+* Deployed latest version to heroku.
 
 ------------------------------------------------------------
 
-##### v 1.3.0 | 29.09.2018.
+##### v 1.7.0 | 07.10.2018.
 
-* Added selecting / deselecting todos feature. 
-You can now delete multiple selected todos at once.
+* Solved page redirect issue.
 
-* Fixed scrollbar error.
-
-------------------------------------------------------------
-
-##### v 1.4.0 | 30.09.2018.
-
-* Added more cover images. 
-
-* Images no longer change on page refresh. They now change when day changes.
-
-* Added fade image when page refreshes.
+* Updated homepage 'Hello User' title.
 
 ------------------------------------------------------------
 
-##### v 1.4.1 | 30.09.2018.
+##### v 1.6.0 | 05.10.2018.
 
-* Fixed wrong time display after todo is completed. 
+* Updated user register/login error messages.
+Message no longer appears as an alert, but rather below the input tag.
 
-* Removed someNew from todo model.
+* Added new home page quotes.
+
+------------------------------------------------------------
+
+##### v 1.5.0 | 03.10.2018.
+
+* Updated user register/login.
+Saving token to Cookie when user logs in.
 
 ------------------------------------------------------------
 
@@ -69,36 +48,61 @@ Once modal opens todo highlight will be disappear.
 
 ------------------------------------------------------------
 
-##### v 1.5.0 | 03.10.2018.
+##### v 1.4.1 | 30.09.2018.
 
-* Updated user register/login.
-Saving token to Cookie when user logs in.
+* Fixed wrong time display after todo is completed. 
 
-------------------------------------------------------------
-
-##### v 1.6.0 | 05.10.2018.
-
-* Updated user register/login error messages.
-Message no longer appears as an alert, but rather below the input tag.
-
-* Added new home page quotes.
+* Removed someNew from todo model.
 
 ------------------------------------------------------------
 
-##### v 1.7.0 | 07.10.2018.
+##### v 1.4.0 | 30.09.2018.
 
-* Solved page redirect issue.
+* Added new cover images. 
 
-* Updated homepage 'Hello User' title.
+* Images no longer change on page refresh. They now change when day changes.
+
+* Added fade image when page refreshes.
 
 ------------------------------------------------------------
 
-##### v 2.0.0 | 09.12.2018.
+##### v 1.3.0 | 29.09.2018.
 
-* Added proper user authentcation. Changed RestAPIs.
+* Added selecting / deselecting todos feature. 
+You can now delete multiple selected todos at once.
 
-* Added user profile to home page
+* Fixed scrollbar error.
 
-* Added email notification when new user is registered
+------------------------------------------------------------
 
-* Added real-time posting todos
+##### v 1.2.0 | 26.09.2018.
+
+* Updating app name and domain.
+
+------------------------------------------------------------
+
+##### v 1.1.0 | 24.09.2018.
+
+* Created css files for error page and login failed page.
+
+* Gulp dist folder is now avaiable, so when server starts it no longer requires to minify first and then starts server.
+Files are already minifhed and that means that "npm start" only triggers the start server script.
+
+* If you entered wrong route and error page loaded, you now have button which once clicked takes you on the previous page.
+
+------------------------------------------------------------
+
+##### v 1.0.2 | 24.09.2018.
+
+* User register update.
+If you try to register with username or email that already exists in DB, page will sned you alert message.
+
+------------------------------------------------------------
+
+##### v 1.0.1 | 22.09.2018.
+
+* User validation update.
+Username no longer requires numbers.
+
+* Submit todo update.
+You can't submit todo with title longer than 200 characters.
