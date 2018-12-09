@@ -16,6 +16,7 @@ or all of them at once and if they have too many todos, they can always search f
 
 * User authentication 
 * Hashing passwords
+* Email notification
 * Posting todos to database
 * Deleting todos
 * Updating todos, title of todo, description and completed attribute

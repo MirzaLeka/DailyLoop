@@ -54,6 +54,8 @@
 
      let addDarkSelect;
 
+    var newLength;
+
      let idsArr = [];
     
 
@@ -176,7 +178,7 @@ list += `<div class="container todoContainer" onclick="addIdToArray(\`` + data.t
  </div>
   </div>        
 <div class="col-sm-4 todoBtnCol">
-   <button class="btn todoBtn" title="Remove Todo" id="removeTodoBtn" onclick="deleteTodo(\`` + id + `\`, ${i}, ${data.todos.length})"><i class="fa fa-times" aria-hidden="true"></i></button>
+   <button class="btn todoBtn" title="Remove Todo" id="removeTodoBtn" onclick="deleteTodo(\`` + id + `\`,this, ${data.todos.length}, ${data.todos[i].completed})"><i class="fa fa-times" aria-hidden="true"></i></button>
          </div>
     </div>
          
@@ -273,6 +275,10 @@ $.ajax({
   
     document.getElementById("inputTitle").value = ''; // remove input value when you submit
 
+    // every time you POST idsArr is [] and newLength is set to null
+    idsArr = [];
+    newLength = null;
+
     // location.reload();
 
     $(".todoContainer").remove();
@@ -294,15 +300,16 @@ function clearSubmitTodoError() {
 /* DELETE TODO   */
 
 var toggleCounterThree = 0;
-var newLength;
 
-function deleteTodo(id, counter, length) {
+function deleteTodo(id, btn, length, isCompleted) {
 
     if (toggleCounterThree == 0) {
         newLength = length;
     } else {
         newLength = newLength;
     }
+
+    idsArr = [];
 
     let cookie = getCookie();
 
@@ -316,17 +323,26 @@ function deleteTodo(id, counter, length) {
     "x-auth" : token
  },
  success: function() {
-//  location.reload();
-$(".todoContainer").eq(counter).hide();
-newLength--;
-console.log(newLength);
 
-if (newLength == 0) {
-    backToNormal();
-    toggleCounterThree = 0;
-    }
+    location.reload();
+
+    // WIP
+
+    // btn.closest(".todoContainer").remove();
+    // newLength--;
+
+    // if (newLength == 0) {
+    //     backToNormal();
+    //     toggleCounterThree = 0;
+    //     newLength = null;
+    // } 
+    //  else if (isCompleted) {    } 
+    //  else if (!isCompleted) {
+    //     changeQuote(1, newLength);
+    // }
 
         }
+
     });
 
     toggleCounterThree++;
@@ -352,12 +368,21 @@ function deleteAllTodos() {
  headers: {
      "x-auth" : token
  },
- success: function() {
+ success: function(data) { 
 
+ },
+
+ error: function (err) {
+
+    console.log('Nothing to worry about');
+
+    // location.reload();
  }
 
-
 });
+
+newLength = 0;
+idsArr = [];
 
 // window.location.reload();
 backToNormal();
@@ -811,7 +836,7 @@ const questionsArray = [
 
 const arrayOfBackgrounds = [
 
-    "../Resources/img/cover/cloudscity.jpeg", // just in case date gets to 0 someday :|
+    "../Resources/img/cover/cherries.jpeg", // just in case date gets to 0 someday :|
     
     "../Resources/img/cover/apple.jpeg",
     "../Resources/img/cover/beachananas.jpeg",
@@ -821,7 +846,7 @@ const arrayOfBackgrounds = [
     
     "../Resources/img/cover/boat.jpg",
     "../Resources/img/cover/bottle.jpeg",
-    "../Resources/img/cover/cherries.jpeg",
+    "../Resources/img/cover/cloudscity.jpeg",
     "../Resources/img/cover/chess.jpeg",
     "../Resources/img/cover/clouds.jpeg",
     
@@ -851,8 +876,8 @@ const arrayOfBackgrounds = [
     "../Resources/img/cover/wolves.jpeg"
 ];
 
-function changeQuote(num, todos) {
-
+function changeQuote(num, todos) { // always back to normal wirth argument and if argument false u just reduce todos finished and if completed todo was deleted
+                                        // else back to nromal the old way --- zznaci moram mu proslijediti i isompletd atribut u deleteTodo i onu on key press Fju
     let randomQuote = '';
 
     if (num == 0) {
@@ -1111,7 +1136,7 @@ function search() {
              </div>
               </div>        
             <div class="col-sm-4 todoBtnCol">
-               <button class="btn todoBtn" title="Remove Todo" id="removeTodoBtn" onclick="deleteTodo(\`` + id + `\`, ${i}, ${data.todos.length})"><i class="fa fa-times" aria-hidden="true"></i></button>
+               <button class="btn todoBtn" title="Remove Todo" id="removeTodoBtn" onclick="deleteTodo(\`` + id + `\`,this, ${data.todos.length}, ${data.todos[i].completed})"><i class="fa fa-times" aria-hidden="true"></i></button>
                      </div>
                 </div>
                      
@@ -1194,10 +1219,10 @@ function search() {
             } else {
                 idsArr.push(id);    // else push it to array
             }
-    
+            
         }
 
-        /* DELETE KEY */
+        /* DELETE ON KEY PRESS */
 
         function KeyPressCheck(event){
 
@@ -1216,19 +1241,20 @@ function search() {
              
                     var DSLength = $(".darkSelect").length;
 
-                    console.log("Elements with todosContainer class: " + (addDarkSelect.length-DSLength));
-
-                    console.log("DSLength" + DSLength);
-
-                    console.log("addDS LEngth: " + addDarkSelect.length);
-            
+                    if (newLength == null) {
+                        newLength = addDarkSelect.length-DSLength; // elements with todoContainer class - elements that are selected
+                    } else {
+                        newLength = newLength - DSLength;
+                    }
+                    toggleCounterThree++;
 
                     $(".darkSelect").remove();
 
-                    // addDarkSelect.removeClass("darkSelect");
                            
-                    if (addDarkSelect.length-DSLength == 0) {
-                        backToNormal();
+                    if (newLength == 0) {
+                        // backToNormal();
+                        // newLength = null;
+                        toggleCounterThree = 0;
                     }
 
                    $.ajax({
@@ -1237,7 +1263,11 @@ function search() {
                     headers: {
                         'x-auth' : token
                     },
-                    success: function() {     },
+                    success: function() { 
+
+                        location.reload();
+                        // idsArr = [];
+                           },
 
                     error: function(err) {
 
@@ -1248,12 +1278,12 @@ function search() {
                        });
 
                        // it's important to reset it, otherwise total number will never reach zero
-                       addDarkSelect.length = addDarkSelect.length-DSLength; 
+                       addDarkSelect.length = newLength; 
+                       
                     
 
                 } 
 
-                idsArr = [];
                 
 
             }
