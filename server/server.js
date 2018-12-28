@@ -65,9 +65,9 @@ app.get("/", function(req, res) {
 
 /* Static files */
 
-app.use(express.static(__dirname + '/../Resources/dist', { 
-  extensions: ['html', 'htm'] 
-  }));
+// app.use(express.static(__dirname + '/../Resources/dist', { 
+//   extensions: ['html', 'htm'] 
+//   }));
   
 /* Resources */
 

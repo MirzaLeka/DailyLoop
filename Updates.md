@@ -1,6 +1,18 @@
 ### Todo 4pp Closed BETA
 Updates are sorted from latest to oldest and marked using semantic versioning.
 
+##### v 2.0.1 | 28.12.2018.
+
+* Updated gulp file, added new babel presets, removed source maps and added gulp post build
+
+* Fixed submit new todo double quote issue
+
+* Removed autocomplete from register form
+
+* Disabled static html files via express static
+
+------------------------------------------------------------
+
 ##### v 2.0.0 | 09.12.2018.
 
 * Added proper user authentcation. Changed RestAPIs.

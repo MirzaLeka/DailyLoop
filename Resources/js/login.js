@@ -13,15 +13,15 @@ function changeForm(num) {
 
         <h2 class="formHeader">Sign Up</h2>
 
-        <input oninput="checkIfExists(0)" class="loginInput" name="signupUsername" type="text" placeholder="Username" autofocus/>
+        <input oninput="checkIfExists(0)" class="loginInput" name="signupUsername" type="text" placeholder="Username" autofocus autocomplete="off"/>
         <label class="checkLabel userExists"></label>
 
-        <input oninput="checkIfExists(1)" class="loginInput" name="signupEmail" type="text" placeholder="Email"/>   
+        <input oninput="checkIfExists(1)" class="loginInput" name="signupEmail" type="text" placeholder="Email" autocomplete="off"/>   
         <label class="checkLabel userExists"></label>  
 
-        <input class="loginInput" name="signupPassword" id="pass" type="password" placeholder="Password"/>
+        <input class="loginInput" name="signupPassword" id="pass" type="password" placeholder="Password" autocomplete="off"/>
 
-        <input class="loginInput" name="confirmPassword" id="confirmPass" type="password" placeholder="Confirm Password"/>
+        <input class="loginInput" name="confirmPassword" id="confirmPass" type="password" placeholder="Confirm Password" autocomplete="off"/>
     <br>
         <input class="btn btn-success formBtn" type="submit" id="confirmBtn" value="REGISTER"/>
     
@@ -47,7 +47,7 @@ function changeForm(num) {
     
         <input class="loginInput" oninput="fixForm()" name="signinEmail" type="email" placeholder="Email" autofocus/>
 
-        <input class="loginInput" oninput="fixForm()" name="signinPassword" id="signinPass" type="password" placeholder="Password"/>
+        <input class="loginInput" oninput="fixForm()" name="signinPassword" id="signinPass" type="password" placeholder="Password" autocomplete="off"/>
             <label id="loginFailed" class="checkLabel">Incorrect username or password</label>
     <br id="breakTag">
         <input class="btn btn-primary formBtn" type="submit" id="loginBtn" value="CONTINUE"/>

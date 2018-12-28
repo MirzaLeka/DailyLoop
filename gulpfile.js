@@ -7,7 +7,7 @@ const gls = require('gulp-live-server');
 const htmlMin = require('gulp-htmlmin');
 const autoPrefixer = require('gulp-autoprefixer');
 const plumber = require('gulp-plumber');
-const sourcemaps = require('gulp-sourcemaps');
+// const sourcemaps = require('gulp-sourcemaps');
 const del = require('del');
 const zip = require('gulp-zip');
 var babel = require('gulp-babel');
@@ -21,6 +21,7 @@ const DEST_PATH = 'Resources/dist';
 const HTML_PATH = 'Web-Info/**/*.html';
 const IMG_PATH = 'Resources/aaa/**/*';
 const IMG_DEST = 'Resources/bbb/';
+
 
 // HTML
 gulp.task('html', () => {
@@ -42,11 +43,11 @@ return gulp.src(STYLES_PATH)
 			console.log(err.toString()); 
 			this.emit('end');
 		}))
-        .pipe(sourcemaps.init()) 
+        // .pipe(sourcemaps.init()) 
         .pipe(autoPrefixer({ 
 })) 
 .pipe(minifyCss()) 
-.pipe(sourcemaps.write()) 
+// .pipe(sourcemaps.write()) 
 .pipe(gulp.dest(DEST_PATH))
 .pipe(liveReload());
 });
@@ -57,17 +58,17 @@ gulp.task('scripts', function () {
 	console.log('Starting scripts task');
 
 	return gulp.src(SCRIPTS_PATH)
-		.pipe(plumber(function (err) {
-			console.log('Scripts Task Error');
-			console.log(err);
-			this.emit('end');
-		}))
-		.pipe(sourcemaps.init())
+		// .pipe(plumber(function (err) {
+		// 	console.log('Scripts Task Error');
+		// 	console.log(err);
+		// 	this.emit('end');
+		// }))
+		// .pipe(sourcemaps.init())
 		.pipe(babel({
-			presets: ['es2015']
+			presets: ['es2015', 'es2016', 'es2017']
 		}))
 		.pipe(uglify())	
-		.pipe(sourcemaps.write())
+		// .pipe(sourcemaps.write())
 		.pipe(gulp.dest(DEST_PATH))
 		.pipe(liveReload());
 });
@@ -120,6 +121,7 @@ return gulp.src(['web-info/**/*', 'resources/**/*'])
 });
 
 
+// Watch for changes
 gulp.task('watch', () => {
 console.log("Gulp is watching");
 require('./server/server.js'); 
@@ -130,6 +132,7 @@ gulp.watch(SCRIPTS_PATH, ['scripts']);
 });
 
 
-gulp.task('default', ['html', 'styles', 'scripts', 'watch'], () => { 
+// Gulp default
+gulp.task('default', ['html', 'styles', 'scripts'], () => { 
 console.log("Starting default task");
 });

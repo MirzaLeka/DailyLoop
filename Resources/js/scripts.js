@@ -238,7 +238,9 @@ for (var i = 0; i <  data.todos.length; i++) {
  
 function submit() {
 
- var text = $("#inputTitle").val();
+ let text = $("#inputTitle").val();
+
+ text = text.replace(/"/g, "'");
 
  if (text == '') {
     $("#submitTodoError").show();

@@ -30,15 +30,15 @@
 
                 <h2 class="formHeader">Sign Up</h2>
     
-                <input oninput="checkIfExists(0)" class="loginInput" name="signupUsername" type="text" placeholder="Username" autofocus/>
+                <input oninput="checkIfExists(0)" class="loginInput" name="signupUsername" type="text" placeholder="Username" autofocus autocomplete="off"/>
             <label class="checkLabel userExists"></label>
                 
-            <input oninput="checkIfExists(1)" class="loginInput" name="signupEmail" type="text" placeholder="Email"/>   
+            <input oninput="checkIfExists(1)" class="loginInput" name="signupEmail" type="text" placeholder="Email" autocomplete="off"/>   
                 <label class="checkLabel userExists"></label>
 
-                <input class="loginInput" name="signupPassword" id="pass" type="password" placeholder="Password"/>
+                <input class="loginInput" name="signupPassword" id="pass" type="password" placeholder="Password" autocomplete="off"/>
 
-                <input class="loginInput" name="confirmPassword" id="confirmPass" type="password" placeholder="Confirm Password"/>
+                <input class="loginInput" name="confirmPassword" id="confirmPass" type="password" placeholder="Confirm Password" autocomplete="off"/>
             <br>
                 <input class="btn btn-success formBtn" type="submit" id="confirmBtn" value="REGISTER"/>
             
