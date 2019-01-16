@@ -4,11 +4,11 @@
 
 #### *App info*:
 
+Todo 4pp is a productivity To-Do list application for managing daily tasks. 
+It all starts with user authentication, followed by an email notification. Users can list everything they want to do and from that point they can update description of each todo, title and complete status. They can delete todos, search for todos and even filter the results.
+
 Goal of this project for me was getting familiar working with mongo databases, preforming CRUD operations and JWT authentication,
 but I'm having so much fun, that I decided to go extra mile and build effective Todo application. 
-
-Users can create new todos. They can update them, add description, tag the completed ones, delete a single todo, selected todos
-or all of them at once and if they have too many todos, they can always search for the ones they want, choose which todos to display, sort todos and even limit the results.
 
 ![](Resources/img/readMeImg/todos.jpg)
 
@@ -19,7 +19,7 @@ or all of them at once and if they have too many todos, they can always search f
 * Email notification
 * Posting todos to database
 * Deleting todos
-* Updating todos, title of todo, description and completed attribute
+* Updating todos, title of todo, description and completed status
 * Receiving todos from database and presenting them on website
 * Search for todos and filter search
 
@@ -36,12 +36,12 @@ or all of them at once and if they have too many todos, they can always search f
 # Database:
 - MongoDB               - Mongoose ORM
 # Other modules:         
-- GulpJS                - Lodash
+- GulpJS                - Lodash               - Nodemailer
 - Body-Parser           - Cookie-Parser
 ``` 
 
 **Frontend** is done from scratch. No templates, no plugins, no third party snippets. 
-**Design** is also custom made. I looked at other todo apps and tried to create something new, yet familar.
+**Design** is also custom made. I looked at other todo apps and tried to create something new, yet familiar.
 
 All pictures on website are royalty free images downloaded from [Pexels](https://www.pexels.com).
 
