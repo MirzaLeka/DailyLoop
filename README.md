@@ -12,6 +12,12 @@ but I'm having so much fun, that I decided to go extra mile and build effective 
 
 ![](Resources/img/readMeImg/todos.jpg)
 
+------------------------
+### Give it a try
+Feel free to experience [Todo 4pp](https://todo4pp.herokuapp.com/) in first hand and send me your feedback!
+
+------------------------
+
 #### *Current functionalities*:
 
 * User authentication 
@@ -70,5 +76,3 @@ npm start
 - NodeJS must be installed on your pc
 - You will have to setup mongoDB database
 ```
-
-Project is still in development, but you can see a preview hosted on [Heroku](https://todo4pp.herokuapp.com/).
