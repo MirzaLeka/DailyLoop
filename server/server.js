@@ -11,7 +11,7 @@ var Todo = require('./models/todo');
 var {User} = require('./models/user');
 var {authenticate} = require('./middleware/authenticate');
 
-var cookieParser = require('cookie-parser'); 
+var cookieParser = require('cookie-parser');
 var nodemailer = require('nodemailer');
 
 var app = express();
@@ -31,7 +31,7 @@ let userCookie = null;
 
 ///////////////////////////////////////////////////////////////////////////
 
-// Routes Config // 
+// Routes Config //
 
 
 /* Home Page */
@@ -41,9 +41,9 @@ app.get("/", function(req, res) {
   userCookie = req.cookies;
 
   if ( userCookie == null ||  _.isEmpty( userCookie ) ) {
-    res.sendFile("login.html", {"root": __dirname + "/../Resources/dist"}); 
-  } else { 
-    res.redirect(301, '/home'); 
+    res.sendFile("login.html", {"root": __dirname + "/../Resources/dist"});
+  } else {
+    res.redirect(301, '/home');
   }
 
 
@@ -56,7 +56,7 @@ app.get("/", function(req, res) {
   if ( userCookie == null) {
     res.sendFile("loginFailed.html", {"root": __dirname + '/../Resources/dist'});
   } else if ( _.isEmpty( userCookie )  ) {
-    res.redirect(301, '/'); 
+    res.redirect(301, '/');
   } else {
     res.sendFile("index.html", {"root": __dirname + '/../Resources/dist'});
   }
@@ -65,13 +65,13 @@ app.get("/", function(req, res) {
 
 /* Static files */
 
-// app.use(express.static(__dirname + '/../Resources/dist', { 
-//   extensions: ['html', 'htm'] 
+// app.use(express.static(__dirname + '/../Resources/dist', {
+//   extensions: ['html', 'htm']
 //   }));
-  
+
 /* Resources */
 
-app.use("/Resources", express.static(__dirname + '/../Resources')); 
+app.use("/Resources", express.static(__dirname + '/../Resources'));
 
 
 
@@ -83,6 +83,9 @@ app.use("/Resources", express.static(__dirname + '/../Resources'));
 /* Post todo */
 
 app.post('/todos', authenticate, (req, res) => {
+
+  console.log(req.user);
+  console.log(req.user._id);
 
   var d = new Date();
   var str = d.toString();
@@ -100,15 +103,15 @@ app.post('/todos', authenticate, (req, res) => {
 
         var user = new User();
 
-        User.findOne({_id: req.user._id}).then((theUser) => { // we get that user whoose id that matches req.user._id 
+        User.findOne({_id: req.user._id}).then((theUser) => { // we get that user whoose id that matches req.user._id
            User.findByIdAndUpdate(req.user._id, {$set: {todosCreated: ++theUser.todosCreated}}, {new: true}).then((err, doc) => {});
-      }, (e) => { 
+      }, (e) => {
         console.log(e);
       });
-    
+
 
   todo.save().then((doc) => {
-    
+
     res.send(doc);
   }, (e) => {
     res.status(400).send(e);
@@ -126,8 +129,8 @@ app.get('/todos', authenticate, (req, res) => {
     Todo.find({
       _creator: req.user._id
     }).sort({z: 1}).then((todos) => {
-      res.send({todos}); 
-    }, (e) => { 
+      res.send({todos});
+    }, (e) => {
       res.status(400).send(e);
     });
 
@@ -136,7 +139,7 @@ app.get('/todos', authenticate, (req, res) => {
 
 
 
-/* Get todos after patch */ 
+/* Get todos after patch */
 
 app.get("/todos/:display/:limit/:sort", authenticate, (req, res) => {
 
@@ -145,7 +148,7 @@ app.get("/todos/:display/:limit/:sort", authenticate, (req, res) => {
   var sort = req.params.sort;
 
   var isCompleted;
-  
+
   if (getCompleted == "Completed") {
     isCompleted = true;
   }
@@ -155,17 +158,17 @@ app.get("/todos/:display/:limit/:sort", authenticate, (req, res) => {
   else {
     isCompleted = '';
   }
-  
-  
+
+
   if (limit == "No limit") {
     limit = 0;
   }
 
-  // Sort todos asc or desc order 
+  // Sort todos asc or desc order
 var asc = 0;
 
 if (sort == "Date completed ⇧") {
-  
+
   asc = -1;
 
 } else if (sort == "Date completed ⇩") {
@@ -178,69 +181,69 @@ if (sort == "Date completed ⇧") {
 if ( typeof(isCompleted) === 'boolean' ) {
 
   if (sort == "Date created") {
-  
+
     Todo.find({completed: isCompleted, _creator: req.user._id}).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
-      res.send({todos}); 
-    }, (e) => { 
+      res.send({todos});
+    }, (e) => {
       res.status(400).send(e);
     });
-  
+
   } else if (sort == "Last updated") {
-    
+
     Todo.find({completed: isCompleted, _creator: req.user._id}).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
-      res.send({todos}); 
-    }, (e) => { 
+      res.send({todos});
+    }, (e) => {
       res.status(400).send(e);
     });
-  
+
      }
-  
+
   else {
-  
+
     Todo.find({completed: isCompleted, _creator: req.user._id}).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
-      res.send({todos}); 
-    }, (e) => { 
+      res.send({todos});
+    }, (e) => {
       res.status(400).send(e);
     });
-  
+
   }
-  
-  
-  
+
+
+
   } else {
-  
-  
+
+
     if (sort == "Date created") {
-    
+
     Todo.find({_creator: req.user._id}).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
-        res.send({todos}); 
-      }, (e) => { 
+        res.send({todos});
+      }, (e) => {
         res.status(400).send(e);
       });
-    
+
     } else if (sort == "Last updated") {
-    
+
       Todo.find({_creator: req.user._id}).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
-        res.send({todos}); 
-      }, (e) => { 
+        res.send({todos});
+      }, (e) => {
         res.status(400).send(e);
       });
-    
+
        }
-    
+
     else {
-    
+
       Todo.find({_creator: req.user._id}).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
-        res.send({todos}); 
-      }, (e) => { 
+        res.send({todos});
+      }, (e) => {
         res.status(400).send(e);
       });
-    
+
        }
-    
-    
+
+
     }
-  
+
 
 });
 
@@ -271,11 +274,11 @@ if (limit == "No limit") {
   limit = 0;
 }
 
-// Sort todos asc or desc order 
+// Sort todos asc or desc order
 var asc = 0;
 
 if (sort == "Date completed ⇧") {
-  
+
   asc = -1;
 
 } else if (sort == "Date completed ⇩") {
@@ -297,16 +300,16 @@ if ( typeof(isCompleted) === 'boolean' ) {
 if (sort == "Date created") {
 
   Todo.find( { text: searchedText, completed: isCompleted, _creator: req.user._id } ).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
-    res.send({todos}); 
-  }, (e) => { 
+    res.send({todos});
+  }, (e) => {
     res.status(400).send(e);
   });
 
 } else if (sort == "Last updated") {
-  
+
   Todo.find( { text: searchedText, completed: isCompleted, _creator: req.user._id } ).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
-    res.send({todos}); 
-  }, (e) => { 
+    res.send({todos});
+  }, (e) => {
     res.status(400).send(e);
   });
 
@@ -315,8 +318,8 @@ if (sort == "Date created") {
 else {
 
   Todo.find( { text: searchedText, completed: isCompleted, _creator: req.user._id } ).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
-    res.send({todos}); 
-  }, (e) => { 
+    res.send({todos});
+  }, (e) => {
     res.status(400).send(e);
   });
 
@@ -328,34 +331,34 @@ else {
 
 
   if (sort == "Date created") {
-  
+
   Todo.find( { text: searchedText, _creator: req.user._id } ).sort({createdAtTimestamp: 1}).limit(Number(limit)).then((todos) => {
-      res.send({todos}); 
-    }, (e) => { 
+      res.send({todos});
+    }, (e) => {
       res.status(400).send(e);
     });
-  
+
   } else if (sort == "Last updated") {
-  
+
     Todo.find( { text: searchedText, _creator: req.user._id }  ).sort({lastUpdated: -1}).limit(Number(limit)).then((todos) => {
-      res.send({todos}); 
-    }, (e) => { 
+      res.send({todos});
+    }, (e) => {
       res.status(400).send(e);
     });
-  
+
      }
-  
+
   else {
-  
+
     Todo.find( { text: searchedText, _creator: req.user._id }  ).sort({completedAtTimestamp: asc}).limit(Number(limit)).then((todos) => {
-      res.send({todos}); 
-    }, (e) => { 
+      res.send({todos});
+    }, (e) => {
       res.status(400).send(e);
     });
-  
+
      }
-  
-  
+
+
 
   }
 
@@ -371,17 +374,17 @@ else {
 app.patch('/todos/:id', authenticate, (req, res) => {
 
   var id = req.params.id;
-  
+
   // values we want to change are in array
   var body = _.pick(req.body, ['text', 'description', 'completed', 'completedAt']); //what user can edit. Make a Patch with text/compled/completedAt and write it in here. maybe the same for timestamp?
-  
+
   if (!ObjectID.isValid(id)) {
-   return res.status(400).send('Id is not valid'); 
-  } 
+   return res.status(400).send('Id is not valid');
+  }
 
   // Last updated will change whenever you update, no matters if you todo is completed or isn't
     body.lastUpdated = new Date().getTime();
-  
+
   // if completed is boolean and is completed then give date of completion to completeAt (remove null)
 
   let increment = 0;
@@ -397,11 +400,11 @@ app.patch('/todos/:id', authenticate, (req, res) => {
     increment--;
   }
 
-   
+
     var user = new User();
 
     /* Updating todosCompleted for user */
-    User.findOne({_id: req.user._id}).then((theUser) => { 
+    User.findOne({_id: req.user._id}).then((theUser) => {
 
       let todosCompleted = theUser.todosCompleted + increment;
       let rank = 0;
@@ -425,24 +428,24 @@ app.patch('/todos/:id', authenticate, (req, res) => {
       }
 
        User.findByIdAndUpdate(req.user._id, {$set: {todosCompleted, rank}}, {new: true}).then((err, doc) => {});
-        
-   }, (e) => { 
+
+   }, (e) => {
      console.log(e);
      });
 
-  
+
   // set body and return new (changed) value
   Todo.findOneAndUpdate({_creator: req.user._id, _id: id}, {$set: body}, {new: true}).then((todo) => {
-  
+
   if (!todo) {
   return res.status(404).send();
   }
   res.send({todo});
-  
+
   }).catch((e) => {
   res.status(400).send();
   });
-  
+
   });
 
 
@@ -457,7 +460,7 @@ app.delete("/todos/:id", authenticate, (req, res) => {
   if (id.length > 30) {
     // i'm getting string and I want to split it into an array
     id = id.split(",");
-  } 
+  }
 
   if ( Array.isArray(id) ) {
 
@@ -475,13 +478,13 @@ app.delete("/todos/:id", authenticate, (req, res) => {
         if (!todo) {
           return res.status(404).send("Todo not found");
         }
-    
+
         res.send({todo});
-    
+
       }).catch((e) => {
         res.status(400).send();
       });
-    
+
 
     }
 
@@ -499,18 +502,18 @@ app.delete("/todos/:id", authenticate, (req, res) => {
       if (!todo) {
         return res.status(404).send("Todo not found");
       }
-  
+
       res.send({todo});
-  
+
     }).catch((e) => {
       res.status(400).send("Bad request");
     });
-  
+
 
   }
 
 
-  
+
 
 });
 
@@ -528,87 +531,89 @@ app.delete("/todos", authenticate, (req, res) => {
 
 // User Controller //
 
-
-/* Reguster new user */
-
-app.post('/users', (req, res) => {
-
-let body = _.pick(req.body, ["username", "email", "password"]);
-
-let user = new User(body);
-
-user.save().then(() => {
-  return user.generateAuthToken();
-  }).then((token) => {
-
-    res.cookie('x-auth', token, {
-      expires: new Date(Date.now() + 253402300000000)
-    });
-
-    userCookie = req.cookies;
-
-    sendEmail(req.body.email);
-
-    res.header('x-auth', token).send(user);
-
-  }).catch((e) => {
-  res.status(400).send(e); // if email or username is already used
-
-  });
-
-});
+app.use('/users', require('./router/user.router'));
 
 
-  /* Profile Page */ 
+// /* Reguster new user */
 
-app.get('/users/me', authenticate, (req, res) => {
+// app.post('/users', (req, res) => {
 
-  
-  res.send(req.user);
+// let body = _.pick(req.body, ["username", "email", "password"]);
 
-});
+// let user = new User(body);
 
+// user.save().then(() => {
+//   return user.generateAuthToken();
+//   }).then((token) => {
 
-/* POST users/login {email, plain text password} */
+//     res.cookie('x-auth', token, {
+//       expires: new Date(Date.now() + 253402300000000)
+//     });
 
-app.post('/users/login', (req, res) => {
+//     userCookie = req.cookies;
 
-    let body = _.pick(req.body, ["email", "password"]);
+//     sendEmail(req.body.email);
 
-    User.findByCredentials(body.email, body.password).then((user) => {
+//     res.header('x-auth', token).send(user);
 
-        return user.generateAuthToken().then((token) => {
+//   }).catch((e) => {
+//   res.status(400).send(e); // if email or username is already used
 
-          res.cookie('x-auth', token, {
-            expires: new Date(Date.now() + 253402300000000)
-          });
+//   });
 
-          userCookie = req.cookies;
-
-          res.header('x-auth', token).send(user);
-
-        });
-
-    }).catch((e) => {
-
-        res.status(400).send(); // will go off if user logging in doesn't exist in DB
-
-    });
+// });
 
 
-});
+//   /* Profile Page */
+
+// app.get('/users/me', authenticate, (req, res) => {
 
 
-app.delete("/users/me/token", authenticate, (req, res) => {
+//   res.send(req.user);
 
-  req.user.removeToken(req.token).then(() => {
-    res.clearCookie("x-auth"); 
-    res.status(200).send();
-  }, () => {
-    res.status(400).send();
-  });
+// });
 
-});
+
+// /* POST users/login {email, plain text password} */
+
+// app.post('/users/login', (req, res) => {
+
+//     let body = _.pick(req.body, ["email", "password"]);
+
+//     User.findByCredentials(body.email, body.password).then((user) => {
+
+//         return user.generateAuthToken().then((token) => {
+
+//           res.cookie('x-auth', token, {
+//             expires: new Date(Date.now() + 253402300000000)
+//           });
+
+//           userCookie = req.cookies;
+
+//           res.header('x-auth', token).send(user);
+
+//         });
+
+//     }).catch((e) => {
+
+//         res.status(400).send(); // will go off if user logging in doesn't exist in DB
+
+//     });
+
+
+// });
+
+
+// app.delete("/users/me/token", authenticate, (req, res) => {
+
+//   req.user.removeToken(req.token).then(() => {
+//     res.clearCookie("x-auth");
+//     res.status(200).send();
+//   }, () => {
+//     res.status(400).send();
+//   });
+
+// });
 
 
 function sendEmail(email) {
@@ -623,18 +628,18 @@ function sendEmail(email) {
       rejectUnauthorized: false
     }
   });
-  
+
   var mailOptions = {
     from: emailUser,
     to: email,
     subject: 'Welcome to Todo 4pp!',
     html: "<p>You successfully registered to <a href='https://todo4pp.herokuapp.com' target='_blank'>Todo 4pp</a>. Enjoy using our services.</p>"
   };
-  
+
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {
       console.log(error);
-    } 
+    }
     // else {
     //   console.log('Email sent: ' + info.response);
     // }
@@ -651,7 +656,7 @@ const router = express.Router();
 
 router.use(function(req, res, next) {
     if (!req.route)
-        return next (new Error('404'));  
+        return next (new Error('404'));
     next();
 });
 
@@ -668,7 +673,7 @@ router.use(function(req, res){
 
 ///////////////////////////////////////////////////////////////////////////
 
-// Port // 
+// Port //
 
 app.listen(port, () => {
   console.log('Started on port ' + port);

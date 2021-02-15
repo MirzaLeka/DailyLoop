@@ -2,3 +2,7 @@
 node_modules/*
 server/config/config.json
 package-lock.json
+aaa/
+bbb/
+Resources/dist
+2 more/

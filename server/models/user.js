@@ -14,16 +14,16 @@ let UserSchema = new mongoose.Schema({
         default: ''
     },
     email: {
-        type: String, 
-        required: true, 
-        minlength: 1, 
+        type: String,
+        required: true,
+        minlength: 1,
         trim: true,
         unique: true,
         default: '',
         validate: {
             validator: validator.isEmail,
             message: '{VALUE} is not a valid email'
-        }   
+        }
     },
     password: {
         type: String,
@@ -40,6 +40,9 @@ let UserSchema = new mongoose.Schema({
             required: true
         }
     }],
+    dateCreated: {
+        type: String
+    },
     todosCreated: {
         type: Number,
         default: 0
@@ -79,12 +82,12 @@ var token = jwt.sign({_id: user._id.toHexString(), access}, process.env.JWT_SECR
 
 /* We push new object into tokens array with params defined above */
 
-user.tokens = user.tokens.concat([{access, token}]); 
+user.tokens = user.tokens.concat([{access, token}]);
 
 /* Now we need to save changes we updated above */
 
 return user.save().then(() => {
-    return token; 
+    return token;
 }); // last then((token) => {}) we used everywhere before will be chained in server file so we don't need it here
 
 };
@@ -127,7 +130,7 @@ UserSchema.statics.findByToken = function (token) {
     return User.findOne({
         '_id': decoded._id,
         'tokens.token' : token,
-        'tokens.access' : 'auth' 
+        'tokens.access' : 'auth'
     });
 
 };
@@ -143,7 +146,7 @@ UserSchema.statics.findByCredentials = function (email, password) {
         }
 
         return new Promise((resolve, reject) => { //bcrypt only supports callbacks, so we're creating new Promise so we cna continue using promises
-        
+
             bcrypt.compare(password, user.password, (err, res) => {
 
                 if (res) {

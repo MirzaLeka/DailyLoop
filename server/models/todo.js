@@ -1,4 +1,4 @@
-var mongoose = require('mongoose'); 
+var mongoose = require('mongoose');
 
 
 var Todo = new mongoose.Schema({
@@ -6,7 +6,7 @@ var Todo = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 1,
-        maxlength: 200,
+        maxlength: 100,
         trim: true
     },
     description: {
@@ -18,8 +18,8 @@ var Todo = new mongoose.Schema({
         default: ''
     },
     completed: {
-        type: Boolean, 
-        default: false 
+        type: Boolean,
+        default: false
     },
     createdAt: {
         type: String
@@ -29,8 +29,8 @@ var Todo = new mongoose.Schema({
     default: null
    },
     completedAt: {
-        type: String, 
-        default: null  
+        type: String,
+        default: null
     },
     completedAtTimestamp: {
         type: Number,
@@ -43,9 +43,9 @@ var Todo = new mongoose.Schema({
         required: true,
         type: mongoose.Schema.Types.ObjectId // type objectId
     }
-}); 
+});
 
 
   mongoose.model('Todo', Todo);
-  
+
   module.exports = mongoose.model('Todo');
